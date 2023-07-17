@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:example/TIMUIKitGroupProfileExample.dart';
-import 'package:example/TIMUIKitProfileExample.dart';
+
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 
@@ -78,41 +77,41 @@ class TIMUIKitChatExample extends StatelessWidget {
       ),
         appBarConfig: AppBar(
           actions: [
-          IconButton(
-              padding: const EdgeInsets.only(left: 8, right: 16),
-              onPressed: () async {
-                final conversationType = selectedConversation?.type ?? 1;
-
-                if (conversationType == 1) {
-                  final String? userID = selectedConversation?.userID;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                          appBar: AppBar(title: Text(userID ?? "User Profile")),
-                            body: TIMUIKitProfileExample(userID: userID)),
-                      ));
-                } else {
-                  final String? groupID = selectedConversation?.groupID;
-                  if (groupID != null) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Scaffold(
-                              appBar: AppBar(title: Text(groupID)),
-                              body: TIMUIKitGroupProfileExample(
-                            groupID: groupID,
-                          )),
-                        ));
-                  }
-                }
-              },
-              icon: Image.asset(
-                'images/more.png',
-                package: 'tencent_cloud_chat_uikit',
-                  height: 34,
-                  width: 34,
-                ))
+          // IconButton(
+          //     padding: const EdgeInsets.only(left: 8, right: 16),
+          //     onPressed: () async {
+          //       final conversationType = selectedConversation?.type ?? 1;
+          //
+          //       if (conversationType == 1) {
+          //         final String? userID = selectedConversation?.userID;
+          //         Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) => Scaffold(
+          //                 appBar: AppBar(title: Text(userID ?? "User Profile")),
+          //                   body: TIMUIKitProfileExample(userID: userID)),
+          //             ));
+          //       } else {
+          //         final String? groupID = selectedConversation?.groupID;
+          //         if (groupID != null) {
+          //           Navigator.push(
+          //               context,
+          //               MaterialPageRoute(
+          //                 builder: (context) => Scaffold(
+          //                     appBar: AppBar(title: Text(groupID)),
+          //                     body: TIMUIKitGroupProfileExample(
+          //                   groupID: groupID,
+          //                 )),
+          //               ));
+          //         }
+          //       }
+          //     },
+          //     icon: Image.asset(
+          //       'images/more.png',
+          //       package: 'tencent_cloud_chat_uikit',
+          //         height: 34,
+          //         width: 34,
+          //       ))
           ],
         ),
     );

@@ -103,12 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   getAPIWidget(String apiName) {
     switch (apiName) {
-      case 'TIMUIKitConversation':
-        return const TIMUIKitConversationExample();
-      case 'TIMUIKitChat':
-        return const TIMUIKitChatExample();
-      case 'TIMUIKitProfile':
-        return const TIMUIKitProfileExample();
+      // case 'TIMUIKitConversation':
+      //   return const TIMUIKitConversationExample();
+      // case 'TIMUIKitChat':
+      //   return const TIMUIKitChatExample();
+      // case 'TIMUIKitProfile':
+      //   return const TIMUIKitProfileExample();
       case 'TIMUIKitAddFriend':
         return const TIMUIKitAddFriendExample();
       case 'TIMUIKitAddGroup':

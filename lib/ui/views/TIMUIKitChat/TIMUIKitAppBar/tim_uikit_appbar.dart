@@ -198,6 +198,10 @@ class _TIMUIKitAppBarState extends TIMUIKitState<TIMUIKitAppBar> {
           ),
       title: TIMUIKitAppBarTitle(
         title: setAppbar?.title,
+        // title: Container(child: Column(children: [
+        //   Text("data"),
+        //   Text("在线")
+        // ],),),
         onClick: widget.onClickTitle,
         textStyle: TextStyle(
             color: theme.appbarTextColor ?? hexToColor("010000"), fontSize: 16),
