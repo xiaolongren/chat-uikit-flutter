@@ -1,8 +1,13 @@
 import 'dart:convert';
 
+import 'package:dufubase/actionhandler/ActionHandler.dart';
+import 'package:dufubase/actionhandler/ActionHandlerManager.dart';
+import 'package:dufubase/router/RouteHandler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:dufubase/util/ColorUtils.dart';
+import 'package:get/get.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/message/RemindMessage.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitMessageItem/tim_uikit_chat_custom_elem.dart';
 
@@ -54,20 +59,55 @@ class RemindMessageState extends State<RemindMessageWidget>{
   }
 
   getActionColor(){
-   return remindMessage!.actionColor==null?Colors.lightBlue: int.parse(remindMessage!.actionColor!.replaceFirst('#', '0xff'));
+    try{
+      return remindMessage!.actionColor==null?Colors.lightBlue: ColorUtils.hexToColor(remindMessage!.actionColor!);
+
+    }catch(e){
+      print(e);
+      return Colors.transparent;
+
+    }
+
   }
   getColor(){
-    return remindMessage!.color==null?Colors.black: int.parse(remindMessage!.color!.replaceFirst('#', '0xff'));
+
+    try{
+      return remindMessage!.color==null?Colors.black: ColorUtils.hexToColor(remindMessage!.color!)  ;
+
+    }catch(e){
+      print(e);
+      return Colors.transparent;
+
+    }
+
 
   }
   getBgColor(){
-    return remindMessage!.bgColor==null?Colors.transparent: int.parse(remindMessage!.bgColor!.replaceFirst('#', '0xff'));
+    try{
+      return remindMessage!.bgColor==null?Colors.transparent: ColorUtils.hexToColor(remindMessage!.bgColor!) ;
+
+    }catch(e){
+      print(e);
+      return Colors.transparent;
+
+    }
 
   }
   doAction(){
-    if(remindMessage.action!=null){
-       if(remindMessage.action.startsWith("dufu://")){
+    if(remindMessage!.action!=null){
 
+       if(remindMessage!.action!.startsWith("dufu://")){
+
+         RouteHandler.handle(remindMessage!.action!);
+       }
+       else if (remindMessage!.action!. trim().length>0&&remindMessage!.action!.startsWith("method")){
+
+        Uri uri=Uri.parse(Uri.decodeFull(remindMessage!.action!));
+
+         ActionHandler? actionHandler= ActionHandlerManager.getHandler(uri.path);
+         if(actionHandler!=null){
+           actionHandler.handle(uri.path, uri.queryParameters);
+         }
        }
 
     }

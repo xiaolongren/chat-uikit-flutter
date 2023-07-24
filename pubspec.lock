@@ -432,6 +432,14 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  easy_refresh:
+    dependency: transitive
+    description:
+      name: easy_refresh
+      sha256: "77b025ea49f27b5ebc5eef40a6678be52564c293bd97ce91a4088d6646478329"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.3.2+1"
   event_bus:
     dependency: "direct main"
     description:

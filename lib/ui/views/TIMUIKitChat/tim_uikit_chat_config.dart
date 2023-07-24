@@ -198,6 +198,7 @@ class TIMUIKitChatConfig {
   ///
   /// [Default]: false
   final bool isGroupAdminRecallEnabled;
+  final bool onlyShowMessage;
 
   const TIMUIKitChatConfig(
       {this.onTapLink,
@@ -244,5 +245,7 @@ class TIMUIKitChatConfig {
       this.showC2cMessageEditStatus = true,
       this.additionalDesktopControlBarItems,
       this.isAllowLongPressAvatarToAt = true,
-      this.isUseDefaultEmoji = false});
+      this.isUseDefaultEmoji = false,
+      this.onlyShowMessage=false}
+  );
 }

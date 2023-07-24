@@ -299,6 +299,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
        updateDraft();
     });
 
+    if(!widget.config!.onlyShowMessage){
       customImController!.checkChatInfo().then((mvalue) => {
         if(mvalue.errorCode==0){
           if(mvalue.data!.isListener){
@@ -306,10 +307,10 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
             customImController!.loadListenerInfo().then((value) => {
               if(value.errorCode==0){
                 setState((){
-                   OnlineStatusEvent event=OnlineStatusEvent(customImController!.listenerVo!.nick,mvalue.data!.onlineStatusTitle!);
-                   EventBusSingleton.getInstance().fire(event);
-                   showTopinfo=true;
-                   MsgCountApi.showMsgCount(mvalue.data!.uid, mvalue.data!.remoteUid);
+                  OnlineStatusEvent event=OnlineStatusEvent(customImController!.listenerVo!.nick,mvalue.data!.onlineStatusTitle!);
+                  EventBusSingleton.getInstance().fire(event);
+                  showTopinfo=true;
+                  MsgCountApi.showMsgCount(mvalue.data!.uid, mvalue.data!.remoteUid);
 
                 })
 
@@ -319,6 +320,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
             //设置在线状态
           }
         }});
+
+    }
 
 
   }
@@ -710,51 +713,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                               )
                                   : (widget.textFieldBuilder != null
                                   ? widget.textFieldBuilder!(context)
-                                  : TIMUIKitInputTextField(
-                                groupID: widget.groupID,
-                                atMemberPanelScroll:
-                                atMemberPanelScroll,
-                                backgroundColor: Colors.grey.withOpacity(0.1),
-                                groupType:
-                                widget.conversation.groupType,
-                                currentConversation:
-                                widget.conversation,
-                                model: model,
-                                controller: textFieldController,
-                                customEmojiStickerList:
-                                widget.customEmojiStickerList,
-                                isUseDefaultEmoji:
-                                widget.config!.isUseDefaultEmoji,
-                                customStickerPanel:
-                                widget.customStickerPanel,
-                                morePanelConfig:
-                                widget.morePanelConfig,
-                                scrollController: autoController,
-                                conversationID: _getConvID(),
-                                conversationType: _getConvType(),
-                                initText: TencentUtils.checkString(
-                                    widget.draftText) ??
-                                    (PlatformUtils().isWeb
-                                        ? TencentUtils.checkString(
-                                        conversationViewModel
-                                            .getWebDraft(
-                                            conversationID: widget
-                                                .conversation
-                                                .conversationID))
-                                        : TencentUtils.checkString(
-                                        widget.conversation
-                                            .draftText)),
-                                hintText: widget.textFieldHintText,
-                                showMorePanel: widget.config
-                                    ?.isAllowShowMorePanel ??
-                                    true,
-                                showSendAudio: widget.config
-                                    ?.isAllowSoundMessage ??
-                                    true,
-                                showSendEmoji: widget
-                                    .config?.isAllowEmojiPanel ??
-                                    true,
-                              ));
+                                  :  getTextFiledView());
+
                             },
                             selector: (c, model) {
                               return model.isMultiSelect;
@@ -763,9 +723,10 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                         ],
                       ),
                       //头部下单入口
+                      if(!widget.config!.onlyShowMessage!)
                       Positioned(
                         child:
-                        Container(child: BrnSmallMainButton(title: "立即下单",bgColor: Colors.orange,textColor: Colors.white,radius: 12,),height: 30,)
+                        Container(child: BrnSmallMainButton(title: "立即下单",fontSize:12,bgColor: Colors.orange,textColor: Colors.white,radius: 16,),height: 30,)
                          ,
                         right: 16,
                         top: 80,
@@ -789,8 +750,58 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
           );
         });
 
-      ;
   }
+    Widget getTextFiledView(){
+      if(widget.config!.onlyShowMessage!){
+        return SizedBox();
+      }
+      return  TIMUIKitInputTextField(
+        groupID: widget.groupID,
+        atMemberPanelScroll:
+        atMemberPanelScroll,
+        backgroundColor: Colors.grey.withOpacity(0.1),
+        groupType:
+        widget.conversation.groupType,
+        currentConversation:
+        widget.conversation,
+        model: model,
+        controller: textFieldController,
+        customEmojiStickerList:
+        widget.customEmojiStickerList,
+        isUseDefaultEmoji:
+        widget.config!.isUseDefaultEmoji,
+        customStickerPanel:
+        widget.customStickerPanel,
+        morePanelConfig:
+        widget.morePanelConfig,
+        scrollController: autoController,
+        conversationID: _getConvID(),
+        conversationType: _getConvType(),
+        initText: TencentUtils.checkString(
+            widget.draftText) ??
+            (PlatformUtils().isWeb
+                ? TencentUtils.checkString(
+                conversationViewModel
+                    .getWebDraft(
+                    conversationID: widget
+                        .conversation
+                        .conversationID))
+                : TencentUtils.checkString(
+                widget.conversation
+                    .draftText)),
+        hintText: widget.textFieldHintText,
+        showMorePanel: widget.config
+            ?.isAllowShowMorePanel ??
+            true,
+        showSendAudio: widget.config
+            ?.isAllowSoundMessage ??
+            true,
+        showSendEmoji: widget
+            .config?.isAllowEmojiPanel ??
+            true,
+      );
+    }
+
 }
 
 class TIMUIKitChatProviderScope extends StatelessWidget {
