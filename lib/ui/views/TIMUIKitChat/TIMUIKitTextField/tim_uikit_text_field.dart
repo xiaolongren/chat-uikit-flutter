@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // import 'package:csslib/parser.dart';
 import 'package:diff_match_patch/diff_match_patch.dart';
 import 'package:dufubase/eventbus/EventBusSingleton.dart';
-import 'package:dufubase/eventbus/MsgCountEvent.dart';
+import 'package:dufubase/eventbus/FreeMsgCountEvent.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:get/get.dart';
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/custom_msg_countleft_model.dart';
@@ -678,7 +678,7 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
   @override
   void initState() {
     super.initState();
-    EventBusSingleton.getInstance().on<MsgCountEvent>().listen((msgCountEvent) {
+    EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((msgCountEvent) {
       leftMsgCount = msgCountEvent.count;
     });
     customMsgCountleftModel =

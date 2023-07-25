@@ -14,6 +14,7 @@ import 'package:tencent_cloud_chat_uikit/data_services/core/tim_uikit_wide_modal
 import 'package:tencent_cloud_chat_uikit/data_services/services_locatar.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_conversation_controller.dart';
+import 'package:tencent_cloud_chat_uikit/ui/custom/conversation/MConversationController.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/screen_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitConversation/tim_uikit_conversation_item.dart';
@@ -157,6 +158,10 @@ class _TIMUIKitConversationState extends TIMUIKitState<TIMUIKitConversation> {
     final controller = getController();
     _timuiKitConversationController = controller;
     _timuiKitConversationController.model = model;
+    if(_timuiKitConversationController.runtimeType ==MConversationController){
+      MConversationController mConversationController=_timuiKitConversationController as MConversationController;
+      mConversationController.initOperateConverSation();
+    }
     _autoScrollController = AutoScrollController();
   }
 
@@ -353,9 +358,13 @@ class _TIMUIKitConversationState extends TIMUIKitState<TIMUIKitConversation> {
                               (item) => item.userID == conversationItem?.userID,
                               orElse: () => V2TimUserStatus(statusType: 0));
 
+                      Widget? mwidget=null;
                       if (widget.itemBuilder != null) {
-                        return widget.itemBuilder!(
+                        mwidget= widget.itemBuilder!(
                             conversationItem!, onlineStatus);
+                      }
+                      if( mwidget.runtimeType!= Text){
+                        return mwidget;
                       }
 
                       final slideChildren =

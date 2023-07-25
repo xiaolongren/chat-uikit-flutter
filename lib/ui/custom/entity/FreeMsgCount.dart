@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'MsgCount.g.dart';
+part 'FreeMsgCount.g.dart';
 @JsonSerializable()
-class MsgCount{
+class FreeMsgCount{
  @JsonKey(defaultValue: 0)
  int id;
  @JsonKey(defaultValue: 0)
@@ -20,9 +20,9 @@ class MsgCount{
  @JsonKey(defaultValue: 0)
 
  int type;
-  MsgCount(this.id,this.selfUid, this.remoteUid, this.day, this.count, this.type);
- factory MsgCount.fromJson(Map<String, dynamic> json) =>
-     _$MsgCountFromJson(json);
+ FreeMsgCount(this.id,this.selfUid, this.remoteUid, this.day, this.count, this.type);
+ factory FreeMsgCount.fromJson(Map<String, dynamic> json) =>
+     _$FreeMsgCountFromJson(json);
 
- Map<String, dynamic> toJson() => _$MsgCountToJson(this);
+ Map<String, dynamic> toJson() => _$FreeMsgCountToJson(this);
 }

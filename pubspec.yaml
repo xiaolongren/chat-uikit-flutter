@@ -65,7 +65,6 @@ dependencies:
   http: ^0.13.5
   crypto: ^3.0.2
   collection: ^1.15.0
-  flutter_image_compress: ^1.1.3
   uuid: ^3.0.6
   tencent_open_file: ^4.0.10
   tencent_keyboard_visibility: ^1.0.1
@@ -84,7 +83,7 @@ dependencies:
   markdown: ^7.1.0
   flutter_statusbarcolor_ns: ^0.5.0
   bruno: ^3.3.0
-
+  flutter_image_compress: ^2.0.4
 
 dev_dependencies:
   flutter_lints: ^1.0.0

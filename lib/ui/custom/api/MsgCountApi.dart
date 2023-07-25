@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:dufubase/db/DBHelper.dart';
 import 'package:dufubase/eventbus/EventBusSingleton.dart';
-import 'package:dufubase/eventbus/MsgCountEvent.dart';
+import 'package:dufubase/eventbus/FreeMsgCountEvent.dart';
 import 'package:dufubase/util/MDateUtils.dart';
-import 'package:tencent_cloud_chat_uikit/ui/custom/entity/MsgCount.dart';
+import 'package:tencent_cloud_chat_uikit/ui/custom/entity/FreeMsgCount.dart';
 
 class MsgCountApi {
-  static Future<MsgCount?> getGivedOrderMsgCount(
+  static Future<FreeMsgCount?> getGivedOrderMsgCount(
       int selfUid, int remoteUid) async {
     List<Map<String, dynamic>> data = await DBHelper.queryData(
         DBHelper.TABLE_DUFU_msgcount,
@@ -17,11 +17,11 @@ class MsgCountApi {
 
       return null;
     }
-    MsgCount msgCount = MsgCount.fromJson(data[0]);
+    FreeMsgCount msgCount = FreeMsgCount.fromJson(data[0]);
     return msgCount;
   }
 
-  static Future<MsgCount> getDayMsgCount(int selfUid, int remoteUid) async {
+  static Future<FreeMsgCount> getDayMsgCount(int selfUid, int remoteUid) async {
     List<Map<String, dynamic>> daydata = await DBHelper.queryData(
         DBHelper.TABLE_DUFU_msgcount,
         where: 'selfUid=? and remoteUid=? and type=1 and day=?',
@@ -32,10 +32,10 @@ class MsgCountApi {
         ]);
 
     if (daydata.isNotEmpty) {
-      MsgCount msgCount = MsgCount.fromJson(daydata[0]);
+      FreeMsgCount msgCount = FreeMsgCount.fromJson(daydata[0]);
       return msgCount;
     } else {
-      MsgCount msgCount = MsgCount(0, selfUid, remoteUid,
+      FreeMsgCount msgCount = FreeMsgCount(0, selfUid, remoteUid,
           MDateUtils.formatTimestamp(DateTime.now().millisecond), 5, 1);
       await DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, msgCount.toJson())
           .then((value) {
@@ -46,7 +46,7 @@ class MsgCountApi {
   }
 
   static giveOrderMsgcount(int selfUid, int remoteUid, int count) {
-    MsgCount msgCount = MsgCount(0, selfUid, remoteUid, "", count, 2);
+    FreeMsgCount msgCount = FreeMsgCount(0, selfUid, remoteUid, "", count, 2);
     DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, msgCount.toJson())
         .then((value) {
       print("insert TABLE_DUFU_msgcount: " + value.toString());
@@ -58,7 +58,7 @@ class MsgCountApi {
     //订单结束后，赠送的条数将会被归零。如果还存在未结束的订单，则不清零。
     //优先扣除订单赠送的条数
 
-    MsgCount? orderMsgCount = await getGivedOrderMsgCount(selfUid, remoteUid);
+    FreeMsgCount? orderMsgCount = await getGivedOrderMsgCount(selfUid, remoteUid);
     if (orderMsgCount != null) {
       orderMsgCount.count = orderMsgCount.count - 1;
       if (orderMsgCount.count <= 0) {
@@ -69,43 +69,43 @@ class MsgCountApi {
             DBHelper.TABLE_DUFU_msgcount, orderMsgCount.toJson(),
             where: "id=?", whereArgs: [orderMsgCount.id]);
       }
-      MsgCountEvent event = MsgCountEvent();
+      FreeMsgCountEvent event = FreeMsgCountEvent();
       event.count = orderMsgCount.count;
       EventBusSingleton.getInstance().fire(event);
     } else {
-      MsgCount dayMsgCount = await getDayMsgCount(selfUid, remoteUid);
+      FreeMsgCount dayMsgCount = await getDayMsgCount(selfUid, remoteUid);
 
       if (dayMsgCount != null) {
         dayMsgCount.count = dayMsgCount.count - 1;
         DBHelper.updateData(DBHelper.TABLE_DUFU_msgcount, dayMsgCount.toJson(),
             where: "id=?", whereArgs: [dayMsgCount.id]);
       } else {
-        dayMsgCount = MsgCount(0, selfUid, remoteUid,
+        dayMsgCount = FreeMsgCount(0, selfUid, remoteUid,
             MDateUtils.formatTimestamp(DateTime.now().millisecond), 4, 1);
         DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, dayMsgCount.toJson())
             .then((value) {
           print("insert TABLE_DUFU_msgcount day: " + value.toString());
         });
       }
-      MsgCountEvent event = MsgCountEvent();
+      FreeMsgCountEvent event = FreeMsgCountEvent();
       event.count = dayMsgCount.count;
       EventBusSingleton.getInstance().fire(event);
     }
   }
 //当不在订单进行中时，输入框显示剩余免费聊天条数
   static showMsgCount(int selftUid, int remoteUid) async {
-    MsgCount dayMsgCount = await getDayMsgCount(selftUid, remoteUid);
-    MsgCount? orderMsgCount = await getGivedOrderMsgCount(selftUid, remoteUid);
+    FreeMsgCount dayMsgCount = await getDayMsgCount(selftUid, remoteUid);
+    FreeMsgCount? orderMsgCount = await getGivedOrderMsgCount(selftUid, remoteUid);
     if (orderMsgCount != null && orderMsgCount.count > 0) {
-      MsgCountEvent event = MsgCountEvent();
+      FreeMsgCountEvent event = FreeMsgCountEvent();
       event.count = orderMsgCount.count;
       EventBusSingleton.getInstance().fire(event);
     } else if (dayMsgCount != null && dayMsgCount.count > 0) {
-      MsgCountEvent event = MsgCountEvent();
+      FreeMsgCountEvent event = FreeMsgCountEvent();
       event.count = dayMsgCount.count;
       EventBusSingleton.getInstance().fire(event);
     } else {
-      MsgCountEvent event = MsgCountEvent();
+      FreeMsgCountEvent event = FreeMsgCountEvent();
       event.count = 0;
       EventBusSingleton.getInstance().fire(event);
     }

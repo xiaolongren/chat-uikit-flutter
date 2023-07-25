@@ -10,6 +10,8 @@ class TIMUIKitConversationExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TIMUIKitConversation(
+
+
       onTapItem: (value) {
         Navigator.push(
             context,
@@ -21,4 +23,6 @@ class TIMUIKitConversationExample extends StatelessWidget {
       },
     );
   }
+
+
 }

@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, avoid_print
 import 'package:bruno/bruno.dart';
-import 'package:dufubase/eventbus/MsgCountEvent.dart';
+import 'package:dufubase/eventbus/FreeMsgCountEvent.dart';
 import 'package:dufubase/eventbus/OnlineStatusEvent.dart';
 
 import 'package:desktop_drop/desktop_drop.dart';
@@ -27,7 +27,6 @@ import 'package:tencent_cloud_chat_uikit/ui/constants/history_message_constant.d
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/api/MsgCountApi.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/custom_im_controller.dart';
-import 'package:tencent_cloud_chat_uikit/ui/custom/entity/MsgCount.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/frame.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/optimize_utils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/platform.dart';
@@ -249,7 +248,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     CustomImController.chatStatusInfo=null;
     print("objectinitState");
 
-    EventBusSingleton.getInstance().on<MsgCountEvent>().listen((event) {
+    EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((event) {
       bool shouldChangeState=false;
       if(event.count<=0){
         if(!showInputDisableView){
