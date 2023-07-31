@@ -82,7 +82,7 @@ dependencies:
   diff_match_patch: ^0.4.1
   markdown: ^7.1.0
   flutter_statusbarcolor_ns: ^0.5.0
-  bruno: ^3.3.0
+  bruno: ^3.4.0
   flutter_image_compress: ^2.0.4
 
 dev_dependencies:

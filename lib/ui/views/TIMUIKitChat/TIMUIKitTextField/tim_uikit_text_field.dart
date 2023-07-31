@@ -138,7 +138,7 @@ class TIMUIKitInputTextField extends StatefulWidget {
 class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
   int leftMsgCount = 5;
   late CustomMsgCountleftModel customMsgCountleftModel;
-
+  StreamSubscription? streamSubscription;
   final TUIChatGlobalModel globalModel = serviceLocator<TUIChatGlobalModel>();
   final TUISettingModel settingModel = serviceLocator<TUISettingModel>();
   final RegExp atTextReg = RegExp(r'@([^@\s]*)');
@@ -678,7 +678,7 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
   @override
   void initState() {
     super.initState();
-    EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((msgCountEvent) {
+     streamSubscription= EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((msgCountEvent) {
       leftMsgCount = msgCountEvent.count;
     });
     customMsgCountleftModel =
@@ -758,6 +758,9 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
       widget.controller?.removeListener(controllerHandler);
     }
     focusNode.dispose();
+    if(streamSubscription!=null){
+      streamSubscription!.cancel();
+    }
     super.dispose();
   }
 
@@ -944,7 +947,7 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
       MsgCountApi.consume(CustomImController.chatStatusInfo!.uid, CustomImController.chatStatusInfo!.remoteUid);
     }
 
-    widget.model.sendCustomMessage(data: json.encode(RemindMessage("还有1分钟文字订单即将结束", "立即开启", "#4169E", "#696969", "#D3D3D3", "http://baidu.com").toJson()), convID: widget.conversationID, convType: ConvType.c2c);
+ //   widget.model.sendCustomMessage(data: json.encode(RemindMessage("还有1分钟文字订单即将结束", "立即开启", "#4169E", "#696969", "#D3D3D3", "http://baidu.com").toJson()), convID: widget.conversationID, convType: ConvType.c2c);
 
   }
 }

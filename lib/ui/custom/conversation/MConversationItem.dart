@@ -155,7 +155,9 @@ class MConversationItemState extends State<MConversationItem> {
             CustomConversationId.INTERACTION_MSG) {
           ARouter(RoutingTable.interactionMsgPage).push();
         } else if (widget.conversationItem.conversationID ==
-            CustomConversationId.GoodArticle_MSG) {
+            CustomConversationId.DayPush_MSG) {
+          ARouter(RoutingTable.daypushMsgPage).push();
+
         } else if (widget.conversationItem.conversationID ==
             CustomConversationId.SYS_MSG) {
           ARouter(RoutingTable.systemMsgPage).push();
@@ -170,7 +172,7 @@ class MConversationItemState extends State<MConversationItem> {
         CustomConversationId.INTERACTION_MSG) {
       title = "互动消息";
     } else if (widget.conversationItem.conversationID ==
-        CustomConversationId.GoodArticle_MSG) {
+        CustomConversationId.DayPush_MSG) {
       title = "美文甄选";
     }
     return title;

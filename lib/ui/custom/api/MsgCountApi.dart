@@ -28,7 +28,7 @@ class MsgCountApi {
         whereArgs: [
           selfUid,
           remoteUid,
-          MDateUtils.formatTimestamp(DateTime.now().millisecond)
+          MDateUtils.formatTimestamp(DateTime.now().millisecondsSinceEpoch)
         ]);
 
     if (daydata.isNotEmpty) {
@@ -36,8 +36,10 @@ class MsgCountApi {
       return msgCount;
     } else {
       FreeMsgCount msgCount = FreeMsgCount(0, selfUid, remoteUid,
-          MDateUtils.formatTimestamp(DateTime.now().millisecond), 5, 1);
-      await DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, msgCount.toJson())
+          MDateUtils.formatTimestamp(DateTime.now().millisecondsSinceEpoch), 5, 1);
+      Map<String,dynamic> data=msgCount.toJson();
+      data.remove("id");
+      await DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, data)
           .then((value) {
         print("insert TABLE_DUFU_msgcount: " + value.toString());
       });
@@ -47,7 +49,9 @@ class MsgCountApi {
 
   static giveOrderMsgcount(int selfUid, int remoteUid, int count) {
     FreeMsgCount msgCount = FreeMsgCount(0, selfUid, remoteUid, "", count, 2);
-    DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, msgCount.toJson())
+    Map<String,dynamic> data=msgCount.toJson();
+    data.remove("id");
+    DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, data)
         .then((value) {
       print("insert TABLE_DUFU_msgcount: " + value.toString());
     });
@@ -81,7 +85,7 @@ class MsgCountApi {
             where: "id=?", whereArgs: [dayMsgCount.id]);
       } else {
         dayMsgCount = FreeMsgCount(0, selfUid, remoteUid,
-            MDateUtils.formatTimestamp(DateTime.now().millisecond), 4, 1);
+            MDateUtils.formatTimestamp(DateTime.now().millisecondsSinceEpoch), 4, 1);
         DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, dayMsgCount.toJson())
             .then((value) {
           print("insert TABLE_DUFU_msgcount day: " + value.toString());

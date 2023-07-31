@@ -1,10 +1,13 @@
 // ignore_for_file: must_be_immutable, avoid_print
+import 'dart:async';
+
 import 'package:bruno/bruno.dart';
 import 'package:dufubase/eventbus/FreeMsgCountEvent.dart';
 import 'package:dufubase/eventbus/OnlineStatusEvent.dart';
 
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:dufubase/eventbus/EventBusSingleton.dart';
+import 'package:dufubase/eventbus/PlaceOrderEvent.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -212,7 +215,7 @@ class TIMUIKitChat extends StatefulWidget {
 
 class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     CustomImController? customImController;
-
+    StreamSubscription? streamSubscription;
   TUIChatSeparateViewModel model = TUIChatSeparateViewModel();
   final TUISelfInfoViewModel selfInfoViewModel =
       serviceLocator<TUISelfInfoViewModel>();
@@ -225,7 +228,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   final TUIChatGlobalModel chatGlobalModel =
       serviceLocator<TUIChatGlobalModel>();
   bool _dragging = false;
-  bool showInputDisableView=true;
+  bool showInputDisableView=false;
   final GlobalKey alignKey = GlobalKey();
   final GlobalKey listContainerKey = GlobalKey();
 
@@ -247,31 +250,25 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     super.initState();
     CustomImController.chatStatusInfo=null;
     print("objectinitState");
-
-    EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((event) {
+    streamSubscription =  EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((event) {
       bool shouldChangeState=false;
       if(event.count<=0){
-        if(!showInputDisableView){
-          shouldChangeState=true;
-        }
-        if(shouldChangeState){
+
           setState(() {
             showInputDisableView=true;
-           });
-        }
+            FocusScope.of(context).requestFocus(FocusNode());
+
+          });
+
+
       }else{
-        if(showInputDisableView){
-          shouldChangeState=true;
-        }
-        if(shouldChangeState){
-          setState(() {
-            showInputDisableView=false;
-           });
-        }
+
         setState(() {
+          showInputDisableView=false;
           widget.textFieldHintText="赠送聊天条数剩余"+event.count.toString()+"条";
 
         });
+
       }
 
 
@@ -331,7 +328,9 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     if (kProfileMode) {
       Frame.destroy();
     }
-    model.dispose();
+    if(streamSubscription!=null)
+     streamSubscription!.cancel();
+     model.dispose();
   }
 
   @override
@@ -725,12 +724,14 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                       if(!widget.config!.onlyShowMessage!)
                       Positioned(
                         child:
-                        Container(child: BrnSmallMainButton(title: "立即下单",fontSize:12,bgColor: Colors.orange,textColor: Colors.white,radius: 16,),height: 30,)
+                        Container(child: BrnSmallMainButton(title: "立即下单",fontSize:12,bgColor: Colors.orange,textColor: Colors.white,radius: 16,onTap: (){
+                          EventBusSingleton.getInstance().fire(PlaceOrderEvent(int.parse(widget.conversation.conversationID!.replaceAll("c2c_huanxin", ""))));
+                        },),height: 30,)
                          ,
                         right: 16,
                         top: 80,
                       ),
-                        if(!showInputDisableView)
+                        if(showInputDisableView)
                           Positioned(child:  Container(child: Center(child: Text("免费条数已用完了"),),width: double.infinity,height: 50,color: Color.fromARGB(255,243, 243, 243),) ,
                              right: 0,left: 0,bottom: 0,height: 50,),
 
@@ -910,4 +911,5 @@ class TIMUIKitChatProviderScope extends StatelessWidget {
 
 
   }
+
 }

@@ -11,6 +11,8 @@ import 'package:tencent_cloud_chat_uikit/ui/utils/message.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 
+import '../../custom/constants/MyMessageElemType.dart';
+
 class TIMUIKitLastMsg extends StatefulWidget {
   final V2TimMessage? lastMsg;
   final List<V2TimGroupAtInfo?> groupAtInfoList;
@@ -97,7 +99,7 @@ class _TIMUIKitLastMsgState extends TIMUIKitState<TIMUIKitLastMsg> {
     final msgType = message!.elemType;
     switch (msgType) {
       case MessageElemType.V2TIM_ELEM_TYPE_CUSTOM:
-        return TIM_t("[自定义]");
+        return TIM_t(getCustomLastmsg(message));
       case MessageElemType.V2TIM_ELEM_TYPE_SOUND:
         return TIM_t("[语音]");
       case MessageElemType.V2TIM_ELEM_TYPE_TEXT:
@@ -123,7 +125,17 @@ class _TIMUIKitLastMsgState extends TIMUIKitState<TIMUIKitLastMsg> {
         return TIM_t("未知消息");
     }
   }
+  String getCustomLastmsg(V2TimMessage? message){
+    int   type= jsonDecode( message!.customElem!.data!)["subCustomType"];
 
+    if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_REMIND){
+      return  "提醒消息";
+    }
+    else if(type==MyMessageElemType.CUSTOM_ORDER_NOTIFY){
+      return "订单提醒";
+    }
+    return "不支持的消息类型";
+  }
   Icon? _getIconByMsgStatus(BuildContext context) {
     final msgStatus = widget.lastMsg!.status;
     final theme = Provider.of<TUIThemeViewModel>(context).theme;
