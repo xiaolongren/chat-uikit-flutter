@@ -583,6 +583,19 @@ class _TIMUIKitTextFieldLayoutNarrowState
                       SizedBox(
                         height: 32.0,
                         child: ElevatedButton(
+
+                        style: ButtonStyle(
+    shadowColor:MaterialStateProperty.resolveWith<Color?>(
+    (Set<MaterialState> states) {
+     return Colors.transparent;
+    })
+                            ,
+                            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                              (Set<MaterialState> states) {
+
+                            return Color.fromARGB(255, 65, 222, 148);    // 默认状态的背景颜色
+                          },
+                        )),
                           onPressed: () {
                             widget.onSubmitted();
                             if (showKeyboard) {

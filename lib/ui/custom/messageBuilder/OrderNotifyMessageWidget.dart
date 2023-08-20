@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:bruno/bruno.dart';
-import 'package:dufubase/actionhandler/ActionHandler.dart';
-import 'package:dufubase/actionhandler/ActionHandlerManager.dart';
+
 import 'package:dufubase/router/RouteHandler.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
@@ -39,15 +38,6 @@ class OrderNotifyMessageState extends State<OrderNotifyMessageWidget> {
     if (orderNotifyMessage!.action != null) {
       if (orderNotifyMessage!.action!.startsWith("dufu://")) {
         RouteHandler.handle(orderNotifyMessage!.action!);
-      } else if (orderNotifyMessage!.action!.trim().length > 0 &&
-          orderNotifyMessage!.action!.startsWith("method")) {
-        Uri uri = Uri.parse(Uri.decodeFull(orderNotifyMessage!.action!));
-
-        ActionHandler? actionHandler =
-            ActionHandlerManager.getHandler(uri.path);
-        if (actionHandler != null) {
-          actionHandler.handle(uri.path, uri.queryParameters);
-        }
       }
     }
   }

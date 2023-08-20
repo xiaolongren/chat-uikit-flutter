@@ -12,6 +12,8 @@ class CustomMessageRender {
 
   static Widget render(V2TimMessage message){
     try{
+      print("eeeeeeeeeeee::type::"+message.customElem!.data!);
+
       int   type= jsonDecode( message.customElem!.data!)["subCustomType"];
 
       if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_REMIND){
@@ -22,6 +24,7 @@ class CustomMessageRender {
       }
       return DefaultCustomMessageWidget();
     }catch(e){
+      print("eeeeeeeeeeee");
       return DefaultCustomMessageWidget();
 
     }

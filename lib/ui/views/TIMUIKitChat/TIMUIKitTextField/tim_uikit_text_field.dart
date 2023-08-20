@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:dufubase/eventbus/TxtChatEvent.dart';
 import 'package:flutter/material.dart';
 // import 'package:csslib/parser.dart';
 import 'package:diff_match_patch/diff_match_patch.dart';
@@ -139,6 +140,7 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
   int leftMsgCount = 5;
   late CustomMsgCountleftModel customMsgCountleftModel;
   StreamSubscription? streamSubscription;
+  StreamSubscription? txtOrderFinishStreamSubscription;
   final TUIChatGlobalModel globalModel = serviceLocator<TUIChatGlobalModel>();
   final TUISettingModel settingModel = serviceLocator<TUISettingModel>();
   final RegExp atTextReg = RegExp(r'@([^@\s]*)');
@@ -677,10 +679,8 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
 
   @override
   void initState() {
-    super.initState();
-     streamSubscription= EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((msgCountEvent) {
-      leftMsgCount = msgCountEvent.count;
-    });
+
+
     customMsgCountleftModel =
         Provider.of<CustomMsgCountleftModel>(context, listen: false);
     if (PlatformUtils().isWeb || PlatformUtils().isDesktop) {
@@ -706,6 +706,8 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
     textEditingController.addListener(() {
       _isComposingText = textEditingController.value.composing.start != -1;
     });
+     super.initState();
+
   }
 
   controllerHandler() {
@@ -758,9 +760,7 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
       widget.controller?.removeListener(controllerHandler);
     }
     focusNode.dispose();
-    if(streamSubscription!=null){
-      streamSubscription!.cancel();
-    }
+   
     super.dispose();
   }
 

@@ -83,13 +83,17 @@ class TitleStatusWidgetState extends State<TitleStatusWidget> {
   Color getStatusColor(String status) {
     switch (status) {
       case '在线':
+      case '可接单':
         return Colors.green;
-      case '忙碌':
+      case '忙碌中':
         return Colors.orange;
       case '通话中':
-        return Colors.blue;
-      case '离线':
+      case '正在为您服务中':
+      case '服务中':
         return Colors.red;
+
+      case '离线':
+        return Colors.grey;
       default:
         return Colors.grey;
     }

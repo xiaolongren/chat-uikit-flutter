@@ -13,7 +13,7 @@ class ImOrder {
   int totalprice;
   int sellerId;
   int buyerId;
-  int type;
+
 
   //是否已评论
   int updateTime;
@@ -25,7 +25,6 @@ class ImOrder {
   int createTime;
   int payTime;
 
-  int isFirstOrder;
 
   ImOrder(
       this.id,
@@ -33,13 +32,13 @@ class ImOrder {
       this.totalprice,
       this.sellerId,
       this.buyerId,
-      this.type,
+
       this.updateTime,
       this.leftTime,
       this.totalTime,
       this.createTime,
-      this.payTime,
-      this.isFirstOrder);
+      this.payTime
+     );
   factory ImOrder.fromJson(Map<String, dynamic> json) =>
       _$ImOrderFromJson(json);
 

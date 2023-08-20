@@ -12,13 +12,11 @@ ImOrder _$ImOrderFromJson(Map<String, dynamic> json) => ImOrder(
       json['totalprice'] as int,
       json['sellerId'] as int,
       json['buyerId'] as int,
-      json['type'] as int,
       json['updateTime'] as int,
       json['leftTime'] as int,
       json['totalTime'] as int,
       json['createTime'] as int,
       json['payTime'] as int,
-      json['isFirstOrder'] as int,
     );
 
 Map<String, dynamic> _$ImOrderToJson(ImOrder instance) => <String, dynamic>{
@@ -27,11 +25,9 @@ Map<String, dynamic> _$ImOrderToJson(ImOrder instance) => <String, dynamic>{
       'totalprice': instance.totalprice,
       'sellerId': instance.sellerId,
       'buyerId': instance.buyerId,
-      'type': instance.type,
       'updateTime': instance.updateTime,
       'leftTime': instance.leftTime,
       'totalTime': instance.totalTime,
       'createTime': instance.createTime,
       'payTime': instance.payTime,
-      'isFirstOrder': instance.isFirstOrder,
     };
