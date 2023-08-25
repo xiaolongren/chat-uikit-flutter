@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:dufubase/request/ApiClient.dart';
 import 'package:dufubase/request/Result.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/entity/ChatStatusInfo.dart';
+import 'package:tencent_cloud_chat_uikit/ui/custom/entity/ImOrder.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/entity/ListenerVo.dart';
 class ImApi{
   static String loadChatStatusInfoPath="usergroup/im/commen/checkChatInfo";
@@ -68,12 +69,14 @@ class ImApi{
         misList: false);
   }
   static Future<Result<int>> preChat(String remoteImid){
-    String preChat="usergroup/im/commen/preChat";
-
     int remoteUid=  ImApi.parseUid(remoteImid);
+    return  preChatByUid(remoteUid);
+
+  }
+  static Future<Result<int>> preChatByUid(int remoteUid){
+    String preChat="usergroup/im/commen/preChat";
     Map<String, Object> param = HashMap();
     param['remoteUid'] = remoteUid;
-
     return ApiClient.instance.get<int>(
         preChat,
         queryParameters: param,

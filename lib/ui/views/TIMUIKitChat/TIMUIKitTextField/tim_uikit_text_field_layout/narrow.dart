@@ -189,35 +189,35 @@ class _TIMUIKitTextFieldLayoutNarrowState
     if (showEmojiPanel) {
       return widget.customStickerPanel != null
           ? widget.customStickerPanel!(
-          sendTextMessage: () {
-            widget.onEmojiSubmitted();
-            setSendButton();
-          },
-          sendFaceMessage: widget.onCustomEmojiFaceSubmitted,
-          deleteText: () {
-            widget.backSpaceText();
-            setSendButton();
-          },
-          addText: (int unicode) {
-            final newText = String.fromCharCode(unicode);
-            widget.addStickerToText(newText);
-            setSendButton();
-            // handleSetDraftText();
-          },
-          addCustomEmojiText: ((String singleEmojiName) {
-            String? emojiName = singleEmojiName.split('.png')[0];
-            if (widget.isUseDefaultEmoji &&
-                widget.languageType == 'zh' &&
-                ConstData.emojiMapList[emojiName] != null &&
-                ConstData.emojiMapList[emojiName] != '') {
-              emojiName = ConstData.emojiMapList[emojiName];
-            }
-            final newText = '[$emojiName]';
-            widget.addStickerToText(newText);
-            setSendButton();
-          }),
-          defaultCustomEmojiStickerList:
-          widget.isUseDefaultEmoji ? ConstData.emojiList : [])
+              sendTextMessage: () {
+                widget.onEmojiSubmitted();
+                setSendButton();
+              },
+              sendFaceMessage: widget.onCustomEmojiFaceSubmitted,
+              deleteText: () {
+                widget.backSpaceText();
+                setSendButton();
+              },
+              addText: (int unicode) {
+                final newText = String.fromCharCode(unicode);
+                widget.addStickerToText(newText);
+                setSendButton();
+                // handleSetDraftText();
+              },
+              addCustomEmojiText: ((String singleEmojiName) {
+                String? emojiName = singleEmojiName.split('.png')[0];
+                if (widget.isUseDefaultEmoji &&
+                    widget.languageType == 'zh' &&
+                    ConstData.emojiMapList[emojiName] != null &&
+                    ConstData.emojiMapList[emojiName] != '') {
+                  emojiName = ConstData.emojiMapList[emojiName];
+                }
+                final newText = '[$emojiName]';
+                widget.addStickerToText(newText);
+                setSendButton();
+              }),
+              defaultCustomEmojiStickerList:
+                  widget.isUseDefaultEmoji ? ConstData.emojiList : [])
           : EmojiPanel(onTapEmoji: (unicode) {
               final newText = String.fromCharCode(unicode);
               widget.addStickerToText(newText);
@@ -310,23 +310,22 @@ class _TIMUIKitTextFieldLayoutNarrowState
       });
     };
   }
+
   String getAbstractMessage(V2TimMessage message) {
-    final String? customAbstractMessage = widget
-        .model.abstractMessageBuilder != null ? widget.model
-        .abstractMessageBuilder!(widget.model.repliedMessage!) : null;
-    return customAbstractMessage ?? MessageUtils
-        .getAbstractMessageAsync(
-        widget.model.repliedMessage!, widget.model.groupMemberList ?? []);
+    final String? customAbstractMessage =
+        widget.model.abstractMessageBuilder != null
+            ? widget.model.abstractMessageBuilder!(widget.model.repliedMessage!)
+            : null;
+    return customAbstractMessage ??
+        MessageUtils.getAbstractMessageAsync(
+            widget.model.repliedMessage!, widget.model.groupMemberList ?? []);
   }
 
   _buildRepliedMessage(V2TimMessage? repliedMessage) {
     final haveRepliedMessage = repliedMessage != null;
     if (haveRepliedMessage) {
       final text =
-          "${MessageUtils.getDisplayName(
-          widget.model.repliedMessage!)}:${getAbstractMessage(
-          repliedMessage
-      )}";
+          "${MessageUtils.getDisplayName(widget.model.repliedMessage!)}:${getAbstractMessage(repliedMessage)}";
       return Container(
         color: widget.backgroundColor ?? hexToColor("f5f5f6"),
         alignment: Alignment.centerLeft,
@@ -406,7 +405,7 @@ class _TIMUIKitTextFieldLayoutNarrowState
             children: [
               Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                 constraints: const BoxConstraints(minHeight: 50),
                 child: Row(
                   children: [
@@ -499,14 +498,22 @@ class _TIMUIKitTextFieldLayoutNarrowState
                                       });
                                     },
                                     textAlignVertical: TextAlignVertical.top,
+
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
+
+
+                                        // border: OutlineInputBorder(
+                                        //
+                                        //   borderSide: BorderSide.none,
+                                        // ),
                                         hintStyle: const TextStyle(
                                           // fontSize: 10,
                                           color: Color(0xffAEA4A3),
                                         ),
                                         fillColor: Colors.white,
                                         filled: true,
+
                                         isDense: true,
                                         hintText: widget.hintText ?? ''),
                                     controller: widget.textEditingController,
@@ -582,20 +589,24 @@ class _TIMUIKitTextFieldLayoutNarrowState
                     if ((isAndroidDevice() || isWebDevice()) && !showMoreButton)
                       SizedBox(
                         height: 32.0,
+                        width: 52,
                         child: ElevatedButton(
+                          style: ButtonStyle( padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry?>(
+                                (Set<MaterialState> states) {
 
-                        style: ButtonStyle(
-    shadowColor:MaterialStateProperty.resolveWith<Color?>(
-    (Set<MaterialState> states) {
-     return Colors.transparent;
-    })
-                            ,
-                            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                              (Set<MaterialState> states) {
-
-                            return Color.fromARGB(255, 65, 222, 148);    // 默认状态的背景颜色
-                          },
-                        )),
+                              return EdgeInsets.only(left: 1.0,right: 1);     // 默认状态的内边距
+                            },
+                          ),shadowColor:
+                              MaterialStateProperty.resolveWith<Color?>(
+                                  (Set<MaterialState> states) {
+                            return Colors.transparent;
+                          }), backgroundColor:
+                              MaterialStateProperty.resolveWith<Color?>(
+                            (Set<MaterialState> states) {
+                              return Color.fromARGB(
+                                  255, 65, 222, 148); // 默认状态的背景颜色
+                            },
+                          )),
                           onPressed: () {
                             widget.onSubmitted();
                             if (showKeyboard) {
@@ -622,9 +633,7 @@ class _TIMUIKitTextFieldLayoutNarrowState
                 height: max(_getBottomHeight(), 0.0),
                 child: ListView(
                   physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    _getBottomContainer()
-                  ],
+                  children: [_getBottomContainer()],
                 ),
               ),
             ],

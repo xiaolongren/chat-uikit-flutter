@@ -9,8 +9,7 @@ class ImOrder {
   // 订单项
   String name;
 
-  // 总价格
-  int totalprice;
+
   int sellerId;
   int buyerId;
 
@@ -29,7 +28,6 @@ class ImOrder {
   ImOrder(
       this.id,
       this.name,
-      this.totalprice,
       this.sellerId,
       this.buyerId,
 

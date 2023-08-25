@@ -2,14 +2,19 @@
 import 'dart:async';
 
 import 'package:bruno/bruno.dart';
+import 'package:dufubase/eventbus/CallEvent.dart';
 import 'package:dufubase/eventbus/FreeMsgCountEvent.dart';
 import 'package:dufubase/eventbus/OnlineStatusEvent.dart';
 
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:dufubase/eventbus/EventBusSingleton.dart';
 import 'package:dufubase/eventbus/OrderCountDStartEvent.dart';
+import 'package:dufubase/eventbus/OrderStatusChangeEvent.dart';
 import 'package:dufubase/eventbus/PlaceOrderEvent.dart';
 import 'package:dufubase/eventbus/TxtChatEvent.dart';
+import 'package:dufubase/router/ARouter.dart';
+import 'package:dufubase/router/constants/RoutingTable.dart';
+import 'package:dufubase/util/MDateUtils.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -222,6 +227,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   CustomImController? customImController;
   StreamSubscription? streamSubscription;
   StreamSubscription? txtOrderFinishStreamSubscription;
+  StreamSubscription? orderStatusChangeSubscription;
   TUIChatSeparateViewModel model = TUIChatSeparateViewModel();
   final TUISelfInfoViewModel selfInfoViewModel =
   serviceLocator<TUISelfInfoViewModel>();
@@ -281,10 +287,14 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                   }
                 });
               });
-              
+
           });
 
         });
+    orderStatusChangeSubscription=EventBusSingleton.getInstance().on<OrderStatusChangeEvent>().listen((event) {
+     Future.delayed(Duration(seconds: 2),(){ checkChatInfo();});
+
+    });
 
     streamSubscription =
         EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((event) {
@@ -332,7 +342,11 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     });
 
 
+    checkChatInfo();
 
+  }
+
+  checkChatInfo(){
     customImController!.checkChatInfo().then((mvalue) {
       if (mvalue.errorCode == 0) {
 
@@ -340,15 +354,22 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
         //双方正在同一个订单服务中
         if(mvalue.data!.isInSameOrder){
           WidgetsBinding.instance.addPostFrameCallback((_) {
-              //倒计时开始
+            //倒计时开始
+
+
+            bool isBuyer=customImController!.uid==mvalue.data!.order!.buyerId;
+            if(isBuyer){
               OrderCountDStartEvent event = OrderCountDStartEvent(mvalue.data!.order!.id);
               EventBusSingleton.getInstance().fire(event);
 
-              bool isBuyer=customImController!.uid==mvalue.data!.order!.buyerId;
-              OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
-                  widget.conversation!.showName!,
-                  isBuyer? "正在为您服务中":"在线");
-              EventBusSingleton.getInstance().fire(onlineStatusEvent);
+            }else{
+              this.textFieldHintText="订单将于"+MDateUtils.caculteShowEndTie(DateTime.now().millisecondsSinceEpoch+mvalue.data!.order!.leftTime*1000)+"结束";
+            }
+            OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
+                widget.conversation!.showName!,
+                isBuyer? "正在为您服务中":"在线");
+            EventBusSingleton.getInstance().fire(onlineStatusEvent);
+
 
           });
         }else{
@@ -386,7 +407,6 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
       }
     });
   }
-
   @override
   void dispose() {
     super.dispose();
@@ -502,35 +522,38 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     return
       Container( color:Colors.transparent,padding:EdgeInsets.only(left: 16),child: Row(children: [
         GestureDetector(onTap: (){
-          BrnLoadingDialog.show(context,content: "");
-          ImApi.preChat(conversationViewModel.selectedConversation!.userID.toString()).then((value) {
-            BrnLoadingDialog.dismiss(context);
-            if(value.errorCode==0){
+          CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "video");
+          EventBusSingleton.getInstance().fire(callEvent);
 
-              print("isOK");
-              TUICorePlatform.instance.callService(TUICALLKIT_SERVICE_NAME, METHOD_NAME_CALL,  {
-                PARAM_NAME_TYPE: "video",
-                PARAM_NAME_USERIDS: [conversationViewModel.selectedConversation!.userID.toString()],
-                PARAM_NAME_GROUPID: ""
-              });
-              // MCallKitUtil.uicaore!.callService(TUICALLKIT_SERVICE_NAME, METHOD_NAME_CALL, {
-              //   PARAM_NAME_TYPE: "video",
-              //   PARAM_NAME_USERIDS: [widget.selectedConversation.conversationID],
-              //   PARAM_NAME_GROUPID: ""
-              // });
-
-            }else{
-
-              BrnToast.show(value.errorMsg, context);
-            }
-          });
+          // ImApi.preChat(conversationViewModel.selectedConversation!.userID.toString()).then((value) {
+          //   BrnLoadingDialog.dismiss(context);
+          //   if(value.errorCode==0){
+          //
+          //     print("isOK");
+          //     TUICorePlatform.instance.callService(TUICALLKIT_SERVICE_NAME, METHOD_NAME_CALL,  {
+          //       PARAM_NAME_TYPE: "video",
+          //       PARAM_NAME_USERIDS: [conversationViewModel.selectedConversation!.userID.toString()],
+          //       PARAM_NAME_GROUPID: ""
+          //     });
+          //     // MCallKitUtil.uicaore!.callService(TUICALLKIT_SERVICE_NAME, METHOD_NAME_CALL, {
+          //     //   PARAM_NAME_TYPE: "video",
+          //     //   PARAM_NAME_USERIDS: [widget.selectedConversation.conversationID],
+          //     //   PARAM_NAME_GROUPID: ""
+          //     // });
+          //
+          //   }else{
+          //
+          //     BrnToast.show(value.errorMsg, context);
+          //   }
+          // });
 
         },child:  Container(child:Icon( Icons.videocam_outlined) ,padding:EdgeInsets.only(left: 8,right: 8,top: 1,bottom: 1),decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.white),),),
 
             SizedBox(width: 16,),
 
         GestureDetector(onTap: (){
-          BrnLoadingDialog.show(context,content: "");
+          CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "voice");
+          EventBusSingleton.getInstance().fire(callEvent);
 
         },child:   Container(child:Icon( Icons.call_end_outlined) ,padding:EdgeInsets.only(left: 8,right: 8,top: 1,bottom: 1),decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.white),),
             ),
@@ -773,13 +796,16 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                         mainAxisAlignment: MainAxisAlignment
                                             .end,
                                         children: [
-                                          Text("评价(" +
+                                          GestureDetector(child: Text("评价(" +
                                               customImController!.listenerVo!
                                                   .commentNums.toString() + ")",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
                                                     255, 65, 222, 148),
-                                                fontSize: 12),),
+                                                fontSize: 12),),onTap: (){
+                                            ARouter(RoutingTable.listenerCommentsPage).addParam("targetUid", customImController!.listenerVo!.uid.toString()).push();
+                                          },)
+                                          ,
                                           SizedBox(width: 16,)
                                         ],),
                                       SizedBox(height: 4,),
@@ -870,23 +896,50 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                       //头部下单入口
                       if(showTopinfo)
                         Positioned(
-                          child:
-                          Container(child: BrnSmallMainButton(
-                            title: "立即下单",
-                            fontSize: 12,
-                            bgColor: Colors.orange,
-                            textColor: Colors.white,
-                            radius: 16,
-                            onTap: () {
-                              EventBusSingleton.getInstance().fire(
-                                  PlaceOrderEvent(int.parse(
-                                      widget.conversation.conversationID!
-                                          .replaceAll("c2c_huanxin", ""))));
-                            },), height: 30,)
-                          ,
+                          child: GestureDetector(child: Container(
+                            padding: EdgeInsets.only(left: 6,right: 6,top: 4,bottom: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.orange,
+
+                              borderRadius: BorderRadius.circular(20), // 圆角半径
+                            ),
+                            child: Text("立即下单",style: TextStyle(color: Colors.white,fontSize: 12),
+
+                          ),),onTap: (){
+
+
+                            EventBusSingleton.getInstance().fire(
+                                PlaceOrderEvent(int.parse(
+                                    widget.conversation.conversationID!
+                                        .replaceAll("c2c_huanxin", ""))));
+
+                          },),
                           right: 16,
                           top: 80,
                         ),
+
+
+
+
+
+                        // Positioned(
+                        //   child:
+                        //   Container(child: BrnNormalButton(
+                        //     text: "立即下单",
+                        //     fontSize: 12,
+                        //     backgroundColor: Colors.orange,
+                        //     textColor: Colors.white,
+                        //     radius: 16,
+                        //     onTap: () {
+                        //       EventBusSingleton.getInstance().fire(
+                        //           PlaceOrderEvent(int.parse(
+                        //               widget.conversation.conversationID!
+                        //                   .replaceAll("c2c_huanxin", ""))));
+                        //     },), height: 30,)
+                        //   ,
+                        //   right: 16,
+                        //   top: 80,
+                        // ),
                       if(showInputDisableView)
                         Positioned(
                           child: Container(child: Center(child: Text(
