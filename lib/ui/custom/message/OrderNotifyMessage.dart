@@ -9,10 +9,10 @@ class OrderNotifyMessage{
   @JsonKey(defaultValue: "")
   String? title;
   @JsonKey(defaultValue: "")
-  String? action;
+  String? routePath;
   int subCustomType=MyMessageElemType.CUSTOM_ORDER_NOTIFY;
 
-  OrderNotifyMessage(this.content, this.title, this.action);
+  OrderNotifyMessage(this.content, this.title, this.routePath);
 
 
   factory OrderNotifyMessage.fromJson(Map<String, dynamic> json) =>

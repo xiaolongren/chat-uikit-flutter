@@ -276,7 +276,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   @override
   void initState() {
     super.initState();
-
+    conversationViewModel.selectedConversation=widget.conversation;
     CustomImController.chatStatusInfo = null;
     print("objectinitState");
     txtOrderFinishStreamSubscription =
@@ -774,10 +774,10 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                                 child: Container(
                                                     child: Column(
                                                       children: [
-                                                        Text(customImController!
-                                                            .listenerVo!
-                                                            .serviceSeconds
-                                                            .toString()),
+                                                        Text((customImController!
+                                                        .listenerVo!
+                                                        .serviceSeconds/3600.0)
+                                                            .toString()+"小时"),
                                                         SizedBox(height: 3,),
                                                         Text(
                                                           "服务时长",

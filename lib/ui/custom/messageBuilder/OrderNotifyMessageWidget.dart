@@ -35,9 +35,27 @@ class OrderNotifyMessageState extends State<OrderNotifyMessageWidget> {
   }
 
   doAction() {
-    if (orderNotifyMessage!.action != null) {
-      if (orderNotifyMessage!.action!.startsWith("dufu://")) {
-        RouteHandler.handle(orderNotifyMessage!.action!);
+    if (orderNotifyMessage!.routePath != null) {
+      if (orderNotifyMessage!.routePath!.startsWith("dufu://")) {
+        //TODO
+        //如果是去聊天页面，特殊处理
+        Uri uri=Uri.parse(orderNotifyMessage!.routePath!);
+        String pagePath=uri.path;
+        print("pagePath:"+pagePath);
+        if(pagePath=="/listener/chatpage"){
+          //
+          // V2TimConversation  converstation=V2TimConversation(
+          //   conversationID: "c2c_"+imId, // 单聊："c2c_${对方的userID}" ； 群聊："group_${groupID}"
+          //   userID: imId, // 仅单聊需要此字段，对方userID
+          //   groupID: "", // 仅群聊需要此字段，群groupID
+          //   showName: title!=null?title:"", // 顶部 AppBar 显示的标题
+          //   type: 1, // 单聊传1，群聊传2
+          //
+          // );
+
+
+        }
+       // RouteHandler.handle(orderNotifyMessage!.routePath!);
       }
     }
   }
@@ -70,8 +88,8 @@ class OrderNotifyMessageState extends State<OrderNotifyMessageWidget> {
                     child: Text(orderNotifyMessage!.content! + "",
                         style:
                             TextStyle(fontSize: 14, color: Colors.grey[600]))),
-                if (orderNotifyMessage.action != null &&
-                    orderNotifyMessage.action!.length > 0)
+                if (orderNotifyMessage.routePath != null &&
+                    orderNotifyMessage.routePath!.length > 0)
                   Container(
                       height: 30,
                       child: Row(
@@ -88,9 +106,9 @@ class OrderNotifyMessageState extends State<OrderNotifyMessageWidget> {
                       ))
               ])))),
       onTap: () {
-        if (orderNotifyMessage.action != null &&
-            orderNotifyMessage.action!.length > 0) {
-          doAction();
+        if (orderNotifyMessage.routePath != null &&
+            orderNotifyMessage.routePath!.length > 0) {
+            doAction();
         }
       },
     );
