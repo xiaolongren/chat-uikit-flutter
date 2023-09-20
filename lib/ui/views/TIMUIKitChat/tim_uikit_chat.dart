@@ -312,6 +312,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
               customImController!.sendPlaceOrderMsg();
                setState(() {
                 showInputDisableView = true;
+                this.textFieldHintText =
+                    "";
                 FocusScope.of(context).requestFocus(FocusNode());
               });
             } else {
@@ -349,7 +351,23 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     checkChatInfo();
 
   }
+  @override
+  activate(){
+    super.activate();
+    FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
 
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+  }
+  @override
+  deactivate(){
+    super.deactivate();
+    FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 237, 237, 237));
+
+  }
   checkChatInfo(){
     customImController!.checkChatInfo().then((mvalue) {
       if (mvalue.errorCode == 0) {
@@ -428,6 +446,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   @override
   void didUpdateWidget(TIMUIKitChat oldWidget) {
     super.didUpdateWidget(oldWidget);
+    FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
+
     if (widget.conversationID != oldWidget.conversationID) {
       isInit = false;
       chatGlobalModel.clearCurrentConversation();
@@ -773,7 +793,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                                     ))),
                                             Expanded(child: SizedBox()),
                                             Flexible(
-                                                flex: 1,
+                                                flex:2,
                                                 child: Container(
                                                     child: Column(
                                                       children: [

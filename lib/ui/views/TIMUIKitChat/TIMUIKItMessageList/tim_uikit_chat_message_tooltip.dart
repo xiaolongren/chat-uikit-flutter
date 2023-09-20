@@ -232,23 +232,23 @@ class TIMUIKitMessageTooltipState
             id: "copyMessage",
             iconImageAsset: "images/copy_message.png",
             onClick: () => _onTap("copyMessage", model)),
-      if (shouldShowForwardAction && !isVoteMessage(widget.message))
-        MessageToolTipItem(
-            label: TIM_t("转发"),
-            id: "forwardMessage",
-            iconImageAsset: "images/forward_message.png",
-            onClick: () => _onTap("forwardMessage", model)),
+      // if (shouldShowForwardAction && !isVoteMessage(widget.message))
+      //   MessageToolTipItem(
+      //       label: TIM_t("转发"),
+      //       id: "forwardMessage",
+      //       iconImageAsset: "images/forward_message.png",
+      //       onClick: () => _onTap("forwardMessage", model)),
       if (shouldShowReplyAction)
         MessageToolTipItem(
             label: TIM_t(model.chatConfig.isAtWhenReply ? "回复" : "引用"),
             id: "replyMessage",
             iconImageAsset: "images/reply_message.png",
             onClick: () => _onTap("replyMessage", model)),
-      MessageToolTipItem(
-          label: TIM_t("多选"),
-          id: "multiSelect",
-          iconImageAsset: "images/multi_message.png",
-          onClick: () => _onTap("multiSelect", model)),
+      // MessageToolTipItem(
+      //     label: TIM_t("多选"),
+      //     id: "multiSelect",
+      //     iconImageAsset: "images/multi_message.png",
+      //     onClick: () => _onTap("multiSelect", model)),
       MessageToolTipItem(
           label: TIM_t("翻译"),
           id: "translate",

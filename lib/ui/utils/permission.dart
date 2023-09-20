@@ -60,7 +60,7 @@ class _PermissionRequestInfo extends TIMUIKitState<PermissionRequestInfo>
       1: {
         "name": TIM_t("相机"),
         "icon": "images/chat_permission_icon_camera.png",
-        "text": TIM_t("为方便您将所拍摄的照片或视频发送给朋友，以及进行视频通话，请允许我们访问摄像头进行拍摄照片和视频。")
+        "text": TIM_t("为方便您将所拍摄的照片或视频发送给朋友，发布动态，以及进行视频通话，请允许我们访问摄像头进行拍摄照片和视频。")
       },
       7: {
         "name": TIM_t("麦克风"),
@@ -70,17 +70,17 @@ class _PermissionRequestInfo extends TIMUIKitState<PermissionRequestInfo>
       9: {
         "name": TIM_t("相册"),
         "icon": "images/chat_permission_icon_file.png",
-        "text": TIM_t("为方便您查看和选择相册里的图片视频发送给朋友，以及保存内容到设备，请允许我们访问您设备上的照片、媒体内容。")
+        "text": TIM_t("为方便您查看和选择相册里的图片视频发送给朋友，发布动态，以及保存内容到设备，请允许我们访问您设备上的照片、媒体内容。")
       },
       15: {
         "name": TIM_t("存储"),
         "icon": "images/chat_permission_icon_file.png",
-        "text": TIM_t("为方便您查看和选择相册里的图片视频发送给朋友，以及保存内容到设备，请允许我们访问您设备上的照片、媒体内容。")
+        "text": TIM_t("为方便您查看和选择相册里的图片视频发送给朋友，发布动态，以及保存内容到设备，请允许我们访问您设备上的照片、媒体内容。")
       },
       32: {
         "name": TIM_t("相册"),
         "icon": "images/chat_permission_icon_file.png",
-        "text": TIM_t("为方便您查看和选择相册里的图片视频发送给朋友，以及保存内容到设备，请允许我们访问您设备上的照片、媒体内容。")
+        "text": TIM_t("为方便您查看和选择相册里的图片视频发送给朋友，发布动态，以及保存内容到设备，请允许我们访问您设备上的照片、媒体内容。")
       },
     }[widget.permissionType];
     final option2 = permission?["name"] ?? "";
@@ -115,14 +115,14 @@ class _PermissionRequestInfo extends TIMUIKitState<PermissionRequestInfo>
                           TIM_t_para(" 申请获取{{option2}}", " 申请获取$option2")(
                               option2: option2) +
                           TIM_t("权限"),
-                      style: TextStyle(color: theme.white, fontSize: 18),
+                      style: TextStyle(color: theme.white, fontSize: 18,decoration: TextDecoration.none),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 12,
                     ),
                     Text(
                       permission?["text"] ?? "",
-                      style: TextStyle(color: theme.white, fontSize: 16),
+                      style: TextStyle(color: theme.white, fontSize: 16,decoration: TextDecoration.none),
                     )
                   ],
                 ),

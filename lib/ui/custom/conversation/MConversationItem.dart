@@ -45,13 +45,27 @@ class MConversationItemState extends State<MConversationItem> {
     //   //
     //
     // });
+
     super.initState();
   }
 
-  String faceUrl = "";
+  String faceUrl="";
 
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context)   {
+    if(faceUrl.isEmpty){
+        TencentImSDKPlugin.v2TIMManager.getUsersInfo(userIDList: [widget.conversationItem.userID!]).then((value)  {
+        if (value.code == 0&&value.data!=null&&value.data!.length>0) {
+          setState((){
+            this.faceUrl= value.data![0]!.faceUrl!;
+            print("faceUrl:"+this.faceUrl);
+
+          });
+
+        }
+        });//需要查询的用户id列表
+
+    }
     return GestureDetector(
       child: Container(
         width: double.infinity,
@@ -188,6 +202,7 @@ class MConversationItemState extends State<MConversationItem> {
   @override
   void dispose() {
     // 取消事件监听
+    if(widget.loginSubscription!=null)
     widget.loginSubscription!.cancel();
 
     super.dispose();
