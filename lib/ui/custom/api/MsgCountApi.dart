@@ -47,7 +47,16 @@ class MsgCountApi {
     }
   }
 
-  static giveOrderMsgcount(int selfUid, int remoteUid, int count) {
+  static giveOrderMsgcount(int selfUid, int remoteUid, int count) async{
+    FreeMsgCount? ordermsgcount=  await getGivedOrderMsgCount(selfUid,remoteUid);
+    if(ordermsgcount!=null){
+      ordermsgcount.count=ordermsgcount.count+count;
+      Map<String,dynamic> data=ordermsgcount.toJson();
+      DBHelper.updateData(DBHelper.TABLE_DUFU_msgcount, data, where: "id=?", whereArgs: [data['id']]);
+      return ;
+    }
+
+
     FreeMsgCount msgCount = FreeMsgCount(0, selfUid, remoteUid, "", count, 2);
     Map<String,dynamic> data=msgCount.toJson();
     data.remove("id");

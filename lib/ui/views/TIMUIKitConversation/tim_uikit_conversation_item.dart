@@ -136,6 +136,7 @@ class TIMUIKitConversationItem extends TIMUIKitStatelessWidget {
                       onlineStatus: onlineStatus,
                       faceUrl: faceUrl,
                       showName: nickName,
+                      borderRadius:  BorderRadius.circular(50),
                       type: convType),
                   if (unreadCount != 0)
                     Positioned(

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:dufubase/eventbus/SendMsgEvent.dart';
 import 'package:dufubase/eventbus/TxtChatEvent.dart';
 import 'package:flutter/material.dart';
 // import 'package:csslib/parser.dart';
@@ -147,6 +148,8 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
   late CustomMsgCountleftModel customMsgCountleftModel;
   StreamSubscription? streamSubscription;
   StreamSubscription? txtOrderFinishStreamSubscription;
+  StreamSubscription? sendMsgSubscription;
+
   final TUIChatGlobalModel globalModel = serviceLocator<TUIChatGlobalModel>();
   final TUISettingModel settingModel = serviceLocator<TUISettingModel>();
   final RegExp atTextReg = RegExp(r'@([^@\s]*)');
@@ -873,7 +876,18 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
       _isComposingText = textEditingController.value.composing.start != -1;
     });
      super.initState();
-
+    sendMsgSubscription=EventBusSingleton.getInstance().on<SendMsgEvent>().listen((event) {
+      if(event.msgType==MessageElemType.V2TIM_ELEM_TYPE_TEXT){
+        MessageUtils.handleMessageError(
+            widget.model.sendTextMessage(
+              text: event.data,
+              convID: widget.conversationID,
+              convType: widget.conversationType,
+            ),
+            context);
+        goDownBottom();
+      }
+    });
     generateStickerList();
   }
 
@@ -928,6 +942,9 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
     handleSetDraftText();
     if (widget.controller != null) {
       widget.controller?.removeListener(controllerHandler);
+    }
+    if(sendMsgSubscription!=null){
+      sendMsgSubscription!.cancel();
     }
     focusNode.dispose();
 

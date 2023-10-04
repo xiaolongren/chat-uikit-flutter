@@ -13,7 +13,6 @@ import '../constants/CustomConversationId.dart';
 
 class MConversationItem extends StatefulWidget {
   V2TimConversation conversationItem;
-  StreamSubscription? loginSubscription;
   MConversationItem(this.conversationItem);
 
   @override
@@ -26,35 +25,31 @@ class MConversationItemState extends State<MConversationItem> {
   String lastmsg = "";
   int unReadCount = 0;
   String? showTime;
+  StreamSubscription? optionMsgSubscription;
 
   @override
   void initState() {
-    //监听 互动消息和系统消息的变化。当切换到会话列表页时，请求接口获取互动消息/系统消息的未读数和最后一条消息title
-      widget.loginSubscription = EventBusSingleton.getInstance().on<OptionMsgChangeEvent>().listen((event) {
-      if (event.conversationId == widget.conversationItem.conversationID) {
-        setState(() {
-          this.lastmsg = event.lastMsg;
-          this.unReadCount = event.unReadCount;
-          this.showTime=event.showTime;
-        });
-      }
-    });
-
-
-    // EventBusSingleton.getInstance().on<OptionMsgChangeEvent>().listen((event) {
-    //   //
-    //
-    // });
-
     super.initState();
-  }
 
-  String faceUrl="";
+    //监听 互动消息和系统消息的变化。当切换到会话列表页时，请求接口获取互动消息/系统消息的未读数和最后一条消息title
+    if(optionMsgSubscription==null)
+      optionMsgSubscription = EventBusSingleton.getInstance().on<OptionMsgChangeEvent>().listen((event) {
 
-  @override
-   Widget build(BuildContext context)   {
+      if (event.conversationId == widget.conversationItem.conversationID) {
+        if(mounted){
+          setState(() {
+            lastmsg = event.lastMsg;
+            unReadCount = event.unReadCount;
+            showTime=event.showTime;
+          });
+        }
+
+      }
+    }
+
+    );
     if(faceUrl.isEmpty){
-        TencentImSDKPlugin.v2TIMManager.getUsersInfo(userIDList: [widget.conversationItem.userID!]).then((value)  {
+      TencentImSDKPlugin.v2TIMManager.getUsersInfo(userIDList: [widget.conversationItem.userID!]).then((value)  {
         if (value.code == 0&&value.data!=null&&value.data!.length>0) {
           setState((){
             this.faceUrl= value.data![0]!.faceUrl!;
@@ -63,9 +58,27 @@ class MConversationItemState extends State<MConversationItem> {
           });
 
         }
-        });//需要查询的用户id列表
+      });//需要查询的用户id列表
 
     }
+
+
+    // EventBusSingleton.getInstance().on<OptionMsgChangeEvent>().listen((event) {
+    //   //
+    //
+    // });
+
+  }
+
+  String faceUrl="";
+
+  @override
+   Widget build(BuildContext context)   {
+ if(optionMsgSubscription!=null&&optionMsgSubscription!.isPaused) {
+   optionMsgSubscription!.resume();
+
+  }
+
     return GestureDetector(
       child: Container(
         width: double.infinity,
@@ -89,7 +102,7 @@ class MConversationItemState extends State<MConversationItem> {
                       SizedBox(
                           height: 53,
                           width: 53,
-                          child: Container(child: Avatar(faceUrl: faceUrl, showName: "1ss"),margin: EdgeInsets.all(4),)
+                          child: Container(child: Avatar(faceUrl: faceUrl, showName: "1ss",borderRadius: BorderRadius.circular(50),),margin: EdgeInsets.all(4),)
                       ),
 
                       if(unReadCount>0)
@@ -202,8 +215,10 @@ class MConversationItemState extends State<MConversationItem> {
   @override
   void dispose() {
     // 取消事件监听
-    if(widget.loginSubscription!=null)
-    widget.loginSubscription!.cancel();
+    if(optionMsgSubscription!=null){
+      optionMsgSubscription!.cancel();
+      optionMsgSubscription==null;
+      }
 
     super.dispose();
   }
