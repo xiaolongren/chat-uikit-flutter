@@ -1139,7 +1139,7 @@ class _InputTextFieldState extends TIMUIKitState<TIMUIKitInputTextField> {
   cosumeMSgCount() async {
     //不在同一个订单中并且对方是倾听者，我方发送消息就要扣除免费条数。
     if (CustomImController.chatStatusInfo != null &&
-        CustomImController.chatStatusInfo!.isRemoteListener&&!CustomImController.chatStatusInfo!.isInSameOrder) {
+        CustomImController.chatStatusInfo!.isRemoteListener&&!CustomImController.chatStatusInfo!.isInSameOrder&& !CustomImController.chatStatusInfo!.isRemoteCustomerService&& !CustomImController.chatStatusInfo!.isCustomerService) {
       MsgCountApi.consume(CustomImController.chatStatusInfo!.uid, CustomImController.chatStatusInfo!.remoteUid);
     }
 

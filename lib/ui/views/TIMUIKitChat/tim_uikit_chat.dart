@@ -552,28 +552,6 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
           CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "video");
           EventBusSingleton.getInstance().fire(callEvent);
 
-          // ImApi.preChat(conversationViewModel.selectedConversation!.userID.toString()).then((value) {
-          //   BrnLoadingDialog.dismiss(context);
-          //   if(value.errorCode==0){
-          //
-          //     print("isOK");
-          //     TUICorePlatform.instance.callService(TUICALLKIT_SERVICE_NAME, METHOD_NAME_CALL,  {
-          //       PARAM_NAME_TYPE: "video",
-          //       PARAM_NAME_USERIDS: [conversationViewModel.selectedConversation!.userID.toString()],
-          //       PARAM_NAME_GROUPID: ""
-          //     });
-          //     // MCallKitUtil.uicaore!.callService(TUICALLKIT_SERVICE_NAME, METHOD_NAME_CALL, {
-          //     //   PARAM_NAME_TYPE: "video",
-          //     //   PARAM_NAME_USERIDS: [widget.selectedConversation.conversationID],
-          //     //   PARAM_NAME_GROUPID: ""
-          //     // });
-          //
-          //   }else{
-          //
-          //     BrnToast.show(value.errorMsg, context);
-          //   }
-          // });
-
         },child:  Container(child:Icon( Icons.videocam_outlined) ,padding:EdgeInsets.only(left: 8,right: 8,top: 1,bottom: 1),decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.white),),),
 
             SizedBox(width: 16,),
@@ -1024,7 +1002,10 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     if (widget.config!.onlyShowMessage!) {
       return SizedBox();
     }
-    return Container( child: Column(children: [createBottomActionWidget(),SizedBox(height: 8,),
+    return Container( child: Column(children: [
+
+      if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
+      createBottomActionWidget(),SizedBox(height: 8,),
       Container( child:Divider(height: 1,color:Color.fromARGB(255, 230, 230, 230)),),
       TIMUIKitInputTextField(
       groupID: widget.groupID,

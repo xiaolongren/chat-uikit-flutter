@@ -20,6 +20,8 @@ ChatStatusInfo _$ChatStatusInfoFromJson(Map<String, dynamic> json) =>
       json['endTime'] as int? ?? 0,
       json['voiceCallOrderEnable'] as bool? ?? true,
       json['videoCallOrderEnable'] as bool? ?? false,
+      json['isRemoteCustomerService'] as bool? ?? false,
+      json['isCustomerService'] as bool? ?? false,
       json['order'] == null
           ? null
           : ImOrder.fromJson(json['order'] as Map<String, dynamic>),
@@ -39,5 +41,7 @@ Map<String, dynamic> _$ChatStatusInfoToJson(ChatStatusInfo instance) =>
       'endTime': instance.endTime,
       'voiceCallOrderEnable': instance.voiceCallOrderEnable,
       'videoCallOrderEnable': instance.videoCallOrderEnable,
+      'isRemoteCustomerService': instance.videoCallOrderEnable,
+      'isCustomerService': instance.isCustomerService,
       'order': instance.order,
     };
