@@ -1,3 +1,21 @@
+# 2.3.2
+
+## Improvements
+
+* Enhanced message list performance.
+
+## Bug Fixes
+
+* Fixed an issue that prevented the group member addition/removal modal from closing.
+* Addressed several other bugs.
+
+# 2.3.1
+
+## Bug Fixes
+
+* Resolved an issue that prevented the clearing of history messages after deleting a conversation.
+* Fixed an issue that prevented opening files sent by the user themselves on Android.
+
 # 2.3.0
 
 ## Breaking Changes
