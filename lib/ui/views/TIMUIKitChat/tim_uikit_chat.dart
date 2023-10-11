@@ -275,10 +275,13 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
 
   @override
   void initState() {
-    super.initState();
-    conversationViewModel.selectedConversation=widget.conversation;
+
     CustomImController.chatStatusInfo = null;
     print("objectinitState");
+    if(conversationViewModel.selectedConversation==null||(conversationViewModel.selectedConversation!.conversationID!)!=widget.conversation.conversationID!){
+      conversationViewModel.setSelectedConversation(widget.conversation!);
+     }
+
     txtOrderFinishStreamSubscription =
         EventBusSingleton.getInstance().on<TxtChatEvent>().listen((event) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -349,7 +352,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
 
 
     checkChatInfo();
-
+    super.initState();
   }
   @override
   activate(){
