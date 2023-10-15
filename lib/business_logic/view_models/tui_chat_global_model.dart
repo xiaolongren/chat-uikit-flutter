@@ -462,6 +462,7 @@ class TUIChatGlobalModel extends ChangeNotifier implements TIMUIKitClass {
           }
         } catch (err) {
           // err;
+          print("typing:::"+err.toString());
         }
       }
     }

@@ -41,7 +41,7 @@ Map<String, dynamic> _$ChatStatusInfoToJson(ChatStatusInfo instance) =>
       'endTime': instance.endTime,
       'voiceCallOrderEnable': instance.voiceCallOrderEnable,
       'videoCallOrderEnable': instance.videoCallOrderEnable,
-      'isRemoteCustomerService': instance.videoCallOrderEnable,
+      'isRemoteCustomerService': instance.isRemoteCustomerService,
       'isCustomerService': instance.isCustomerService,
       'order': instance.order,
     };

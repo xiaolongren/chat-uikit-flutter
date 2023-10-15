@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
 class TitleStatusWidget extends StatefulWidget {
-  final String title;
-  final String onlineStatus;
+   String title="";
+    String onlineStatus="";
 
   TitleStatusWidget({
     required this.title,
@@ -29,12 +29,15 @@ class TitleStatusWidgetState extends State<TitleStatusWidget> {
   void updateOnlineStatus(String status) {
     setState(() {
       onlineStatus = status;
+      widget.onlineStatus=onlineStatus;
     });
   }
   void updateOnlineStatusAndNick(String mtitle,String status) {
     setState(() {
       onlineStatus = status;
       title=mtitle;
+      widget.title=mtitle;
+      print("updateOnlineStatusAndNick：："+mtitle);
     });
   }
 

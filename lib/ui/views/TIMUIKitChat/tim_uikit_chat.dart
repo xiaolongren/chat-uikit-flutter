@@ -238,6 +238,7 @@ class TIMUIKitChat extends StatefulWidget {
 }
 
 class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
+
   CustomImController? customImController;
   StreamSubscription? streamSubscription;
   StreamSubscription? txtOrderFinishStreamSubscription;
@@ -972,17 +973,18 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                         //   right: 16,
                         //   top: 80,
                         // ),
+
                       if(showInputDisableView)
                         Positioned(
                           child: Container(child: Center(child: Text(
                               "免费条数已用完了"),),
                             width: double.infinity,
-                            height: 50,
-                            color: Color.fromARGB(20, 0, 0, 0),),
+                            height: 60,
+                            color: Colors.white,),
                           right: 0,
                           left: 0,
                           bottom: 0,
-                          height: 50,),
+                          height: 60,),
 
 
                       if (_dragging)
@@ -1005,7 +1007,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     if (widget.config!.onlyShowMessage!) {
       return SizedBox();
     }
-    return Container( child: Column(children: [
+    Widget inputwidget= Container( child: Column(children: [
 
       if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
       createBottomActionWidget(),SizedBox(height: 8,),
@@ -1055,6 +1057,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
           .config?.isAllowEmojiPanel ??
           true,
     )],),);
+
+      return inputwidget;
 
   }
 
