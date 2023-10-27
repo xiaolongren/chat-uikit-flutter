@@ -89,7 +89,7 @@ class MConversationItemState extends State<MConversationItem> {
             Container(
               width: double.infinity,
 
-              height: 70,
+              height: 72,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -156,6 +156,7 @@ class MConversationItemState extends State<MConversationItem> {
                           height: 4,
                         ),
                         Container(
+
                             margin: EdgeInsets.only(left: 8),
                             child: Text(
                               overflow: TextOverflow.ellipsis,
@@ -198,6 +199,7 @@ class MConversationItemState extends State<MConversationItem> {
 
   String parseTitle() {
     String title = "系统消息";
+    print("widget.conversationItem.conversationID:"+widget.conversationItem.conversationID.toString());
     if (widget.conversationItem.conversationID ==
         CustomConversationId.INTERACTION_MSG) {
       title = "互动消息";

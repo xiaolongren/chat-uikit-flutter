@@ -359,12 +359,14 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   activate(){
     super.activate();
     FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
-
+    print("生命周期 activate=======");
   }
 
   @override
   void reassemble() {
     super.reassemble();
+    print("生命周期 reassemble=======");
+
   }
   @override
   deactivate(){
@@ -406,7 +408,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                   mvalue.data!.uid, mvalue.data!.remoteUid);
             }
             OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
-                widget.conversation.showName!,
+                widget.conversation.showName!.isEmpty?mvalue.data!.remoteNick:widget.conversation.showName!,
                 mvalue.data!.remoteUserOnlineStatusTitle!);
             EventBusSingleton.getInstance().fire(onlineStatusEvent);
           });
@@ -442,6 +444,11 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     if (txtOrderFinishStreamSubscription != null) {
       txtOrderFinishStreamSubscription!.cancel();
       streamSubscription!.cancel();
+    }
+    if(orderStatusChangeSubscription!=null){
+      orderStatusChangeSubscription!.cancel();
+      orderStatusChangeSubscription=null;
+
     }
 
     model.dispose();

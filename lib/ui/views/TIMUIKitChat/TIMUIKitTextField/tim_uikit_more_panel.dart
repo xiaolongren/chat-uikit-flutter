@@ -466,11 +466,11 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
       )) {
         return;
       }
-      await Permissions.checkPermission(
-        context,
-        Permission.microphone.value,
-        theme,
-      );
+      // await Permissions.checkPermission(
+      //   context,
+      //   Permission.microphone.value,
+      //   theme,
+      // );
 
       if (PlatformUtils().isAndroid) {
         AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -503,24 +503,24 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
 
       final convID = widget.conversationID;
       final convType = widget.conversationType;
-      final pickedFile = await CameraPicker.pickFromCamera(context,
-          pickerConfig: CameraPickerConfig(
-              enableRecording: true,
-              textDelegate: IntlCameraPickerTextDelegate()));
-      final originFile = await pickedFile?.originFile;
+      final ImagePicker picker = ImagePicker();
+      final XFile? photoFile = await picker.pickImage(source: ImageSource.camera);
+
+      final pickedFile = File(photoFile!.path!);
+
+
+      final originFile = pickedFile;
+
       if (originFile != null) {
-        final type = pickedFile!.type;
-        if (type == AssetType.image) {
+
           MessageUtils.handleMessageError(
               model.sendImageMessage(
                   imagePath: originFile.path,
                   convID: convID,
                   convType: convType),
               context);
-        }
-        if (type == AssetType.video) {
-          _sendVideoMessage(pickedFile, model);
-        }
+
+
       } else {
         // Toast.showToast(ToastType.fail, TIM_t("图片不能为空"), context);
       }

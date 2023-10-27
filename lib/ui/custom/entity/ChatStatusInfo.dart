@@ -38,6 +38,8 @@ class ChatStatusInfo {
     bool isRemoteCustomerService;
     @JsonKey(defaultValue: false)
     bool isCustomerService;
+    @JsonKey(defaultValue: "")
+    String remoteNick;
 
   //双方正在使用的同一个订单
     @JsonKey(defaultValue: null)
@@ -58,7 +60,8 @@ class ChatStatusInfo {
         this.videoCallOrderEnable,
         this.isRemoteCustomerService,
       this.isCustomerService,
-      this.order);
+      this.order,
+        this.remoteNick);
     factory ChatStatusInfo.fromJson(Map<String, dynamic> json) =>
         _$ChatStatusInfoFromJson(json);
 
