@@ -182,9 +182,9 @@ class MConversationItemState extends State<MConversationItem> {
         ),
       ),
       onTap: () {
+        markRead(widget.conversationItem.userID!);
         if (widget.conversationItem.conversationID ==
             CustomConversationId.INTERACTION_MSG) {
-          markRead(widget.conversationItem.userID!);
           ARouter(RoutingTable.interactionMsgPage).push();
         } else if (widget.conversationItem.conversationID ==
             CustomConversationId.DayPush_MSG) {

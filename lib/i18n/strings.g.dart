@@ -3,9 +3,9 @@
  * Generated file. Do not edit.
  *
  * Locales: 3
- * Strings: 2073 (691.0 per locale)
+ * Strings: 2097 (699.0 per locale)
  *
- * Built on 2023-07-24 at 17:46 UTC
+ * Built on 2023-10-12 at 17:21 UTC
  */
 
 import 'package:flutter/widgets.dart';
@@ -1006,6 +1006,14 @@ class _StringsEn {
 	String get k_0k432y2 => '无法发送，包含文件夹';
 	String get k_002wb4y => '会话';
 	String get k_0od4qyh => '视频文件异常';
+	String get k_1bfkxg9 => '不支持 0KB 文件的传输';
+	String get k_0vvsw7g => '文件处理异常';
+	String get k_06e224q => '[消息被管理员撤回]';
+	String get k_1u1mjcl => '[消息被撤回]';
+	String get k_1qcqxea => '选择多个会话';
+	String get k_1qgmc20 => '选择一个会话';
+	String get k_1d8nx6f => '在新窗口中打开';
+	String get k_1hz05ax => '正在下载原始资源，请稍候...';
 }
 
 // Path: <root>
@@ -1715,6 +1723,14 @@ class _StringsZhHans implements _StringsEn {
 	@override String get k_0k432y2 => '无法发送，包含文件夹';
 	@override String get k_002wb4y => '会话';
 	@override String get k_0od4qyh => '视频文件异常';
+	@override String get k_1bfkxg9 => '不支持 0KB 文件的传输';
+	@override String get k_0vvsw7g => '文件处理异常';
+	@override String get k_06e224q => '[消息被管理员撤回]';
+	@override String get k_1u1mjcl => '[消息被撤回]';
+	@override String get k_1qcqxea => '选择多个会话';
+	@override String get k_1qgmc20 => '选择一个会话';
+	@override String get k_1d8nx6f => '在新窗口中打开';
+	@override String get k_1hz05ax => '正在下载原始资源，请稍候...';
 }
 
 // Path: <root>
@@ -2424,6 +2440,14 @@ class _StringsZhHant implements _StringsEn {
 	@override String get k_0k432y2 => '无法发送，包含文件夹';
 	@override String get k_002wb4y => '会话';
 	@override String get k_0od4qyh => '视频文件异常';
+	@override String get k_1bfkxg9 => '不支持 0KB 文件的传输';
+	@override String get k_0vvsw7g => '文件处理异常';
+	@override String get k_06e224q => '[消息被管理员撤回]';
+	@override String get k_1u1mjcl => '[消息被撤回]';
+	@override String get k_1qcqxea => '选择多个会话';
+	@override String get k_1qgmc20 => '选择一个会话';
+	@override String get k_1d8nx6f => '在新窗口中打开';
+	@override String get k_1hz05ax => '正在下载原始资源，请稍候...';
 }
 
 /// Flat map(s) containing all translations.
@@ -3123,6 +3147,14 @@ extension on _StringsEn {
 			'k_0k432y2': '无法发送，包含文件夹',
 			'k_002wb4y': '会话',
 			'k_0od4qyh': '视频文件异常',
+			'k_1bfkxg9': '不支持 0KB 文件的传输',
+			'k_0vvsw7g': '文件处理异常',
+			'k_06e224q': '[消息被管理员撤回]',
+			'k_1u1mjcl': '[消息被撤回]',
+			'k_1qcqxea': '选择多个会话',
+			'k_1qgmc20': '选择一个会话',
+			'k_1d8nx6f': '在新窗口中打开',
+			'k_1hz05ax': '正在下载原始资源，请稍候...',
 		};
 	}
 }
@@ -3821,6 +3853,14 @@ extension on _StringsZhHans {
 			'k_0k432y2': '无法发送，包含文件夹',
 			'k_002wb4y': '会话',
 			'k_0od4qyh': '视频文件异常',
+			'k_1bfkxg9': '不支持 0KB 文件的传输',
+			'k_0vvsw7g': '文件处理异常',
+			'k_06e224q': '[消息被管理员撤回]',
+			'k_1u1mjcl': '[消息被撤回]',
+			'k_1qcqxea': '选择多个会话',
+			'k_1qgmc20': '选择一个会话',
+			'k_1d8nx6f': '在新窗口中打开',
+			'k_1hz05ax': '正在下载原始资源，请稍候...',
 		};
 	}
 }
@@ -4519,6 +4559,14 @@ extension on _StringsZhHant {
 			'k_0k432y2': '无法发送，包含文件夹',
 			'k_002wb4y': '会话',
 			'k_0od4qyh': '视频文件异常',
+			'k_1bfkxg9': '不支持 0KB 文件的传输',
+			'k_0vvsw7g': '文件处理异常',
+			'k_06e224q': '[消息被管理员撤回]',
+			'k_1u1mjcl': '[消息被撤回]',
+			'k_1qcqxea': '选择多个会话',
+			'k_1qgmc20': '选择一个会话',
+			'k_1d8nx6f': '在新窗口中打开',
+			'k_1hz05ax': '正在下载原始资源，请稍候...',
 		};
 	}
 }

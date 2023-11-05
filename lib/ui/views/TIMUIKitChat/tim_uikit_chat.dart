@@ -287,7 +287,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
         EventBusSingleton.getInstance().on<TxtChatEvent>().listen((event) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
 
-
+            if(1==widget.conversation.type){
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 setState(() {
                   this.textFieldHintText = event.inputHint;
@@ -299,12 +299,20 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                   }
                 });
               });
+            }
+
+
 
           });
 
         });
     orderStatusChangeSubscription=EventBusSingleton.getInstance().on<OrderStatusChangeEvent>().listen((event) {
-     Future.delayed(Duration(seconds: 2),(){ checkChatInfo();});
+      if(2==conversationViewModel.selectedConversation!.type!){
+        return;
+      }
+     Future.delayed(Duration(seconds: 2),(){
+       checkChatInfo();
+     });
 
     });
 
@@ -351,8 +359,10 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
       updateDraft();
     });
 
+    if(1==widget!.conversation!.type!){
+      checkChatInfo();
 
-    checkChatInfo();
+    }
     super.initState();
   }
   @override
@@ -403,14 +413,17 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
         }else{
           WidgetsBinding.instance.addPostFrameCallback((_) {
             //对方是倾听者，我方显示免费条数
-            if(mvalue.data!.isRemoteListener){
+            if(mvalue.data!.isRemoteListener&&1==widget.conversation.type){
               MsgCountApi.showMsgCount(
                   mvalue.data!.uid, mvalue.data!.remoteUid);
             }
-            OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
-                widget.conversation.showName!.isEmpty?mvalue.data!.remoteNick:widget.conversation.showName!,
-                mvalue.data!.remoteUserOnlineStatusTitle!);
-            EventBusSingleton.getInstance().fire(onlineStatusEvent);
+            if(mvalue.data!.isRemoteListener&&1==widget.conversation.type){
+              OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
+                  widget.conversation.showName!.isEmpty?mvalue.data!.remoteNick:widget.conversation.showName!,
+                  mvalue.data!.remoteUserOnlineStatusTitle!);
+              EventBusSingleton.getInstance().fire(onlineStatusEvent);
+            }
+
           });
 
         }
@@ -559,11 +572,11 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   createBottomActionWidget(){
     return
       Container( color:Colors.transparent,padding:EdgeInsets.only(left: 16),child: Row(children: [
-        GestureDetector(onTap: (){
-          CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "video");
-          EventBusSingleton.getInstance().fire(callEvent);
-
-        },child:  Container(child:Icon( Icons.videocam_outlined) ,padding:EdgeInsets.only(left: 8,right: 8,top: 1,bottom: 1),decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.white),),),
+        // GestureDetector(onTap: (){
+        //   CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "video");
+        //   EventBusSingleton.getInstance().fire(callEvent);
+        //
+        // },child:  Container(child:Icon( Icons.videocam_outlined) ,padding:EdgeInsets.only(left: 8,right: 8,top: 1,bottom: 1),decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.white),),),
 
             SizedBox(width: 16,),
 
@@ -663,15 +676,21 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
             customImageSmallPngEmojiPackages
                 .addAll(widget.customEmojiStickerList);
           }
+          // 获取底部安全区的边距信息
+          EdgeInsets padding = MediaQuery.of(context).padding;
+
+          // 计算底部安全区的坐标
+          double bottomSafeArea = padding.bottom;
 
           return GestureDetector(
             onTap: () {
               textFieldController.hideAllPanel();
             },
             child: Scaffold(
+
                  backgroundColor: theme.chatBgColor,
                 resizeToAvoidBottomInset: false,
-                appBar: (widget.customAppBar == null)
+                appBar: (widget.customAppBar == null&&1==widget.conversation.type)
                     ? TIMUIKitAppBar(
                         showTotalUnReadCount: widget.showTotalUnReadCount,
                         config: widget.appBarConfig,
@@ -705,6 +724,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                     });
                   },
                   child: Stack(
+
 
 
                     children: [
@@ -990,7 +1010,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                             color: Colors.white,),
                           right: 0,
                           left: 0,
-                          bottom: 0,
+                          bottom: bottomSafeArea,
                           height: 60,),
 
 
@@ -1006,6 +1026,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                     ],
                   ),
                 )),
+
           );
         });
   }

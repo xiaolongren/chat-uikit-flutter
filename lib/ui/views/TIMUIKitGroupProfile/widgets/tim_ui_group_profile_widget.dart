@@ -50,7 +50,7 @@ class TIMUIKitGroupProfileWidget {
     final isDesktopScreen = TUIKitScreenUtils.getFormFactor() == DeviceType.Desktop;
     return Container(
       color: theme.weakDividerColor,
-      height: isDesktopScreen ? 1 : 10,
+      height: isDesktopScreen ? 1 : 1,
     );
   }
 
