@@ -150,6 +150,10 @@
       <excludeFolder url="file://$MODULE_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/image_clipboard/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/image_clipboard/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/example/linux/flutter/ephemeral/.plugin_symlinks/image_clipboard/build" />
+      <excludeFolder url="file://$MODULE_DIR$/example/android/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/example/linux/flutter/ephemeral" />
+      <excludeFolder url="file://$MODULE_DIR$/example/macos/Flutter/ephemeral" />
+      <excludeFolder url="file://$MODULE_DIR$/example/windows/flutter/ephemeral" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
