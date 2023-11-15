@@ -42,8 +42,8 @@ class RemindMessageState extends State<RemindMessageWidget> {
 
          // borderRadius: BorderRadius.circular(20),
           child: Container(
-            //  color: getBgColor(),
-              padding: EdgeInsets.only(top: 2,bottom: 2),
+               color: getBgColor(),
+              padding: EdgeInsets.only(top: 4,bottom: 4,left: 4,right: 4),
 
               alignment: Alignment.center,
               child: Text.rich(TextSpan(children: [
@@ -61,7 +61,6 @@ class RemindMessageState extends State<RemindMessageWidget> {
                     style: TextStyle(color: getActionColor()),
                   )
               ], style: const TextStyle(fontSize: 12))))),margin: EdgeInsets.only(top: 12,bottom: 12),);
-
 
     //return TIMUIKitCustomElem(message: message);
   }
@@ -91,7 +90,7 @@ class RemindMessageState extends State<RemindMessageWidget> {
   getBgColor() {
     try {
       return remindMessage!.bgColor == null
-          ? Colors.transparent
+          ?Colors.transparent
           : ColorUtils.hexToColor(remindMessage!.bgColor!);
     } catch (e) {
       print(e);

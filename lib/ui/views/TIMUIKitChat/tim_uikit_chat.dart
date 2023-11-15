@@ -401,7 +401,10 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
               EventBusSingleton.getInstance().fire(event);
 
             }else{
-              this.textFieldHintText="订单将于"+MDateUtils.caculteShowEndTie(DateTime.now().millisecondsSinceEpoch+mvalue.data!.order!.leftTime*1000)+"结束";
+              setState(() {
+                this.textFieldHintText="订单将于"+MDateUtils.caculteShowEndTie(DateTime.now().millisecondsSinceEpoch+mvalue.data!.order!.leftTime*1000)+"结束";
+
+              });
             }
             OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
                 widget.conversation!.showName!,
@@ -412,12 +415,19 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
           });
         }else{
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            /**
+             * 对方不是倾听者，我方不现实剩余条数
+             */
+            if(!mvalue.data!.isRemoteListener ){
+              setState(() {
+                this.textFieldHintText ="";
+              });
+
+            }
             //对方是倾听者，我方显示免费条数
             if(mvalue.data!.isRemoteListener&&1==widget.conversation.type){
               MsgCountApi.showMsgCount(
                   mvalue.data!.uid, mvalue.data!.remoteUid);
-            }
-            if(mvalue.data!.isRemoteListener&&1==widget.conversation.type){
               OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
                   widget.conversation.showName!.isEmpty?mvalue.data!.remoteNick:widget.conversation.showName!,
                   mvalue.data!.remoteUserOnlineStatusTitle!);

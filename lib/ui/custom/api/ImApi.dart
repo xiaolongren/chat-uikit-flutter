@@ -1,4 +1,6 @@
 import 'dart:collection';
+import 'dart:core';
+import 'package:dufubase/db/DBHelper.dart';
 import 'package:dufubase/request/ApiClient.dart';
 import 'package:dufubase/request/Result.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/entity/ChatStatusInfo.dart';
@@ -8,6 +10,7 @@ class ImApi{
   static String loadChatStatusInfoPath="usergroup/im/commen/checkChatInfo";
   static String loadListenerInfoPath =  "usergroup/listener/getlistenerinfo";
   static String onOpenp2pChatPath =  "usergroup/listener/onOpenp2pChat";
+  static String sendBuyNotifPath =  "usergroup/listener/sendBuyNotif";
   static String onFreeMessagesDepletedPath =  "usergroup/listener/onFreeMessagesDepleted";
 
 
@@ -39,6 +42,29 @@ class ImApi{
         queryParameters: param,
             (json) => Result.fromJsonInt(json),
         misList: false);
+  }
+  static  void sendBuyNoti(int selfUid,int listenerUid) async {
+
+    List<Map<String, dynamic>> data = await DBHelper.queryData(
+        DBHelper.TABLE_DUFU_OPEN_LISTENER_RECORD,
+        where: 'selfUid=? and listenerUid=?',
+        whereArgs: [selfUid, listenerUid]);
+    if(data!=null&&data.length>0){
+      return;
+    }
+
+    Map<String, Object> param = HashMap();
+    param['listenerUid']=listenerUid;
+
+     ApiClient.instance.get<int>(
+        sendBuyNotifPath,
+        queryParameters: param,
+            (json) => Result.fromJsonInt(json),
+        misList: false);
+     Map<String,dynamic> insertdata=HashMap();
+     insertdata["selfUid"]=selfUid;
+     insertdata["listenerUid"]=listenerUid;
+     DBHelper.insertData(DBHelper.TABLE_DUFU_OPEN_LISTENER_RECORD, insertdata);
   }
   static int parseUid(String imId){
        if (imId!= null) {
@@ -83,5 +109,6 @@ class ImApi{
             (item) => Result.fromJsonInt(item));
 
   }
+
 
 }
