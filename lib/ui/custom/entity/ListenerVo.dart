@@ -42,6 +42,9 @@ class ListenerVo {
   //寄语
   @JsonKey(defaultValue: "")
   String message;
+  //控制倾听师聊天窗口是否显示头部信息
+  @JsonKey(defaultValue: 0)
+  int showTopInfo=0;
 
   ListenerVo(
       this.nick,
@@ -61,7 +64,8 @@ class ListenerVo {
       this.goodRate,
       this.message,
       this.serviceUserCount,
-      this.commentNums); // 添加 fromJson 工厂方法
+      this.commentNums,
+      this.showTopInfo); // 添加 fromJson 工厂方法
   factory ListenerVo.fromJson(Map<String, dynamic> json) => _$ListenerVoFromJson(json);
 
   // 添加 toJson 方法

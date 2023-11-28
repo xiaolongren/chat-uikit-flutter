@@ -271,6 +271,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     axis: Axis.vertical,
   );
   bool showTopinfo = false;
+  bool showPlaceOrder = false;
   String textFieldHintText="";
 
 
@@ -386,6 +387,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   }
   checkChatInfo(){
     customImController!.checkChatInfo().then((mvalue) {
+      print("checkChatInfo:"+mvalue.errorCode.toString());
       if (mvalue.errorCode == 0) {
 
         CustomImController.chatStatusInfo = mvalue.data;
@@ -440,10 +442,13 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
         if (mvalue.data!.isRemoteListener) {
           customImController!.loadListenerInfo().then((value)
           {
-            if(value.errorCode == 0){
-              setState(() {
+            if(value.errorCode == 0&&value.data!=null){
+              showPlaceOrder=true;
+              if(value.data!.showTopInfo==1){
                 showTopinfo = true;
-              });
+
+              }
+              setState(() {});
 
 
             }
@@ -453,8 +458,14 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
 
       }
       else{
-        TUIToast.show(content: mvalue.errorMsg,gravity: TUIGravity.center);
-        Navigator.pop(context);
+     //   TUIToast.show(content: mvalue.errorMsg,gravity: TUIGravity.center);
+
+        if(CustomImController.chatStatusInfo==null){
+          Navigator.pop(context);
+          TUIToast.show(content: mvalue.errorMsg,gravity: TUIGravity.center);
+        }
+
+
       }
     });
   }
@@ -964,7 +975,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                         ],
                       ),
                       //头部下单入口
-                      if(showTopinfo)
+                      if(showPlaceOrder)
                         Positioned(
                           child: GestureDetector(child: Container(
                             padding: EdgeInsets.only(left: 6,right: 6,top: 4,bottom: 4),
@@ -985,7 +996,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
 
                           },),
                           right: 16,
-                          top: 80,
+                          top: showTopinfo?80:20,
                         ),
 
 

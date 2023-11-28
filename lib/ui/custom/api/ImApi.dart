@@ -9,6 +9,7 @@ import 'package:tencent_cloud_chat_uikit/ui/custom/entity/ListenerVo.dart';
 class ImApi{
   static String loadChatStatusInfoPath="usergroup/im/commen/checkChatInfo";
   static String loadListenerInfoPath =  "usergroup/listener/getlistenerinfo";
+  static String updateImStatusPath =  "usergroup/im/online/updateImStatus";
   static String onOpenp2pChatPath =  "usergroup/listener/onOpenp2pChat";
   static String sendBuyNotifPath =  "usergroup/listener/sendBuyNotif";
   static String onFreeMessagesDepletedPath =  "usergroup/listener/onFreeMessagesDepleted";
@@ -30,6 +31,16 @@ class ImApi{
         loadListenerInfoPath,
         queryParameters: param,
             (json) => ListenerVo.fromJson(json),
+        misList: false);
+  }
+  static Future<Result<int>> updateImStatus(int uid,int status){
+    Map<String, Object> param = HashMap();
+    param['uid']=uid;
+    param['status']=status;
+    return ApiClient.instance.get<int>(
+        updateImStatusPath,
+        queryParameters: param,
+            (json) => Result.fromJsonInt(json),
         misList: false);
   }
   static Future<Result<int>> onOpenp2pChat(int fromUid,int toUid){
