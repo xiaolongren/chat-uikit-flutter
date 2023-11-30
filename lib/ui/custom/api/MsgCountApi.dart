@@ -7,6 +7,7 @@ import 'package:dufubase/util/MDateUtils.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/entity/FreeMsgCount.dart';
 
 class MsgCountApi {
+  static String ymd="";
   static Future<FreeMsgCount?> getGivedOrderMsgCount(
       int selfUid, int remoteUid) async {
     List<Map<String, dynamic>> data = await DBHelper.queryData(
@@ -28,7 +29,7 @@ class MsgCountApi {
         whereArgs: [
           selfUid,
           remoteUid,
-          MDateUtils.formatTimestamp(DateTime.now().millisecondsSinceEpoch)
+         ymd
         ]);
 
     if (daydata.isNotEmpty) {
@@ -36,7 +37,7 @@ class MsgCountApi {
       return msgCount;
     } else {
       FreeMsgCount msgCount = FreeMsgCount(0, selfUid, remoteUid,
-          MDateUtils.formatTimestamp(DateTime.now().millisecondsSinceEpoch), 5, 1);
+          ymd, 5, 1);
       Map<String,dynamic> data=msgCount.toJson();
       data.remove("id");
       await DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, data)
@@ -98,7 +99,7 @@ class MsgCountApi {
             where: "id=?", whereArgs: [dayMsgCount.id]);
       } else {
         dayMsgCount = FreeMsgCount(0, selfUid, remoteUid,
-            MDateUtils.formatTimestamp(DateTime.now().millisecondsSinceEpoch), 4, 1);
+            ymd, 4, 1);
         DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, dayMsgCount.toJson())
             .then((value) {
           print("insert TABLE_DUFU_msgcount day: " + value.toString());
