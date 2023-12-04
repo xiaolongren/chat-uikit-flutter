@@ -141,6 +141,9 @@ class _TIMUIKitLastMsgState extends TIMUIKitState<TIMUIKitLastMsg> {
       else if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_OPERATOR){
         return map['descr'];
       }
+      else if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_GIVEORDER){
+        return "赠送订单";
+      }
       return "不支持的消息类型";
     }else{
       final callingMessage = CallingMessage.getCallMessage(message.customElem);

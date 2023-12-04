@@ -11,6 +11,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/custom/custom_im_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField/tim_uikit_call_invite_list.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
@@ -410,6 +411,8 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
             final type = asset.type;
             if (filePath != null) {
               if (type == AssetType.image) {
+                //消耗免费条数
+                CustomImController.cosumeMSgCount();
                 MessageUtils.handleMessageError(
                     model.sendImageMessage(
                         imagePath: filePath,
@@ -512,7 +515,8 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
       final originFile = pickedFile;
 
       if (originFile != null) {
-
+        //消耗免费条数
+         CustomImController.cosumeMSgCount();
           MessageUtils.handleMessageError(
               model.sendImageMessage(
                   imagePath: originFile.path,

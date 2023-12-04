@@ -5,7 +5,7 @@ import 'package:bruno/bruno.dart';
 import 'package:dufubase/eventbus/CallEvent.dart';
 import 'package:dufubase/eventbus/FreeMsgCountEvent.dart';
 import 'package:dufubase/eventbus/OnlineStatusEvent.dart';
-
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:dufubase/eventbus/EventBusSingleton.dart';
 import 'package:dufubase/eventbus/OrderCountDStartEvent.dart';
@@ -51,6 +51,7 @@ import 'TIMUIKItMessageList/TIMUIKitTongue/tim_uikit_chat_history_message_list_t
 import 'TIMUIKItMessageList/tim_uikit_chat_history_message_list_config.dart';
 import 'TIMUIKItMessageList/tim_uikit_history_message_list_container.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart' as tencent_chat;
 
 class TIMUIKitChat extends StatefulWidget {
   int startTime = 0;
@@ -328,12 +329,16 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                 this.textFieldHintText =
                     "";
                 FocusScope.of(context).requestFocus(FocusNode());
+                textFieldController.actionType=tencent_chat.ActionType.hideAllPanel!;
+                textFieldController.notifyListeners();
+
               });
             } else {
              setState(() {
                 showInputDisableView = false;
                 this.textFieldHintText =
                     "赠送聊天条数剩余" + event.count.toString() + "条";
+
             });
 
             }
@@ -469,6 +474,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
       }
     });
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -484,7 +490,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
       orderStatusChangeSubscription=null;
 
     }
-
+    CustomImController.chatStatusInfo=null;
+    print("chat dispose");
     model.dispose();
   }
 

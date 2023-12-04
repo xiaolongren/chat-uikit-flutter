@@ -6,5 +6,6 @@ class MyMessageElemType extends MessageElemType {
   static const int CUSTOM_ORDER_NOTIFY = 2003;
   static const int CUSTOM_ORDER_EVENT = 2004;
   static const int CUSTOM_MESSAGE_TYPE_OPERATOR = 2005;
+  static const int CUSTOM_MESSAGE_TYPE_GIVEORDER = 2006;
 
 }

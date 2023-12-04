@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:tencent_cloud_chat_uikit/ui/custom/custom_im_controller.dart';
 import 'package:tencent_im_base/tencent_im_base.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_state.dart';
@@ -218,6 +219,8 @@ class _SendSoundMessageState extends TIMUIKitState<SendSoundMessage> {
 
     if (duration > 0) {
       if (!isCancelSend) {
+        //消耗免费条数
+        CustomImController.cosumeMSgCount();
         MessageUtils.handleMessageError(
             model.sendSoundMessage(
                 soundPath: path,

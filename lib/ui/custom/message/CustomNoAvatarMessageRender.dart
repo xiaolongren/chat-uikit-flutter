@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
+import 'package:tencent_cloud_chat_uikit/ui/custom/messageBuilder/GiveOrderMessageWidget.dart';
 
 import '../constants/MyMessageElemType.dart';
 import '../messageBuilder/DefaultCustomMessageWidget.dart';
@@ -24,6 +25,10 @@ class CustomNoAvatarMessageRender{
         else if(type==MyMessageElemType.CUSTOM_ORDER_NOTIFY){
           return OrderNotifyMessageWidget(message);
         }
+        else if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_GIVEORDER){
+          return null;
+        }
+
         return DefaultCustomMessageWidget();
       }else{
         return null;

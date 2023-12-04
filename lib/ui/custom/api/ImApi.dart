@@ -120,6 +120,15 @@ class ImApi{
             (item) => Result.fromJsonInt(item));
 
   }
+  static Future<Result<int>> getGiveOrder(int id){
+    String preChat="pay/order/getGiveOrder";
+    Map<String, Object> param = HashMap();
+    param['id'] = id;
+    return ApiClient.instance.get<int>(
+        preChat,
+        queryParameters: param,
+            (item) => Result.fromJsonInt(item));
+  }
 
 
 }
