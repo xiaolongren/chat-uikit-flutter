@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:bruno/bruno.dart';
+import 'package:dufubase/config/UmengEvent.dart';
 import 'package:dufubase/eventbus/CallEvent.dart';
 import 'package:dufubase/eventbus/FreeMsgCountEvent.dart';
 import 'package:dufubase/eventbus/OnlineStatusEvent.dart';
@@ -47,6 +48,7 @@ import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/TIMUIKitTextField
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/tim_uikit_multi_select_panel.dart';
 import 'package:tencent_cloud_chat_uikit/ui/views/TIMUIKitChat/tim_uikit_send_file.dart';
 import 'package:tencent_cloud_uikit_core/platform/tuicore_platform_interface.dart';
+import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 import 'TIMUIKItMessageList/TIMUIKitTongue/tim_uikit_chat_history_message_list_tongue.dart';
 import 'TIMUIKItMessageList/tim_uikit_chat_history_message_list_config.dart';
 import 'TIMUIKItMessageList/tim_uikit_history_message_list_container.dart';
@@ -611,6 +613,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
         GestureDetector(onTap: (){
           CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "voice");
           EventBusSingleton.getInstance().fire(callEvent);
+          UmengCommonSdk.onEvent(UmengEvent.clickCallIcon,{});
+
 
         },child:   Container(child:Icon( Icons.call_end_outlined) ,padding:EdgeInsets.only(left: 8,right: 8,top: 1,bottom: 1),decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.white),),
             ),
@@ -893,6 +897,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                                     255, 65, 222, 148),
                                                 fontSize: 12),),onTap: (){
                                             ARouter(RoutingTable.listenerCommentsPage).addParam("targetUid", customImController!.listenerVo!.uid.toString()).push();
+                                            UmengCommonSdk.onEvent(UmengEvent.clickListenerCommnet,{});
+
                                           },)
                                           ,
                                           SizedBox(width: 16,)
@@ -994,6 +1000,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                             child: Text("立即下单",style: TextStyle(color: Colors.white,fontSize: 12),
 
                           ),),onTap: (){
+                            UmengCommonSdk.onEvent(UmengEvent.clickPlaceOrder,{});
 
 
                             EventBusSingleton.getInstance().fire(

@@ -34,6 +34,7 @@ class ImApi{
         misList: false);
   }
   static Future<Result<int>> updateImStatus(int uid,int status){
+
     Map<String, Object> param = HashMap();
     param['uid']=uid;
     param['status']=status;

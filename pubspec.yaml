@@ -33,6 +33,8 @@ dependencies:
   provider: ^6.1.1
   intl: any
   get_it: ^7.2.0
+  umeng_common_sdk: 1.2.7
+
   dotted_border: ^2.0.0+2
   flutter_svg: ^2.0.6
   image_picker: ^1.0.4
