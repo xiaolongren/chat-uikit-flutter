@@ -45,6 +45,9 @@ class ListenerVo {
   //控制倾听师聊天窗口是否显示头部信息
   @JsonKey(defaultValue: 0)
   int showTopInfo=0;
+  @JsonKey(defaultValue: 1)
+
+  int openFastCall;
 
   ListenerVo(
       this.nick,
@@ -65,6 +68,7 @@ class ListenerVo {
       this.message,
       this.serviceUserCount,
       this.commentNums,
+      this.openFastCall,
       this.showTopInfo); // 添加 fromJson 工厂方法
   factory ListenerVo.fromJson(Map<String, dynamic> json) => _$ListenerVoFromJson(json);
 

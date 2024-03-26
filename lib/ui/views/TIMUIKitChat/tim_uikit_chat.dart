@@ -376,7 +376,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   @override
   activate(){
     super.activate();
-    FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
+  //  FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
     print("生命周期 activate=======");
   }
 
@@ -389,7 +389,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   @override
   deactivate(){
     super.deactivate();
-    FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 237, 237, 237));
+  //  FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 237, 237, 237));
 
   }
   checkChatInfo(){
@@ -500,7 +500,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   @override
   void didUpdateWidget(TIMUIKitChat oldWidget) {
     super.didUpdateWidget(oldWidget);
-    FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
+   // FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
 
     if (widget.conversationID != oldWidget.conversationID) {
       isInit = false;
@@ -1001,12 +1001,16 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
 
                           ),),onTap: (){
                             UmengCommonSdk.onEvent(UmengEvent.clickPlaceOrder,{});
+                            int openFastCall=1;
+                            if(customImController?.listenerVo!=null){
+                              openFastCall= customImController!.listenerVo!.openFastCall;
+                            }
 
 
                             EventBusSingleton.getInstance().fire(
+
                                 PlaceOrderEvent(int.parse(
-                                    widget.conversation.conversationID!
-                                        .replaceAll("c2c_huanxin", ""))));
+                                    widget.conversation.conversationID!.replaceAll("c2c_huanxin", "")),openFastCall));
 
                           },),
                           right: 16,

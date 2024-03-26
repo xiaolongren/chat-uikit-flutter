@@ -24,6 +24,8 @@ ListenerVo _$ListenerVoFromJson(Map<String, dynamic> json) => ListenerVo(
       json['message'] as String? ?? '',
       json['serviceUserCount'] as int? ?? 0,
       json['commentNums'] as int? ?? 0,
+      json['openFastCall'] as int? ?? 1,
+      json['showTopInfo'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$ListenerVoToJson(ListenerVo instance) =>
@@ -46,4 +48,6 @@ Map<String, dynamic> _$ListenerVoToJson(ListenerVo instance) =>
       'serviceUserCount': instance.serviceUserCount,
       'commentNums': instance.commentNums,
       'message': instance.message,
+      'showTopInfo': instance.showTopInfo,
+      'openFastCall': instance.openFastCall,
     };
