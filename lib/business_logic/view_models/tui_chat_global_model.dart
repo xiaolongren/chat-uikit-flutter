@@ -198,8 +198,10 @@ class TUIChatGlobalModel extends ChangeNotifier implements TIMUIKitClass {
 
   clearCurrentConversation() {
     // Only keep the last 20 messages when existing a chat.
-    _messageListMap[currentSelectedConv] = (_messageListMap[currentSelectedConv] ?? []).sublist(max(0, ((_messageListMap[currentSelectedConv] ?? []).length - 20)));
-    _currentConversationList.removeLast();
+    _messageListMap[currentSelectedConv] = (_messageListMap[currentSelectedConv] ?? []).sublist(max(0, ((_messageListMap[currentSelectedConv] ?? []).length - 10)));
+    if (_currentConversationList.isNotEmpty) {
+      _currentConversationList.removeLast();
+    }
     // notifyListeners();
   }
 
@@ -269,7 +271,7 @@ class TUIChatGlobalModel extends ChangeNotifier implements TIMUIKitClass {
       if (conversationItem == null || conversationItem.type == null) {
         return;
       }
-      final conversationID = conversationItem.userID ?? conversationItem.groupID ?? conversationItem.conversationID;
+      final conversationID = TencentUtils.checkString(conversationItem.userID) ?? TencentUtils.checkString(conversationItem.groupID) ?? conversationItem.conversationID;
       if (messageListMap[conversationID] == null || messageListMap[conversationID]!.isEmpty) {
         index++;
         Future.delayed(Duration(milliseconds: 500 * index), () {
@@ -534,7 +536,8 @@ class TUIChatGlobalModel extends ChangeNotifier implements TIMUIKitClass {
           });
         }
         _receivedNewMessageCount = 0;
-        final currentMsg = _messageListMap[convID] ?? [];
+        final tempCurrentMsgList = _messageListMap[convID] ?? [];
+        final currentMsg = tempCurrentMsgList..sublist(max(0, (tempCurrentMsgList.length - 30)));
         _messageListMap[convID] = [newMsg, ...currentMsg];
         notifyListeners();
         final messageID = newMsg.msgID;
@@ -640,6 +643,12 @@ class TUIChatGlobalModel extends ChangeNotifier implements TIMUIKitClass {
   Future<void> onMessageDownloadProgressCallback(V2TimMessageDownloadProgress messageProgress) async {
     final currentProgress = getMessageProgress(messageProgress.msgID);
 
+    if (messageProgress.isError || messageProgress.errorCode != 0) {
+      V2TimMessage? message = await _findAndRetrieveMessage(messageProgress.msgID);
+      _handleDownloadError(messageProgress, message);
+      return;
+    }
+
     if (messageProgress.isFinish && currentProgress < 100) {
       V2TimMessage? message = await _findAndRetrieveMessage(messageProgress.msgID);
       _handleFinishedDownload(messageProgress, message);
@@ -669,6 +678,11 @@ class TUIChatGlobalModel extends ChangeNotifier implements TIMUIKitClass {
     } else {
       _updateMessageLocationAndDownloadFile(messageProgress);
     }
+  }
+
+  void _handleDownloadError(V2TimMessageDownloadProgress messageProgress, V2TimMessage? message) {
+    setMessageProgress(messageProgress.msgID, 0);
+    downloadFile();
   }
 
   void _updateMessageAndDownloadFile(V2TimMessage message, V2TimMessageDownloadProgress messageProgress) {
