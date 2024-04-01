@@ -28,6 +28,9 @@ class CustomNoAvatarMessageRender{
         else if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_GIVEORDER){
           return null;
         }
+        else if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_INVITE_PLACEORDER){
+          return null;
+        }
 
         return DefaultCustomMessageWidget();
       }else{

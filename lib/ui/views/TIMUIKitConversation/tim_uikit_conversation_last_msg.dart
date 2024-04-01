@@ -127,6 +127,9 @@ class _TIMUIKitLastMsgState extends TIMUIKitState<TIMUIKitLastMsg> {
       else if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_GIVEORDER){
         return "赠送订单";
       }
+      else if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_INVITE_PLACEORDER){
+        return "订单邀请";
+      }
       return "不支持的消息类型";
     }else{
       final callingMessage = CallingMessage.getCallMessage(message.customElem);

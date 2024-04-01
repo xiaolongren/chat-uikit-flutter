@@ -565,6 +565,16 @@ class _TIMUIKitTextFieldLayoutNarrowState extends TIMUIKitState<TIMUIKitTextFiel
                         SizedBox(
                           height: 32.0,
                           child: ElevatedButton(
+                            style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
+                                shadowColor: MaterialStateColor.resolveWith(
+                                        (states) => Colors.transparent),
+                                backgroundColor: MaterialStateColor.resolveWith(
+                                        (states) => Color.fromARGB(255, 51, 204, 204))),
                             onPressed: () {
                               widget.onSubmitted();
                               if (showKeyboard) {
@@ -576,7 +586,7 @@ class _TIMUIKitTextFieldLayoutNarrowState extends TIMUIKitState<TIMUIKitTextFiel
                                 });
                               }
                             },
-                            child: Text(TIM_t("发送")),
+                            child: Text(TIM_t("发送"),style: TextStyle(color: Colors.white),),
                           ),
                         ),
                     ],

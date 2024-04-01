@@ -10,6 +10,7 @@ import 'package:tencent_cloud_chat_uikit/ui/custom/messageBuilder/GiveOrderMessa
 import 'package:tencent_cloud_chat_uikit/ui/custom/messageBuilder/OrderNotifyMessageWidget.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/messageBuilder/RemindMessageWidget.dart';
 
+import '../messageBuilder/InvitePlaceOrderMessageWidget.dart';
 import 'calling_message/CallingMessageBuilder.dart';
 import 'calling_message/calling_message.dart';
 import 'calling_message/group_call_message_builder.dart';
@@ -22,9 +23,12 @@ class CustomMessageRender {
     if (map.containsKey("subCustomType")) {
       type = map["subCustomType"];
     }
-    print("subType:"+type.toString());
+    print("subType:" + type.toString());
     if (type == MyMessageElemType.CUSTOM_MESSAGE_TYPE_GIVEORDER) {
       return GiveOrderMessageWidget(message);
+    }
+    if (type == MyMessageElemType.CUSTOM_MESSAGE_TYPE_INVITE_PLACEORDER) {
+      return InvitePlaceOrderMessageWidget(message);
     }
     return CallingMessageBulder.build(message);
   }
