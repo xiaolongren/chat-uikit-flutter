@@ -260,7 +260,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
     axis: Axis.vertical,
   );
-  bool showTopinfo = false;
+  bool showTopinfo = true;
   bool showPlaceOrder = false;
   String textFieldHintText="";
 
@@ -716,17 +716,31 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                         children: [
                           if (widget.customAppBar != null) widget.customAppBar!,
                           //头部倾听师的相关信息
-                          if(showTopinfo)
+                          if(showTopinfo&&customImController?.listenerVo!=null)
                             Container(
-                              color:Color.fromARGB(255, 243, 243, 243),
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(9),color:Colors.white,
+
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color.fromARGB(255, 243, 243, 243),
+                                    spreadRadius: 6,
+                                    blurRadius: 6,
+                                    offset: Offset(2, 3), // 阴影的偏移量
+                                  ),
+                                ],
+                              ),
+                              margin: EdgeInsets.only(left: 16,right: 16,top: 4 ,bottom: 2),
+
+
                               width: double.infinity,
                               padding: EdgeInsets.only(
-                                left: 16,),
+                                left: 16,right: 0),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   //  头像
-                                  ExtendedImage.network(
+                                  GestureDetector(child:  ExtendedImage.network(
+
                                     customImController!.listenerVo!.headUrl,
                                     // item.user.avatar??"",
                                     width: 50,
@@ -746,14 +760,17 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                         );
                                       }
                                     },
-                                  ),
+
+                                  ),onTap: (){
+                                    ARouter(RoutingTable.userpage).addParam("targetUid", customImController!.listenerVo!.uid.toString()).push();
+                                  },)
+                                 ,
                                   SizedBox(width: 8,),
 
-                                  Container(width: 0.5,
-                                      height: 68,
-                                      color: Color.fromARGB(
-                                          255, 230, 230, 230)),
-                                  Expanded(child: Column(
+
+                                  Expanded(child:
+                                  Container(
+                                     child: Column(
 
                                     children: [
                                       SizedBox(height: 4,),
@@ -762,102 +779,108 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                         margin: EdgeInsets.only(left: 8),
                                         child: Row(
 
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
-                                            Flexible(
-                                                flex: 1,
-                                                child: Container(
+                                            Center(
                                                     child: Column(
                                                       children: [
-                                                        Text("" +
-                                                            customImController!
-                                                                .listenerVo!
-                                                                .serviceUserCount
-                                                                .toString()),
+                                                        Text("" +(customImController!
+                                                            .listenerVo!
+                                                            .serviceUserCount<4?"4":
+                                                        customImController!
+                                                            .listenerVo!
+                                                            .serviceUserCount
+                                                            .toString())),
                                                         SizedBox(height: 3,),
                                                         Text(
-                                                          "倾诉人次",
+                                                          "倾诉人数",
                                                           style: TextStyle(
-                                                              fontSize: 10,
+                                                              fontSize: 11,
                                                               color: Color(
                                                                   0xFF9E9E9E)),
                                                         ),
                                                       ],
-                                                    ))),
-                                            Expanded(child: SizedBox()),
-                                            Flexible(
-                                                flex:2,
-                                                child: Container(
-                                                    child: Column(
-                                                      children: [
-                                                        Text((customImController!
-                                                        .listenerVo!
-                                                        .serviceSeconds/3600.0)
-                                                            .toString()+"小时"),
-                                                        SizedBox(height: 3,),
-                                                        Text(
-                                                          "服务时长",
-                                                          style: TextStyle(
-                                                              fontSize: 10,
-                                                              color: Color(
-                                                                  0xFF9E9E9E)),
-                                                        ),
-                                                      ],
-                                                    ))),
-                                            Expanded(child: SizedBox()),
-                                            Flexible(
-                                                flex: 1,
+                                                    )),
+
+                                            Expanded(
+
                                                 child: Container(
                                                     child: Column(
                                                       children: [
                                                         Text(customImController!
                                                             .listenerVo!
                                                             .goodRate
-                                                            .toString()),
+                                                            .toString()+"%"),
                                                         SizedBox(height: 3,),
                                                         Text(
                                                           "好评率",
                                                           style: TextStyle(
-                                                              fontSize: 10,
+                                                              fontSize: 11,
                                                               color: Color(
                                                                   0xFF9E9E9E)),
                                                         ),
                                                       ],
                                                     ))),
 
+
+
+                                            Expanded(
+
+
+                                                child: Container(
+
+                                                    child: Column(
+                                                      children: [
+                                                        Text((customImController!
+                                                            .listenerVo!
+                                                            .serviceSeconds/60.0)
+                                                            .toString()+"分钟"),
+                                                        SizedBox(height: 3,),
+                                                        Text(
+                                                          "服务时长",
+                                                          style: TextStyle(
+                                                              fontSize: 11,
+                                                              color: Color(
+                                                                  0xFF9E9E9E)),
+                                                        ),
+                                                      ],
+                                                    ))),
                                           ],
                                         ),
                                         width: double.infinity,),
 
-                                      SizedBox(height: 6),
-                                      Divider(height: 1,
-                                        color: Color.fromARGB(
-                                            255, 230, 230, 230),),
+
                                       SizedBox(
                                         height: 6,
                                       ),
-                                      Row(
+                                      Container(child: Row(
 
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .end,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween
+                                        ,
                                         children: [
+                                          BrnStateTag(
+                                            tagText: customImController!.getcertificateName(customImController!.listenerVo!),
+                                            tagState: customImController!.getcertificateName(customImController!.listenerVo!)=='倾听师'?TagState.running:TagState.succeed,
+                                          ),
                                           GestureDetector(child: Text("评价(" +
                                               customImController!.listenerVo!
                                                   .commentNums.toString() + ")",
                                             style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 65, 222, 148),
-                                                fontSize: 12),),onTap: (){
-                                            ARouter(RoutingTable.listenerCommentsPage).addParam("targetUid", customImController!.listenerVo!.uid.toString()).push();
+                                                color: Color(0xFF00AE66),
+                                                fontSize: 14),),onTap: (){
+                                            ARouter(RoutingTable.listenerCommentsPage).addParam("targetUid", customImController!.listenerVo!.uid.toString()).addParam("title", "全部评价("+customImController!.listenerVo!.commentNums.toString()+")").push();
                                             UmengCommonSdk.onEvent(UmengEvent.clickListenerCommnet,{});
 
                                           },)
                                           ,
-                                          SizedBox(width: 16,)
-                                        ],),
-                                      SizedBox(height: 4,),
+
+                                        ],),padding: EdgeInsets.only(right: 24,left: 8),)
+                                      ,
+                                      SizedBox(height: 6,),
 
                                     ],
-                                  ),),
+                                  ), )
+                                  ,),
 
                                 ],
                               ),
@@ -951,31 +974,13 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
 
                           },),
                           right: 16,
-                          top: showTopinfo?80:20,
+                          top: showTopinfo?88:20,
                         ),
 
 
 
 
 
-                        // Positioned(
-                        //   child:
-                        //   Container(child: BrnNormalButton(
-                        //     text: "立即下单",
-                        //     fontSize: 12,
-                        //     backgroundColor: Colors.orange,
-                        //     textColor: Colors.white,
-                        //     radius: 16,
-                        //     onTap: () {
-                        //       EventBusSingleton.getInstance().fire(
-                        //           PlaceOrderEvent(int.parse(
-                        //               widget.conversation.conversationID!
-                        //                   .replaceAll("c2c_huanxin", ""))));
-                        //     },), height: 30,)
-                        //   ,
-                        //   right: 16,
-                        //   top: 80,
-                        // ),
 
                       if(showInputDisableView)
                         Positioned(

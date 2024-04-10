@@ -564,8 +564,13 @@ class _TIMUIKitTextFieldLayoutNarrowState extends TIMUIKitState<TIMUIKitTextFiel
                       if ((isAndroidDevice() || isWebDevice()) && !showMoreButton)
                         SizedBox(
                           height: 32.0,
+                          width: 56,
                           child: ElevatedButton(
+
                             style: ButtonStyle(
+                                padding: MaterialStateProperty.all<EdgeInsets>( // 设置内边距
+                                    EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0) // 自定义内边距值
+                                ),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(6),

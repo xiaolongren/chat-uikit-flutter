@@ -85,6 +85,9 @@ class CustomImController {
      uid=parseUid();
    }
 
+  /**
+   * 发送邀请下单消息
+   */
    sendPlaceOrderMsg() async {
      if(uid==0){
       await loadImId();
@@ -96,5 +99,11 @@ class CustomImController {
      }
 
    }
+  String getcertificateName(ListenerVo listenerVo){
 
+    if(listenerVo.certificateName==""){
+      return "倾听师";
+    }
+    return listenerVo.certificateName.toString();
+  }
 }

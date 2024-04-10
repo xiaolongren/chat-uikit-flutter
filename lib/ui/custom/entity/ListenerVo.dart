@@ -39,6 +39,8 @@ class ListenerVo {
   int serviceUserCount = 0;
   @JsonKey(defaultValue: 0)
   int commentNums = 0;
+  @JsonKey(defaultValue: "倾听师")
+  String certificateName;
   //寄语
   @JsonKey(defaultValue: "")
   String message;
@@ -69,7 +71,7 @@ class ListenerVo {
       this.serviceUserCount,
       this.commentNums,
       this.openFastCall,
-      this.showTopInfo); // 添加 fromJson 工厂方法
+      this.showTopInfo,this.certificateName); // 添加 fromJson 工厂方法
   factory ListenerVo.fromJson(Map<String, dynamic> json) => _$ListenerVoFromJson(json);
 
   // 添加 toJson 方法

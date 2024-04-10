@@ -8,44 +8,36 @@ import '../constants/MyMessageElemType.dart';
 import '../messageBuilder/DefaultCustomMessageWidget.dart';
 import '../messageBuilder/OrderNotifyMessageWidget.dart';
 import '../messageBuilder/RemindMessageWidget.dart';
+import '../messageBuilder/TopicMessageWidget.dart';
 
-class CustomNoAvatarMessageRender{
+class CustomNoAvatarMessageRender {
+  static Widget? render(V2TimMessage message) {
+    try {
+      print("eeeeeeeeeeee::type::" + message.customElem!.data!);
 
-
-  static Widget? render(V2TimMessage message){
-    try{
-      print("eeeeeeeeeeee::type::"+message.customElem!.data!);
-
-      Map<String,dynamic> map=jsonDecode( message.customElem!.data!);
-      if(map.containsKey("subCustomType")){
-        int   type= map["subCustomType"];
-        if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_REMIND){
+      Map<String, dynamic> map = jsonDecode(message.customElem!.data!);
+      if (map.containsKey("subCustomType")) {
+        int type = map["subCustomType"];
+        if (type == MyMessageElemType.CUSTOM_MESSAGE_TYPE_REMIND) {
           return RemindMessageWidget(message);
-        }
-        else if(type==MyMessageElemType.CUSTOM_ORDER_NOTIFY){
+        } else if (type == MyMessageElemType.CUSTOM_ORDER_NOTIFY) {
           return OrderNotifyMessageWidget(message);
-        }
-        else if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_GIVEORDER){
+        } else if (type == MyMessageElemType.CUSTOM_MESSAGE_TYPE_GIVEORDER) {
           return null;
-        }
-        else if(type==MyMessageElemType.CUSTOM_MESSAGE_TYPE_INVITE_PLACEORDER){
+        } else if (type ==
+            MyMessageElemType.CUSTOM_MESSAGE_TYPE_INVITE_PLACEORDER) {
           return null;
+        } else if (type == MyMessageElemType.CUSTOM_MESSAGE_TYPE_TOPIC_SELECT) {
+          return TopicMessageWidget(message);
         }
 
         return DefaultCustomMessageWidget();
-      }else{
+      } else {
         return null;
-
       }
-
-
-
-    }catch(e){
-
+    } catch (e) {
       print("eeeeeeeeeeee");
       return null;
-
     }
-
   }
 }
