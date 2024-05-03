@@ -22,6 +22,15 @@ class CustomImController {
   CustomImController(this.remoteImId){
     loadImId();
   }
+  String getOpenChatUserCount(){
+    if(listenerVo==null){
+      return "156";
+    }
+    if(listenerVo!.openChatUserCount==listenerVo!.serviceUserCount&&listenerVo!.openChatUserCount==0){
+      return "4";
+    }
+   return  (listenerVo!.openChatUserCount>listenerVo!.serviceUserCount?listenerVo!.openChatUserCount.toString():listenerVo!.serviceUserCount.toString());
+  }
  static cosumeMSgCount() async {
     //不在同一个订单中并且对方是倾听者，我方发送消息就要扣除免费条数。
     if (CustomImController.chatStatusInfo != null &&

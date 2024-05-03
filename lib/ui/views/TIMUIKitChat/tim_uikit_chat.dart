@@ -784,13 +784,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                             Center(
                                                     child: Column(
                                                       children: [
-                                                        Text("" +(customImController!
-                                                            .listenerVo!
-                                                            .serviceUserCount<4?"4":
-                                                        customImController!
-                                                            .listenerVo!
-                                                            .serviceUserCount
-                                                            .toString())),
+                                                        Text("" +customImController!.getOpenChatUserCount()),
                                                         SizedBox(height: 3,),
                                                         Text(
                                                           "倾诉人数",
