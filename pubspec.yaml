@@ -55,13 +55,13 @@ dependencies:
   wechat_camera_picker: ^4.2.0-dev.2
   flutter_easyrefresh: ^2.2.1
   extended_image: ^8.2.0
-  extended_text_field: ^14.0.0
+  extended_text_field: ^15.0.0
   extended_text: ^13.0.0
   package_info_plus: ^4.0.1
   loading_animation_widget: ^1.1.0+3
   permission_handler: ^10.2.0
   tuple: ^2.0.0
-  flutter_markdown: ^0.6.15
+  flutter_markdown: ^0.7.1
   url_launcher: ^6.1.4
   universal_html: ^2.2.2
   link_preview_generator_for_us: ^2.0.0

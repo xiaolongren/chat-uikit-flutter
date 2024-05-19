@@ -355,10 +355,10 @@ packages:
     dependency: transitive
     description:
       name: easy_refresh
-      sha256: f36324c7f50291f85085bd64b39abe6b63909481bfa527f9c654d17ef172de30
+      sha256: "486e30abfcaae66c0f2c2798a10de2298eb9dc5e0bb7e1dba9328308968cae0c"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.3.4"
+    version: "3.4.0"
   encrypt:
     dependency: transitive
     description:
@@ -403,10 +403,10 @@ packages:
     dependency: transitive
     description:
       name: extended_text_field
-      sha256: ee139de7c2b2a9d806ddd5fdfef5c728cf475298a7ce5834c5b822ef1e6225d7
+      sha256: "954c7eea1e82728a742f7ddf09b9a51cef087d4f52b716ba88cb3eb78ccd7c6e"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "14.0.0"
+    version: "15.0.0"
   extended_text_library:
     dependency: transitive
     description:
@@ -508,14 +508,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_apns_only:
-    dependency: transitive
-    description:
-      name: flutter_apns_only
-      sha256: "70da0d520a5b8088dc7a52abb9a63d3191521c7ec2360461af776cdaee50ab74"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.6.0"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -616,10 +608,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_markdown
-      sha256: "87e11b9df25a42e2db315b8b7a51fae8e66f57a4b2f50ec4b822d0fa155e6b52"
+      sha256: "9921f9deda326f8a885e202b1e35237eadfc1345239a0f6f0f1ff287e047547f"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.22"
+    version: "0.7.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -750,14 +742,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.12.0+301"
-  huawei_push:
-    dependency: transitive
-    description:
-      name: huawei_push
-      sha256: bccd7df3fe79925c77b78404956c74c921996d63e788cd66fef8def85b6c3ca4
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "6.12.0+300"
   image_clipboard:
     dependency: transitive
     description:
@@ -842,10 +826,10 @@ packages:
     dependency: transitive
     description:
       name: intl
-      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.18.1"
+    version: "0.19.0"
   js:
     dependency: transitive
     description:
@@ -898,26 +882,26 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: "78eb209deea09858f5269f5a5b02be4049535f568c07b275096836f01ea323fa"
+      sha256: "7f0df31977cb2c0b88585095d168e689669a2cc9b97c309665e3386f3e9d341a"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "10.0.0"
+    version: "10.0.4"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
       name: leak_tracker_flutter_testing
-      sha256: b46c5e37c19120a8a01918cfaf293547f47269f7cb4b0058f21531c2465d6ef0
+      sha256: "06e98f569d004c1315b991ded39924b21af84cf14cc94791b8aea337d25b57f8"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.3"
   leak_tracker_testing:
     dependency: transitive
     description:
       name: leak_tracker_testing
-      sha256: a597f72a664dbd293f3bfc51f9ba69816f84dcd403cdac7066cb3f6003f3ab47
+      sha256: "6ba465d5d76e67ddf503e1161d1f4a6bc42306f9d66ca1e8f079a47290fb06d3"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.1"
   link_preview_generator_for_us:
     dependency: transitive
     description:
@@ -994,10 +978,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: d584fa6707a52763a52446f02cc621b077888fb63b93bbcb1143a7be5a0c0c04
+      sha256: "7687075e408b093f36e6bbf6c91878cc0d4cd10f409506f7bc996f68220b9136"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.11.0"
+    version: "1.12.0"
   mime:
     dependency: transitive
     description:
@@ -1214,14 +1198,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.14.0"
-  plain_notification_token_for_us:
-    dependency: transitive
-    description:
-      name: plain_notification_token_for_us
-      sha256: ba4e5ff9b24abec39aad2d2d07fbfc02966b37fd5ae98ed9f8af20e4c4f906ad
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.0+1"
   platform:
     dependency: transitive
     description:
@@ -1483,14 +1459,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.3.0"
-  tencent_chat_push_for_china:
-    dependency: transitive
-    description:
-      name: tencent_chat_push_for_china
-      sha256: "1ac59a99a49642969a2c1617eecf889b7898da68b69dec05052a20123c029e31"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.1.1"
   tencent_cloud_chat_sdk:
     dependency: transitive
     description:
@@ -1582,10 +1550,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: "5c2f730018264d276c20e4f1503fd1308dfbbae39ec8ee63c5236311ac06954b"
+      sha256: "9955ae474176f7ac8ee4e989dadfb411a58c30415bcfb648fa04b2b8a03afa7f"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.1"
+    version: "0.7.0"
   tim_ui_kit_sticker_plugin:
     dependency: transitive
     description:
@@ -1798,10 +1766,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: b3d56ff4341b8f182b96aceb2fa20e3dcb336b9f867bc0eafc0de10f1048e957
+      sha256: "3923c89304b715fb1eb6423f017651664a03bf5f4b29983627c4da791f74a4ec"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "13.0.0"
+    version: "14.2.1"
   wakelock_for_us:
     dependency: transitive
     description:
@@ -1899,5 +1867,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.0"
+  dart: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
