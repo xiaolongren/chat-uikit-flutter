@@ -116,7 +116,7 @@ class TopicMessageState extends State<TopicMessageWidget> {
           if (value.name == "其他") {
             msg.data = '你好';
           } else {
-            msg.data = '你好,我想聊一聊关于"' + value.name + '"的问题';
+            msg.data = '你好,我想聊一聊关于"' + value.name + '"的话题';
           }
           msg.msgType = MessageElemType.V2TIM_ELEM_TYPE_TEXT;
           EventBusSingleton.getInstance().fire(msg);

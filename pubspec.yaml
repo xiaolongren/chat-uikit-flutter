@@ -51,8 +51,8 @@ dependencies:
   cached_network_image: ^3.3.0
   shared_preferences: ^2.0.13
   scroll_to_index: ^3.0.1
-  wechat_assets_picker: ^8.9.0-dev.1
-  wechat_camera_picker: ^4.2.0-dev.2
+  wechat_assets_picker: ^9.0.4
+  wechat_camera_picker: ^4.2.2
   flutter_easyrefresh: ^2.2.1
   extended_image: ^8.2.0
   extended_text_field: ^15.0.0

@@ -9,7 +9,7 @@ part of 'OperatorMsg.dart';
 OperatorMsg _$OperatorMsgFromJson(Map<String, dynamic> json) => OperatorMsg(
       json['title'] as String,
       json['descr'] as String,
-      json['subCustomType'] as int,
+      (json['subCustomType'] as num).toInt(),
     );
 
 Map<String, dynamic> _$OperatorMsgToJson(OperatorMsg instance) =>

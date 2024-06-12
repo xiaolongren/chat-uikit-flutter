@@ -7,12 +7,12 @@ part of 'FreeMsgCount.dart';
 // **************************************************************************
 
 FreeMsgCount _$FreeMsgCountFromJson(Map<String, dynamic> json) => FreeMsgCount(
-      json['id'] as int? ?? 0,
-      json['selfUid'] as int? ?? 0,
-      json['remoteUid'] as int? ?? 0,
+      (json['id'] as num?)?.toInt() ?? 0,
+      (json['selfUid'] as num?)?.toInt() ?? 0,
+      (json['remoteUid'] as num?)?.toInt() ?? 0,
       json['day'] as String? ?? '',
-      json['count'] as int? ?? 0,
-      json['type'] as int? ?? 0,
+      (json['count'] as num?)?.toInt() ?? 0,
+      (json['type'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$FreeMsgCountToJson(FreeMsgCount instance) =>

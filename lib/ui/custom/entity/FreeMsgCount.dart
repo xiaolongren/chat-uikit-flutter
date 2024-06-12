@@ -14,11 +14,9 @@ class FreeMsgCount{
  @JsonKey(defaultValue: "")
  String day;
  @JsonKey(defaultValue: 0)
-
  int count;
   //1 每日赠送 2 下单赠送
  @JsonKey(defaultValue: 0)
-
  int type;
  FreeMsgCount(this.id,this.selfUid, this.remoteUid, this.day, this.count, this.type);
  factory FreeMsgCount.fromJson(Map<String, dynamic> json) =>

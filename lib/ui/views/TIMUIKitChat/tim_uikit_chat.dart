@@ -5,6 +5,7 @@ import 'package:bruno/bruno.dart';
 import 'package:dufubase/config/UmengEvent.dart';
 import 'package:dufubase/eventbus/CallEvent.dart';
 import 'package:dufubase/eventbus/FreeMsgCountEvent.dart';
+import 'package:dufubase/eventbus/GetNewUserFreeOrder.dart';
 import 'package:dufubase/eventbus/OnlineStatusEvent.dart';
 import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart';
 import 'package:desktop_drop/desktop_drop.dart';
@@ -972,7 +973,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                         ),
 
 
-
+                      if(CustomImController.chatStatusInfo!=null&&CustomImController.chatStatusInfo!.canShowFree==1)
+                        createGetFreeOrderWidget(),
 
 
 
@@ -1005,7 +1007,39 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
           );
         });
   }
+  /**
+   * 免费5分钟
+   */
+  Widget createGetFreeOrderWidget(){
 
+    return
+      Positioned(child: IconButton(
+
+        icon: Image.asset(
+          width: 90,
+          height: 33,
+          'images/ic_btn_getfree.png',
+          package: 'tencent_cloud_chat_uikit',
+        ), onPressed: () {
+
+
+        BrnDialogManager.showConfirmDialog(context,
+            title: "温馨提示",
+            cancel: '取消',
+            confirm: '领取',
+            message: "免费5分钟订单福利每人只有一次机会哦",
+            onConfirm: () {
+               EventBusSingleton.getInstance().fire(GetNewUserFreeOrder( CustomImController.chatStatusInfo!.remoteUid));
+
+               Navigator.pop(context);
+            }, onCancel: () {
+               Navigator.pop(context);
+               
+            });
+
+      },),top: 120,right: 0,);
+
+  }
   Widget getTextFiledView() {
     if (widget.config!.onlyShowMessage!) {
       return SizedBox();
@@ -1174,5 +1208,7 @@ class TIMUIKitChatProviderScope extends StatelessWidget {
       builder: (context, w) => builder(context, model!, w),
     );
   }
+
+
 
 }

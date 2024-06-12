@@ -7,15 +7,15 @@ part of 'ImOrder.dart';
 // **************************************************************************
 
 ImOrder _$ImOrderFromJson(Map<String, dynamic> json) => ImOrder(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['name'] as String,
-      json['sellerId'] as int,
-      json['buyerId'] as int,
-      json['updateTime'] as int,
-      json['leftTime'] as int,
-      json['totalTime'] as int,
-      json['createTime'] as int,
-      json['payTime'] as int,
+      (json['sellerId'] as num).toInt(),
+      (json['buyerId'] as num).toInt(),
+      (json['updateTime'] as num).toInt(),
+      (json['leftTime'] as num).toInt(),
+      (json['totalTime'] as num).toInt(),
+      (json['createTime'] as num).toInt(),
+      (json['payTime'] as num).toInt(),
     );
 
 Map<String, dynamic> _$ImOrderToJson(ImOrder instance) => <String, dynamic>{
