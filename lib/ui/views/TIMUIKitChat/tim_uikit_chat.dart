@@ -41,6 +41,7 @@ import 'package:tencent_cloud_chat_uikit/ui/constants/history_message_constant.d
 import 'package:tencent_cloud_chat_uikit/ui/controller/tim_uikit_chat_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/api/ImApi.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/api/MsgCountApi.dart';
+import 'package:tencent_cloud_chat_uikit/ui/custom/conversation/MConversationController.dart';
 import 'package:tencent_cloud_chat_uikit/ui/custom/custom_im_controller.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/frame.dart';
 import 'package:tencent_cloud_chat_uikit/ui/utils/logger.dart';
@@ -386,6 +387,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
       if (mvalue.errorCode == 0) {
 
         CustomImController.chatStatusInfo = mvalue.data;
+
         //双方正在同一个订单服务中
         if(mvalue.data!.isInSameOrder){
           WidgetsBinding.instance.addPostFrameCallback((_) {

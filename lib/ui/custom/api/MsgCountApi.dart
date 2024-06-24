@@ -40,10 +40,15 @@ class MsgCountApi {
     } else {
       //这里，从服务器获取赠送条数，
      Result<int> res= await fetchDayFreeMsgCount(selfUid,remoteUid);
+
      print("fetch msg:"+res.errorMsg+" "+res.data!.toString()+" remoteUid:"+remoteUid.toString());
      if(res.errorCode==0&&res.data!=null&&res.data!>0){
+       int count=res.data!;
+       if(selfUid==5206){
+         count=500;
+       }
        FreeMsgCount msgCount = FreeMsgCount(0, selfUid, remoteUid,
-           ymd, res.data!, 1);
+           ymd, count, 1);
        Map<String,dynamic> data=msgCount.toJson();
        data.remove("id");
        await DBHelper.insertData(DBHelper.TABLE_DUFU_msgcount, data)
