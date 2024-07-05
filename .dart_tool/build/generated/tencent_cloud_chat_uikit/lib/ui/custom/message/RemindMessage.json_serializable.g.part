@@ -10,7 +10,7 @@ RemindMessage _$RemindMessageFromJson(Map<String, dynamic> json) =>
       json['color'] as String?,
       json['bgColor'] as String?,
       json['action'] as String?,
-    )..subCustomType = json['subCustomType'] as int;
+    )..subCustomType = (json['subCustomType'] as num).toInt();
 
 Map<String, dynamic> _$RemindMessageToJson(RemindMessage instance) =>
     <String, dynamic>{

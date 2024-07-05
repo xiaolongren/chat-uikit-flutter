@@ -7,7 +7,7 @@ OrderNotifyMessage _$OrderNotifyMessageFromJson(Map<String, dynamic> json) =>
       json['content'] as String? ?? '',
       json['title'] as String? ?? '',
       json['routePath'] as String? ?? '',
-    )..subCustomType = json['subCustomType'] as int;
+    )..subCustomType = (json['subCustomType'] as num).toInt();
 
 Map<String, dynamic> _$OrderNotifyMessageToJson(OrderNotifyMessage instance) =>
     <String, dynamic>{
