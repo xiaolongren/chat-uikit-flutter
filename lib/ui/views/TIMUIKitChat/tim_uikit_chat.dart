@@ -267,6 +267,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   String textFieldHintText="";
 
 
+  Widget? _joinInGroupCallWidget;
+
   @override
   void initState() {
 
@@ -604,6 +606,19 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
            ],),);
 
   }
+  _updateJoinInGroupCallWidget() async {
+    if (_getConvType() != ConvType.group) {
+      return;
+    }
+    final w = await TUICore.instance.raiseExtension(TUIExtensionID.joinInGroup, {GROUP_ID: widget.conversationID!});
+    if(w != _joinInGroupCallWidget){
+
+      setState(() {
+        _joinInGroupCallWidget = w;
+      });
+    }
+  }
+
   @override
   Widget tuiBuild(BuildContext context, TUIKitBuildValue value) {
 
@@ -611,6 +626,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     final closePanel = OptimizeUtils.throttle((_) => textFieldController.hideAllPanel(), 60);
     final isBuild = isInit;
     isInit = true;
+    _updateJoinInGroupCallWidget();
 
 
     return TIMUIKitChatProviderScope(
@@ -887,6 +903,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                             _renderJoinGroupApplication(
                                 filteredApplicationList.length, theme),
                           if (widget.topFixWidget != null) widget.topFixWidget!,
+                          if (_joinInGroupCallWidget != null) Center(child: _joinInGroupCallWidget!),
                           Expanded(
                               child: Container(
                                 padding: EdgeInsets.only(bottom: 8),
@@ -1036,7 +1053,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                Navigator.pop(context);
             }, onCancel: () {
                Navigator.pop(context);
-               
+
             });
 
       },),top: 120,right: 0,);
