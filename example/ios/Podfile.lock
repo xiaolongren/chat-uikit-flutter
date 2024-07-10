@@ -1,77 +1,100 @@
 PODS:
-  - audioplayers_darwin (0.0.1):
+  - AGConnectCore (1.9.0.302):
+    - HMFoundation (~> 1.4)
+  - AGConnectCredential (1.9.0.302):
+    - AGConnectCore (~> 1.4)
+  - audio_session (0.0.1):
     - Flutter
   - camera_avfoundation (0.0.1):
     - Flutter
-  - disk_space (0.0.1):
+  - device_info_plus (0.0.1):
     - Flutter
-  - DKImagePickerController/Core (4.3.4):
+  - DKImagePickerController/Core (4.3.9):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
-  - DKImagePickerController/ImageDataManager (4.3.4)
-  - DKImagePickerController/PhotoGallery (4.3.4):
+  - DKImagePickerController/ImageDataManager (4.3.9)
+  - DKImagePickerController/PhotoGallery (4.3.9):
     - DKImagePickerController/Core
     - DKPhotoGallery
-  - DKImagePickerController/Resource (4.3.4)
-  - DKPhotoGallery (0.0.17):
-    - DKPhotoGallery/Core (= 0.0.17)
-    - DKPhotoGallery/Model (= 0.0.17)
-    - DKPhotoGallery/Preview (= 0.0.17)
-    - DKPhotoGallery/Resource (= 0.0.17)
+  - DKImagePickerController/Resource (4.3.9)
+  - DKPhotoGallery (0.0.19):
+    - DKPhotoGallery/Core (= 0.0.19)
+    - DKPhotoGallery/Model (= 0.0.19)
+    - DKPhotoGallery/Preview (= 0.0.19)
+    - DKPhotoGallery/Resource (= 0.0.19)
     - SDWebImage
     - SwiftyGif
-  - DKPhotoGallery/Core (0.0.17):
+  - DKPhotoGallery/Core (0.0.19):
     - DKPhotoGallery/Model
     - DKPhotoGallery/Preview
     - SDWebImage
     - SwiftyGif
-  - DKPhotoGallery/Model (0.0.17):
+  - DKPhotoGallery/Model (0.0.19):
     - SDWebImage
     - SwiftyGif
-  - DKPhotoGallery/Preview (0.0.17):
+  - DKPhotoGallery/Preview (0.0.19):
     - DKPhotoGallery/Model
     - DKPhotoGallery/Resource
     - SDWebImage
     - SwiftyGif
-  - DKPhotoGallery/Resource (0.0.17):
+  - DKPhotoGallery/Resource (0.0.19):
     - SDWebImage
     - SwiftyGif
-  - fc_native_video_thumbnail_for_us (0.0.1):
+  - dufubase (0.0.1):
     - Flutter
+  - fc_native_video_thumbnail (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - file_picker (0.0.1):
     - DKImagePickerController/PhotoGallery
     - Flutter
   - Flutter (1.0.0)
-  - flutter_image_compress (1.0.0):
+  - flutter_image_compress_common (1.0.0):
     - Flutter
     - Mantle
     - SDWebImage
     - SDWebImageWebPCoder
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - flutter_plugin_record_plus (0.0.1):
+    - Flutter
+  - flutter_statusbarcolor_ns (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
-  - FMDB (2.7.5):
-    - FMDB/standard (= 2.7.5)
-  - FMDB/standard (2.7.5)
+  - HiAnalytics (6.7.0.300):
+    - AGConnectCredential
+  - HMFoundation (1.9.0.302)
+  - "huawei_analytics (6.5.0+301)":
+    - Flutter
+    - HiAnalytics (= 6.7.0.300)
   - HydraAsync (2.0.6)
-  - image_gallery_saver (1.5.0):
+  - image_clipboard (0.0.1):
+    - Flutter
+  - image_gallery_saver (2.0.2):
     - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
-  - libwebp (1.2.4):
-    - libwebp/demux (= 1.2.4)
-    - libwebp/mux (= 1.2.4)
-    - libwebp/webp (= 1.2.4)
-  - libwebp/demux (1.2.4):
+  - just_audio (0.0.1):
+    - Flutter
+  - libwebp (1.3.2):
+    - libwebp/demux (= 1.3.2)
+    - libwebp/mux (= 1.3.2)
+    - libwebp/sharpyuv (= 1.3.2)
+    - libwebp/webp (= 1.3.2)
+  - libwebp/demux (1.3.2):
     - libwebp/webp
-  - libwebp/mux (1.2.4):
+  - libwebp/mux (1.3.2):
     - libwebp/demux
-  - libwebp/webp (1.2.4)
+  - libwebp/sharpyuv (1.3.2)
+  - libwebp/webp (1.3.2):
+    - libwebp/sharpyuv
   - Mantle (2.2.0):
     - Mantle/extobjc (= 2.2.0)
   - Mantle/extobjc (2.2.0)
+  - open_file (0.0.1):
+    - Flutter
   - package_info_plus (0.4.5):
     - Flutter
   - pasteboard (0.0.1):
@@ -79,186 +102,240 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - permission_handler_apple (9.0.4):
+  - permission_handler_apple (9.1.1):
     - Flutter
   - photo_manager (2.0.0):
     - Flutter
     - FlutterMacOS
-  - ReactiveObjC (3.1.1)
-  - SDWebImage (5.15.5):
-    - SDWebImage/Core (= 5.15.5)
-  - SDWebImage/Core (5.15.5)
-  - SDWebImageWebPCoder (0.11.0):
+  - QCloudCore (6.4.1):
+    - QCloudCore/Default (= 6.4.1)
+  - QCloudCore/Default (6.4.1):
+    - QCloudTrack/Beacon (= 6.4.1)
+  - QCloudCOSXML (6.4.1):
+    - QCloudCOSXML/Default (= 6.4.1)
+  - QCloudCOSXML/Default (6.4.1):
+    - QCloudCore (= 6.4.1)
+  - QCloudTrack/Beacon (6.4.1)
+  - SDWebImage (5.19.4):
+    - SDWebImage/Core (= 5.19.4)
+  - SDWebImage/Core (5.19.4)
+  - SDWebImageWebPCoder (0.14.6):
     - libwebp (~> 1.0)
-    - SDWebImage/Core (~> 5.15)
+    - SDWebImage/Core (~> 5.17)
+  - sensors_plus (0.0.1):
+    - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - sqflite (0.0.2):
+  - sqflite (0.0.3):
     - Flutter
-    - FMDB (>= 2.7.5)
-  - SwiftyGif (5.4.4)
-  - tencent_cloud_chat_sdk (5.1.2):
+    - FlutterMacOS
+  - SwiftyGif (5.4.5)
+  - tencent_cloud_chat_sdk (7.0.0):
     - Flutter
     - HydraAsync
-    - TXIMSDK_Plus_iOS (= 7.1.3925)
+    - TXIMSDK_Plus_iOS (>= 7.9.5680)
   - tencent_cloud_uikit_core (0.0.1):
     - Flutter
-    - TUICore (= 7.1.3925)
-  - tencent_open_file (0.0.1):
+  - tencentcloud_cos_sdk_plugin (1.1.2):
     - Flutter
-  - Toast (4.0.0)
-  - TUICore (7.1.3925):
-    - ReactiveObjC
-    - SDWebImage
-    - TUICore/ImSDK_Plus (= 7.1.3925)
-  - TUICore/Base (7.1.3925):
-    - ReactiveObjC
-    - SDWebImage
-  - TUICore/ImSDK_Plus (7.1.3925):
-    - ReactiveObjC
-    - SDWebImage
-    - TUICore/Base
-    - TXIMSDK_Plus_iOS (= 7.1.3925)
-  - TXIMSDK_Plus_iOS (7.1.3925)
+    - QCloudCOSXML (>= 6.4.0)
+  - Toast (4.1.1)
+  - TXIMSDK_Plus_iOS (8.0.5895)
+  - UMCommon (7.4.7):
+    - UMDevice
+  - UMDevice (3.4.0)
+  - umeng_common_sdk (0.0.1):
+    - Flutter
+    - UMCommon
+    - UMDevice
   - url_launcher_ios (0.0.1):
     - Flutter
   - video_player_avfoundation (0.0.1):
     - Flutter
-  - wakelock (0.0.1):
+    - FlutterMacOS
+  - wakelock_plus (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
+  - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
-  - disk_space (from `.symlinks/plugins/disk_space/ios`)
-  - fc_native_video_thumbnail_for_us (from `.symlinks/plugins/fc_native_video_thumbnail_for_us/ios`)
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - dufubase (from `.symlinks/plugins/dufubase/ios`)
+  - fc_native_video_thumbnail (from `.symlinks/plugins/fc_native_video_thumbnail/darwin`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
-  - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
+  - flutter_image_compress_common (from `.symlinks/plugins/flutter_image_compress_common/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_plugin_record_plus (from `.symlinks/plugins/flutter_plugin_record_plus/ios`)
+  - flutter_statusbarcolor_ns (from `.symlinks/plugins/flutter_statusbarcolor_ns/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - huawei_analytics (from `.symlinks/plugins/huawei_analytics/ios`)
+  - image_clipboard (from `.symlinks/plugins/image_clipboard/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - just_audio (from `.symlinks/plugins/just_audio/ios`)
+  - open_file (from `.symlinks/plugins/open_file/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - pasteboard (from `.symlinks/plugins/pasteboard/ios`)
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
-  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
-  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - sensors_plus (from `.symlinks/plugins/sensors_plus/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - sqflite (from `.symlinks/plugins/sqflite/darwin`)
   - tencent_cloud_chat_sdk (from `.symlinks/plugins/tencent_cloud_chat_sdk/ios`)
   - tencent_cloud_uikit_core (from `.symlinks/plugins/tencent_cloud_uikit_core/ios`)
-  - tencent_open_file (from `.symlinks/plugins/tencent_open_file/ios`)
+  - tencentcloud_cos_sdk_plugin (from `.symlinks/plugins/tencentcloud_cos_sdk_plugin/ios`)
+  - umeng_common_sdk (from `.symlinks/plugins/umeng_common_sdk/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
-  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
-  - wakelock (from `.symlinks/plugins/wakelock/ios`)
+  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/darwin`)
+  - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
 
 SPEC REPOS:
   trunk:
+    - AGConnectCore
+    - AGConnectCredential
     - DKImagePickerController
     - DKPhotoGallery
-    - FMDB
+    - HiAnalytics
+    - HMFoundation
     - HydraAsync
     - libwebp
     - Mantle
-    - ReactiveObjC
+    - QCloudCore
+    - QCloudCOSXML
+    - QCloudTrack
     - SDWebImage
     - SDWebImageWebPCoder
     - SwiftyGif
     - Toast
-    - TUICore
     - TXIMSDK_Plus_iOS
+    - UMCommon
+    - UMDevice
 
 EXTERNAL SOURCES:
-  audioplayers_darwin:
-    :path: ".symlinks/plugins/audioplayers_darwin/ios"
+  audio_session:
+    :path: ".symlinks/plugins/audio_session/ios"
   camera_avfoundation:
     :path: ".symlinks/plugins/camera_avfoundation/ios"
-  disk_space:
-    :path: ".symlinks/plugins/disk_space/ios"
-  fc_native_video_thumbnail_for_us:
-    :path: ".symlinks/plugins/fc_native_video_thumbnail_for_us/ios"
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
+  dufubase:
+    :path: ".symlinks/plugins/dufubase/ios"
+  fc_native_video_thumbnail:
+    :path: ".symlinks/plugins/fc_native_video_thumbnail/darwin"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
     :path: Flutter
-  flutter_image_compress:
-    :path: ".symlinks/plugins/flutter_image_compress/ios"
+  flutter_image_compress_common:
+    :path: ".symlinks/plugins/flutter_image_compress_common/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_plugin_record_plus:
     :path: ".symlinks/plugins/flutter_plugin_record_plus/ios"
+  flutter_statusbarcolor_ns:
+    :path: ".symlinks/plugins/flutter_statusbarcolor_ns/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
+  huawei_analytics:
+    :path: ".symlinks/plugins/huawei_analytics/ios"
+  image_clipboard:
+    :path: ".symlinks/plugins/image_clipboard/ios"
   image_gallery_saver:
     :path: ".symlinks/plugins/image_gallery_saver/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  just_audio:
+    :path: ".symlinks/plugins/just_audio/ios"
+  open_file:
+    :path: ".symlinks/plugins/open_file/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   pasteboard:
     :path: ".symlinks/plugins/pasteboard/ios"
   path_provider_foundation:
-    :path: ".symlinks/plugins/path_provider_foundation/ios"
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   photo_manager:
     :path: ".symlinks/plugins/photo_manager/ios"
+  sensors_plus:
+    :path: ".symlinks/plugins/sensors_plus/ios"
   shared_preferences_foundation:
-    :path: ".symlinks/plugins/shared_preferences_foundation/ios"
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sqflite:
-    :path: ".symlinks/plugins/sqflite/ios"
+    :path: ".symlinks/plugins/sqflite/darwin"
   tencent_cloud_chat_sdk:
     :path: ".symlinks/plugins/tencent_cloud_chat_sdk/ios"
   tencent_cloud_uikit_core:
     :path: ".symlinks/plugins/tencent_cloud_uikit_core/ios"
-  tencent_open_file:
-    :path: ".symlinks/plugins/tencent_open_file/ios"
+  tencentcloud_cos_sdk_plugin:
+    :path: ".symlinks/plugins/tencentcloud_cos_sdk_plugin/ios"
+  umeng_common_sdk:
+    :path: ".symlinks/plugins/umeng_common_sdk/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
   video_player_avfoundation:
-    :path: ".symlinks/plugins/video_player_avfoundation/ios"
-  wakelock:
-    :path: ".symlinks/plugins/wakelock/ios"
+    :path: ".symlinks/plugins/video_player_avfoundation/darwin"
+  wakelock_plus:
+    :path: ".symlinks/plugins/wakelock_plus/ios"
 
 SPEC CHECKSUMS:
-  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
-  disk_space: e94d34bbdf77954adfb39e60bde9cc5c7233eda6
-  DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
-  DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
-  fc_native_video_thumbnail_for_us: 69559e6500bff0f6340f044ec0847366fa6f6233
-  file_picker: 817ab1d8cd2da9d2da412a417162deee3500fc95
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_image_compress: 5a5e9aee05b6553048b8df1c3bc456d0afaac433
+  AGConnectCore: 8080cbbee27357ab3d9d97b13d5e3be117eeba35
+  AGConnectCredential: 962f8a4abc33f3ae7b69bcf00f709b2a74096a1d
+  audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
+  camera_avfoundation: 759172d1a77ae7be0de08fc104cfb79738b8a59e
+  device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
+  DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
+  DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
+  dufubase: b3346e4553e195740bd4dc443e141992264738b6
+  fc_native_video_thumbnail: 927d4dcfd4c7e9f2cc1a20bb52dfee83de3792c2
+  file_picker: ce3938a0df3cc1ef404671531facef740d03f920
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_image_compress_common: ec1d45c362c9d30a3f6a0426c297f47c52007e3e
+  flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
   flutter_plugin_record_plus: 79b8e13ee7ed9a94f6c067018653599528cee1fc
-  fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0
-  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  flutter_statusbarcolor_ns: 68a360889d88d7915ae524e422aeab62e4063804
+  fluttertoast: e9a18c7be5413da53898f660530c56f35edfba9c
+  HiAnalytics: 1fb630149772c1d67eb8e565287d34e26eff126f
+  HMFoundation: 07a5cc092dc728e13400df5d24648f03ded00a95
+  huawei_analytics: baecc3691207dc2782dfe824a096293b34e89cd8
   HydraAsync: 8d589bd725b0224f899afafc9a396327405f8063
-  image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
-  image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
-  libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
+  image_clipboard: 83e17da1a349361909fb7a36b7a14b9682aea0fb
+  image_gallery_saver: cb43cc43141711190510e92c460eb1655cd343cb
+  image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
+  just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
+  libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
   Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
-  package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
+  open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
+  package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
   pasteboard: 982969ebaa7c78af3e6cc7761e8f5e77565d9ce0
-  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
-  permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
-  photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
-  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
-  SDWebImage: fd7e1a22f00303e058058278639bf6196ee431fe
-  SDWebImageWebPCoder: 295a6573c512f54ad2dd58098e64e17dcf008499
-  shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
-  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
-  SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
-  tencent_cloud_chat_sdk: 17f2ddd7de43495312603e7c9dac04d76352e246
-  tencent_cloud_uikit_core: 2c4ccb41c33b45b5c69750b9774fa389fc20cdb2
-  tencent_open_file: 1261db508715b8f43ef3b7e31c90824838038165
-  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TUICore: edc9e0911f6a04224620d7098ff9d7f4b1f0291a
-  TXIMSDK_Plus_iOS: 3edf95acc3dff794287ea858b5205ed6f4dd339f
-  url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
-  video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
-  wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
+  photo_manager: ff695c7a1dd5bc379974953a2b5c0a293f7c4c8a
+  QCloudCore: 6252d05b183f45698550c5445de85826fd89f9a5
+  QCloudCOSXML: 48557a25a8803093a80951e65753a68275ff967d
+  QCloudTrack: 7458275adda5626dd2dc99367e3993080ab119c8
+  SDWebImage: 066c47b573f408f18caa467d71deace7c0f8280d
+  SDWebImageWebPCoder: e38c0a70396191361d60c092933e22c20d5b1380
+  sensors_plus: 18a9b346c43e157da17d2c8e99def703f9efb9d8
+  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
+  sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
+  SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
+  tencent_cloud_chat_sdk: 692e2c6b3024086a62a9fbb047441f17f122dab4
+  tencent_cloud_uikit_core: c0140985a33df7b3948d2ebe0a0d7eeb780447f2
+  tencentcloud_cos_sdk_plugin: 1e3112e7e87adf0ad51628d9dc565133a942a461
+  Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
+  TXIMSDK_Plus_iOS: b7bb4044ec1ec89da5ddf8945dc708b2c7ad6c6e
+  UMCommon: 8b4cd0423297c39bca6eea1ec896558b40e5bcf7
+  UMDevice: dcdf7ec167387837559d149fbc7d793d984faf82
+  umeng_common_sdk: a8abd7f86dfd013dbbeeae587ee143760c6582f2
+  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+  video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
+  wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
 
-PODFILE CHECKSUM: 7368163408c647b7eb699d0d788ba6718e18fb8d
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.14.3
