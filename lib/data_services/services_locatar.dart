@@ -18,7 +18,7 @@ import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_search_v
 import 'package:tencent_cloud_chat_uikit/business_logic/view_models/tui_self_info_view_model.dart';
 import 'package:tencent_im_base/theme/tui_theme_view_model.dart';
 
-final serviceLocator = GetIt.instance;
+final serviceLocator =GetIt.instance;
 bool boolIsInitailized = false;
 
 void setupServiceLocator() {
@@ -46,6 +46,7 @@ void setupServiceLocator() {
         .registerSingleton<TUIFriendShipViewModel>(TUIFriendShipViewModel());
     serviceLocator.registerSingleton<TUIThemeViewModel>(TUIThemeViewModel());
     serviceLocator.registerSingleton<TUISearchViewModel>(TUISearchViewModel());
+    // serviceLocator.registerSingleton<TUIConversationViewModel>(TUIConversationViewModel());
 
     // listener models
     serviceLocator

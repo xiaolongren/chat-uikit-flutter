@@ -427,12 +427,16 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
             }
             //对方是倾听者，我方显示免费条数
             if(mvalue.data!.isRemoteListener&&1==widget.conversation.type){
-              MsgCountApi.showMsgCount(
-                  mvalue.data!.uid, mvalue.data!.remoteUid);
-              OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
-                  widget.conversation.showName!.isEmpty?mvalue.data!.remoteNick:widget.conversation.showName!,
-                  mvalue.data!.remoteUserOnlineStatusTitle!);
-              EventBusSingleton.getInstance().fire(onlineStatusEvent);
+              Future.delayed(Duration(milliseconds: 300),(){
+
+                MsgCountApi.showMsgCount(
+                    mvalue.data!.uid, mvalue.data!.remoteUid);
+                OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
+                    widget.conversation.showName!.isEmpty?mvalue.data!.remoteNick:widget.conversation.showName!,
+                    mvalue.data!.remoteUserOnlineStatusTitle!);
+                EventBusSingleton.getInstance().fire(onlineStatusEvent);
+              });
+
             }
 
           });
@@ -581,29 +585,21 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   }
 
   createBottomActionWidget(){
-    return
-      Container( color:Colors.transparent,padding:EdgeInsets.only(left: 16),child: Row(children: [
-        // GestureDetector(onTap: (){
-        //   CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "video");
-        //   EventBusSingleton.getInstance().fire(callEvent);
-        //
-        // },child:  Container(child:Icon( Icons.videocam_outlined) ,padding:EdgeInsets.only(left: 8,right: 8,top: 1,bottom: 1),decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.white),),),
-
-            SizedBox(width: 16,),
-
-        GestureDetector(onTap: (){
-          CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "voice");
-          EventBusSingleton.getInstance().fire(callEvent);
-          UmengCommonSdk.onEvent(UmengEvent.clickCallIcon,{});
+    return GestureDetector(child:
+    Container( decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color:  Color(
+        0xFF1CB678).withOpacity(1)),padding:EdgeInsets.only(left: 8,right: 8,top: 6,bottom: 6),child: Row(children: [
 
 
-        },child:   Container(child:Icon( Icons.call_end_outlined) ,padding:EdgeInsets.only(left: 8,right: 8,top: 1,bottom: 1),decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.white),),
-            ),
+      Container(child:Icon( Icons.call_end_outlined,color: Colors.white,size: 16,)  ,),
+
+      SizedBox(width: 4,),
+      Text("立即通话",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold),),
 
 
+    ],),),onTap: (){  CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "voice",conversationViewModel.selectedConversation!.showName!,"",this.customImController!.listenerVo?.openFastCall??0);
+    EventBusSingleton.getInstance().fire(callEvent);
+    UmengCommonSdk.onEvent(UmengEvent.clickCallIcon,{});},);
 
-
-           ],),);
 
   }
   _updateJoinInGroupCallWidget() async {
@@ -820,13 +816,14 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                                 child: Container(
                                                     child: Column(
                                                       children: [
-                                                        Text(customImController!
-                                                            .listenerVo!
-                                                            .goodRate
-                                                            .toString()+"%"),
+                                                        Text(
+                                                            customImController!
+                                                                .listenerVo!
+                                                                .commentScore.toStringAsFixed(1)
+                                                            .toString() ),
                                                         SizedBox(height: 3,),
                                                         Text(
-                                                          "好评率",
+                                                          "评分",
                                                           style: TextStyle(
                                                               fontSize: 11,
                                                               color: Color(
@@ -845,12 +842,13 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                                     child: Column(
                                                       children: [
                                                         Text((customImController!
+                                                            .listenerVo!.thirdHours+(customImController!
                                                             .listenerVo!
-                                                            .serviceSeconds/60.0)
-                                                            .toString()+"分钟"),
+                                                            .serviceSeconds~/3600))
+                                                            .toString()+"小时"),
                                                         SizedBox(height: 3,),
                                                         Text(
-                                                          "服务时长",
+                                                          "经验时长",
                                                           style: TextStyle(
                                                               fontSize: 11,
                                                               color: Color(
@@ -964,29 +962,42 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                       //头部下单入口
                       if(showPlaceOrder)
                         Positioned(
-                          child: GestureDetector(child: Container(
-                            padding: EdgeInsets.only(left: 6,right: 6,top: 4,bottom: 4),
-                            decoration: BoxDecoration(
-                              color: Colors.orange,
-
-                              borderRadius: BorderRadius.circular(20), // 圆角半径
-                            ),
-                            child: Text("立即下单",style: TextStyle(color: Colors.white,fontSize: 12),
-
-                          ),),onTap: (){
-                            UmengCommonSdk.onEvent(UmengEvent.clickPlaceOrder,{});
-                            int openFastCall=1;
-                            if(customImController?.listenerVo!=null){
-                              openFastCall= customImController!.listenerVo!.openFastCall;
-                            }
+                          child: Row(children: [
 
 
-                            EventBusSingleton.getInstance().fire(
+                          if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
+                              createBottomActionWidget(),
 
-                                PlaceOrderEvent(int.parse(
-                                    widget.conversation.conversationID!.replaceAll("c2c_huanxin", "")),openFastCall));
 
-                          },),
+                            SizedBox(width: 32),
+                            GestureDetector(child:
+
+                            Container(
+                              padding: EdgeInsets.only(left: 6,right: 6,top: 6,bottom: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.orange,
+
+                                borderRadius: BorderRadius.circular(20), // 圆角半径
+                              ),
+                              child: Text("立即下单",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold), )
+
+                              ,),onTap: (){
+                              UmengCommonSdk.onEvent(UmengEvent.clickPlaceOrder,{});
+                              int openFastCall=1;
+                              if(customImController?.listenerVo!=null){
+                                openFastCall= customImController!.listenerVo!.openFastCall;
+                              }
+
+
+                              EventBusSingleton.getInstance().fire(
+
+                                  PlaceOrderEvent(int.parse(
+                                      widget.conversation.conversationID!.replaceAll("c2c_huanxin", "")),openFastCall,customImController?.listenerVo?.nick??"",customImController?.listenerVo?.message??""));
+
+                            },)
+
+
+                          ],),
                           right: 16,
                           top: showTopinfo?88:20,
                         ),
@@ -1046,7 +1057,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
             title: "温馨提示",
             cancel: '取消',
             confirm: '领取',
-            message: "免费5分钟订单福利每人只有一次机会哦",
+            message: "新人免费倾诉只有一次机会哦，领取后将不再享受新人权益，确认选择该倾听师吗？",
             onConfirm: () {
                EventBusSingleton.getInstance().fire(GetNewUserFreeOrder( CustomImController.chatStatusInfo!.remoteUid));
 
@@ -1065,8 +1076,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     }
     Widget inputwidget= Container( child: Column(children: [
 
-      if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
-      createBottomActionWidget(),SizedBox(height: 8,),
+     // if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
+     //  createBottomActionWidget(),SizedBox(height: 8,),
       Container( child:Divider(height: 1,color:Color.fromARGB(255, 230, 230, 230)),),
       TIMUIKitInputTextField(
       groupID: widget.groupID,
