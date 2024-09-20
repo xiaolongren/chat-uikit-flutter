@@ -450,6 +450,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
               if(value.data!.showTopInfo==1){
                 showTopinfo = true;
 
+              }else{
+                showTopinfo=false;
               }
               setState(() {});
 
@@ -457,6 +459,12 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
             }
 
           });
+        }
+        else{
+          if(mvalue.data!.isListener){
+            showTopinfo=false;
+            setState(() {});
+          }
         }
 
       }
@@ -588,6 +596,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     return GestureDetector(child:
     Container( decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color:  Color(
         0xFF1CB678).withOpacity(1)),padding:EdgeInsets.only(left: 8,right: 8,top: 6,bottom: 6),child: Row(children: [
+
 
 
       Container(child:Icon( Icons.call_end_outlined,color: Colors.white,size: 16,)  ,),
@@ -960,7 +969,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                         ],
                       ),
                       //头部下单入口
-                      if(showPlaceOrder)
+                      //if(showPlaceOrder)
                         Positioned(
                           child: Row(children: [
 
@@ -970,6 +979,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
 
 
                             SizedBox(width: 32),
+                            if(showPlaceOrder)
                             GestureDetector(child:
 
                             Container(
