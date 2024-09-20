@@ -137,9 +137,9 @@ PODS:
     - TXIMSDK_Plus_iOS (>= 7.9.5680)
   - tencent_cloud_uikit_core (0.0.1):
     - Flutter
-  - tencentcloud_cos_sdk_plugin (1.1.2):
+  - tencentcloud_cos_sdk_plugin (1.0.9):
     - Flutter
-    - QCloudCOSXML (>= 6.4.0)
+    - QCloudCOSXML (>= 6.1.7)
   - Toast (4.1.1)
   - TXIMSDK_Plus_iOS (8.0.5895)
   - UMCommon (7.4.7):
@@ -286,7 +286,7 @@ SPEC CHECKSUMS:
   AGConnectCore: 8080cbbee27357ab3d9d97b13d5e3be117eeba35
   AGConnectCredential: 962f8a4abc33f3ae7b69bcf00f709b2a74096a1d
   audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
-  camera_avfoundation: 759172d1a77ae7be0de08fc104cfb79738b8a59e
+  camera_avfoundation: dd002b0330f4981e1bbcb46ae9b62829237459a4
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
@@ -326,7 +326,7 @@ SPEC CHECKSUMS:
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
   tencent_cloud_chat_sdk: 692e2c6b3024086a62a9fbb047441f17f122dab4
   tencent_cloud_uikit_core: c0140985a33df7b3948d2ebe0a0d7eeb780447f2
-  tencentcloud_cos_sdk_plugin: 1e3112e7e87adf0ad51628d9dc565133a942a461
+  tencentcloud_cos_sdk_plugin: 919bd74a2b2c2f8dbbe773ee3e7dfdc4e80d1235
   Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
   TXIMSDK_Plus_iOS: b7bb4044ec1ec89da5ddf8945dc708b2c7ad6c6e
   UMCommon: 8b4cd0423297c39bca6eea1ec896558b40e5bcf7
