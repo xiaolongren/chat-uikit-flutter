@@ -314,28 +314,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
     streamSubscription =
         EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((event) {
           bool shouldChangeState = false;
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (event.count <= 0) {
-              customImController!.sendPlaceOrderMsg();
-               setState(() {
-                showInputDisableView = true;
-                this.textFieldHintText =
-                    "";
-                FocusScope.of(context).requestFocus(FocusNode());
-                textFieldController.actionType=tencent_chat.ActionType.hideAllPanel!;
-                textFieldController.notifyListeners();
-
-              });
-            } else {
-             setState(() {
-                showInputDisableView = false;
-                this.textFieldHintText =
-                    "赠送聊天条数剩余" + event.count.toString() + "条";
-
-            });
-
-            }
-          });
+          CustomImController.chatStatusInfo!.leftFeeMsgcount= CustomImController.chatStatusInfo!.leftFeeMsgcount-1;
+          showLeftMsgCount();
 
         });
     // 设置状态栏颜色
@@ -363,6 +343,30 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
 
     }
     super.initState();
+  }
+  showLeftMsgCount(){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (CustomImController.chatStatusInfo!.leftFeeMsgcount <= 0) {
+        customImController!.sendPlaceOrderMsg();
+        setState(() {
+          showInputDisableView = true;
+          this.textFieldHintText =
+          "";
+          FocusScope.of(context).requestFocus(FocusNode());
+          textFieldController.actionType=tencent_chat.ActionType.hideAllPanel!;
+          textFieldController.notifyListeners();
+
+        });
+      } else {
+        setState(() {
+          showInputDisableView = false;
+          this.textFieldHintText =
+              "赠送聊天条数剩余" + CustomImController.chatStatusInfo!.leftFeeMsgcount.toString() + "条";
+
+        });
+
+      }
+    });
   }
   @override
   activate(){
@@ -428,9 +432,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
             //对方是倾听者，我方显示免费条数
             if(mvalue.data!.isRemoteListener&&1==widget.conversation.type){
               Future.delayed(Duration(milliseconds: 300),(){
+                showLeftMsgCount();
 
-                MsgCountApi.showMsgCount(
-                    mvalue.data!.uid, mvalue.data!.remoteUid);
                 OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
                     widget.conversation.showName!.isEmpty?mvalue.data!.remoteNick:widget.conversation.showName!,
                     mvalue.data!.remoteUserOnlineStatusTitle!);
@@ -454,8 +457,6 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                 showTopinfo=false;
               }
               setState(() {});
-
-
             }
 
           });
@@ -974,7 +975,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                           child: Row(children: [
 
 
-                          if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
+                       //   if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
                               createBottomActionWidget(),
 
 

@@ -8,6 +8,7 @@ part of 'ChatStatusInfo.dart';
 
 ChatStatusInfo _$ChatStatusInfoFromJson(Map<String, dynamic> json) =>
     ChatStatusInfo(
+      (json['leftFeeMsgcount'] as num?)?.toInt() ?? 0,
       (json['remoteUid'] as num?)?.toInt() ?? 0,
       (json['uid'] as num?)?.toInt() ?? 0,
       json['isRemoteListener'] as bool? ?? false,
@@ -48,4 +49,5 @@ Map<String, dynamic> _$ChatStatusInfoToJson(ChatStatusInfo instance) =>
       'remoteNick': instance.remoteNick,
       'canShowFree': instance.canShowFree,
       'order': instance.order,
+      'leftFeeMsgcount': instance.leftFeeMsgcount,
     };

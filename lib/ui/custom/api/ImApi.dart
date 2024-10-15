@@ -92,6 +92,11 @@ class ImApi{
 
   }
 
+  static String buildimid(String uid){
+    return "huanxin"+uid;
+
+  }
+
   /**
    * 免费条数用完时发送
    */

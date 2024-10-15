@@ -45,8 +45,11 @@ class ChatStatusInfo {
   //双方正在使用的同一个订单
     @JsonKey(defaultValue: null)
     ImOrder? order;
+    @JsonKey(defaultValue: 0)
+    int leftFeeMsgcount;
 
     ChatStatusInfo(
+        this.leftFeeMsgcount,
       this.remoteUid,
       this.uid,
       this.isRemoteListener,

@@ -4,11 +4,13 @@ import 'package:tencent_im_base/tencent_im_base.dart';
 class CallingMessage {
   /// 发起邀请方
   String? inviter;
+  String? msg;//显示的消息，如 正忙，如 对方拒绝了通话 如 对方挂断了通话
 
   /// 被邀请方
   List<String>? inviteeList;
 
-  int? callType;
+  //1 语音 2 视频
+  int? callType=1;
 
   // 1: 邀请方发起邀请
   // 2: 邀请方取消邀请
@@ -25,6 +27,7 @@ class CallingMessage {
 
   /// 通话房间
   int? roomID;
+  String? roomIDStr;
 
   // 通话时间：秒，大于0代表通话时间
   int? callEnd;
@@ -43,16 +46,54 @@ class CallingMessage {
         this.isGroup});
 
   CallingMessage.fromJSON(json) {
-    final detailData = jsonDecode(json["data"]);
+    // final detailData = jsonDecode(json["data"]);
+
+    final detailData = json["data"]  ;
+    if(detailData.toString().contains("{")){
+      Map<String, dynamic> obj=  jsonDecode(detailData);
+      callType = obj["call_type"];
+      roomID =  obj["room_id"];
+      callEnd = obj["call_end"];
+      isGroup = obj["is_group"];
+      roomIDStr= obj["roomIDStr"];
+    }else{
+      callType = json["call_type"];
+      roomID =  json["room_id"];
+      callEnd = json["call_end"];
+      isGroup = json["is_group"];
+      roomIDStr= json["roomIDStr"];
+    }
     actionType = json["actionType"];
     timeout = json["timeout"];
     inviter = json["inviter"];
-    inviteeList = List<String>.from(json["inviteeList"]);
+    msg = json["msg"];
+    Object obj=json["inviteeList"];
+    if(obj is String&&obj.length>0&&obj!="null"){
+      inviteeList = List<String>.from(jsonDecode(json["inviteeList"]));
+
+    }else{
+      if(obj!="null")
+      inviteeList = List<String>.from( json["inviteeList"]);
+
+    }
     inviteID = json["inviteID"];
-    callType = detailData["call_type"];
-    roomID = detailData["room_id"];
-    callEnd = detailData["call_end"];
-    isGroup = detailData["is_group"];
+
+  }
+  toJSon(){
+    return {
+      "call_type":this.callType,
+      "room_id":this.roomID,
+      "is_group":this.isGroup,
+      "call_end":this.callEnd,
+      "timeout":this.timeout,
+      "inviter":this.inviter,
+      "inviteID":this.inviteID,
+      "actionType":this.actionType,
+      "inviteeList":this.inviteeList!=null?jsonEncode(this.inviteeList):"",
+      "msg":this.msg,
+      "roomIDStr":this.roomIDStr,
+
+    };
   }
 
   static CallingMessage? getCallMessage(V2TimCustomElem? customElem) {
@@ -75,6 +116,23 @@ class CallingMessage {
       4: TIM_t("拒绝通话"),
       5: TIM_t("超时未接听"),
     };
+    return actionMessage[actionType] ?? "";
+  }
+  static String getActionTypeWithFrom(int actionType,bool isSelf) {
+
+    final actionMessage = {
+      1: TIM_t("发起通话"),
+      2: TIM_t("取消通话"),
+      3: TIM_t("接受通话"),
+      4: TIM_t("拒绝通话"),
+      5: TIM_t("超时未接听"),
+    };
+    if(actionType==4){
+      return  isSelf?TIM_t("已拒绝"):TIM_t("对方已拒绝");
+    }
+    if(actionType==2){
+      return  isSelf?TIM_t("取消通话"):TIM_t("对方取消通话");
+    }
     return actionMessage[actionType] ?? "";
   }
 

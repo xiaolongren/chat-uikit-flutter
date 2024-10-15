@@ -421,7 +421,7 @@ class GesturedImageState extends ExtendedImageGestureState {
 
   void _initGestureConfig() {
     final double? initialScale = _gestureConfig?.initialScale;
-    final InitialAlignment? initialAlignment = _gestureConfig?.initialAlignment;
+      InitialAlignment? initialAlignment = _gestureConfig?.initialAlignment;
     _gestureConfig = widget
             .extendedImageState.imageWidget.initGestureConfigHandler
             ?.call(widget.extendedImageState) ??

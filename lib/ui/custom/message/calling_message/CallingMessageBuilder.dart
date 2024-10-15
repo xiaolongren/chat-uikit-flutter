@@ -21,7 +21,7 @@ class CallingMessageBulder{
           return renderMessageItem(
             CallMessageItem(
                 customElem: message.customElem,
-                isFromSelf: message.isSelf ?? true,
+                isFromSelf:  message.isSelf ?? true,
                 padding: const EdgeInsets.all(0)),
             message,
             CommonColor.defaultTheme,
@@ -70,6 +70,14 @@ class CallingMessageBulder{
             maxWidth:
             isVoteMessage ? 298 : 240), // vote message width need more
         child: child);
+  }
+  //拒绝通话 特殊处理 反转
+ static isFromSelf(CallingMessage callingMessage,V2TimMessage message){
+   if(callingMessage.actionType==4){
+     bool res=message.isSelf??true;
+      return !res;
+   }
+   return message.isSelf;
   }
 
 }

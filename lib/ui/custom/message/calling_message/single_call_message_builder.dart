@@ -24,10 +24,13 @@ class CallMessageItem extends StatelessWidget {
     final callingMessage = CallingMessage.getCallMessage(customElem);
 
     if (callingMessage != null) {
+      //
+
       // 如果是结束消息
       final isCallEnd = CallingMessage.isCallEndExist(callingMessage);
 
-      final isVoiceCall = callingMessage.callType == 1;
+      // final isVoiceCall = callingMessage.callType == 1;
+       final isVoiceCall = true;
 
       String? callTime = "";
       if (isCallEnd) {
@@ -56,7 +59,7 @@ class CallMessageItem extends StatelessWidget {
             ),
           isCallEnd
               ? Text(TIM_t_para("通话时间：{{option1}}", "通话时间：$option1")(option1: option1))
-              : Text(CallingMessage.getActionType(callingMessage.actionType!)),
+              : Text(CallingMessage.getActionTypeWithFrom(callingMessage.actionType!,isFromSelf)),
           if (isFromSelf)
             Padding(
               padding: const EdgeInsets.only(left: 4),
@@ -98,4 +101,5 @@ class CallMessageItem extends StatelessWidget {
       child: _callElemBuilder(context),
     );
   }
+
 }
