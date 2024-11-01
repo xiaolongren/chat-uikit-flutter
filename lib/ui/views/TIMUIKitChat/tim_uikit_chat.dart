@@ -395,7 +395,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
         CustomImController.chatStatusInfo = mvalue.data;
 
         //双方正在同一个订单服务中
-        if(mvalue.data!.isInSameOrder){
+        if(mvalue.data!.isInSameOrder&&mvalue.data!.order!.name!.contains("文字")){
           WidgetsBinding.instance.addPostFrameCallback((_) {
             //倒计时开始
 
@@ -606,7 +606,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
       Text("立即通话",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold),),
 
 
-    ],),),onTap: (){  CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "voice",conversationViewModel.selectedConversation!.showName!,"",this.customImController!.listenerVo?.openFastCall??0);
+    ],),),onTap: (){
+      CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "voice",conversationViewModel.selectedConversation!.showName!,"",this.customImController!.listenerVo?.openFastCall??0);
     EventBusSingleton.getInstance().fire(callEvent);
     UmengCommonSdk.onEvent(UmengEvent.clickCallIcon,{});},);
 
@@ -975,7 +976,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                           child: Row(children: [
 
 
-                       //   if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
+                           if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
                               createBottomActionWidget(),
 
 

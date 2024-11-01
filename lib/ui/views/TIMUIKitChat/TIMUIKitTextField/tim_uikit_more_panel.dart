@@ -95,7 +95,7 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
   File? tempFile;
   final _tUICore = TUICore();
   final _tUILogin = TUILogin();
-  bool isInstallCallkit = false;
+  bool isInstallCallkit = true;
   final ScrollController _scrollController = ScrollController();
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
@@ -103,11 +103,11 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
   void initState() {
     super.initState();
     if (PlatformUtils().isMobile) {
-      _tUICore.getService(TUICALLKIT_SERVICE_NAME).then((value) {
-        setState(() {
-          isInstallCallkit = value;
-        });
-      });
+      // _tUICore.getService(TUICALLKIT_SERVICE_NAME).then((value) {
+      //   setState(() {
+      //     isInstallCallkit = value;
+      //   });
+      // });
     }
   }
 
