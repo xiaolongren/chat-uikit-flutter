@@ -244,6 +244,13 @@ class TIMUIKitChatConfig {
   /// [Default]: 400
   final double desktopStickerPanelHeight;
 
+  /// Determine whether the normal members can @All in a group chat.
+  /// If enabled, normal members can @All in a group chat.
+  /// If disabled, only the group owner or administrators can @All.
+  ///
+  /// [Default]: false
+  final bool isMemberCanAtAll;
+
   const TIMUIKitChatConfig(
       {this.onTapLink,
       this.timeDividerConfig,
@@ -293,6 +300,5 @@ class TIMUIKitChatConfig {
       this.additionalDesktopControlBarItems,
       this.isAllowLongPressAvatarToAt = true,
       this.isUseDefaultEmoji = false,
-      this.onlyShowMessage=false}
-  );
+      this.isMemberCanAtAll = false});
 }

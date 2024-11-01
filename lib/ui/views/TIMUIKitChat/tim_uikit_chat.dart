@@ -630,7 +630,6 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   Widget tuiBuild(BuildContext context, TUIKitBuildValue value) {
 
     final TUITheme theme = value.theme;
-    final closePanel = OptimizeUtils.throttle((_) => textFieldController.hideAllPanel(), 60);
     final isBuild = isInit;
     isInit = true;
     _updateJoinInGroupCallWidget();
@@ -922,7 +921,6 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                 key: alignKey,
                                 alignment: Alignment.topCenter,
                                 child: Listener(
-                                  onPointerMove: closePanel,
                                   child: TIMUIKitHistoryMessageListContainer(
                                     customMessageHoverBarOnDesktop: widget.customMessageHoverBarOnDesktop,
                                     conversation: widget.conversation,
