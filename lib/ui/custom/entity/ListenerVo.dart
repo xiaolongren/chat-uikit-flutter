@@ -53,6 +53,8 @@ class ListenerVo {
   int openFastCall;
   @JsonKey(defaultValue: 0)
   int thirdHours;
+  @JsonKey(defaultValue: -1)
+  int priceAfterCoupon;
   @JsonKey(defaultValue: 5)
   double commentScore;
   ListenerVo(
@@ -76,6 +78,7 @@ class ListenerVo {
       this.commentNums,
       this.openFastCall,
       this.commentScore,
+      this.priceAfterCoupon,
       this.showTopInfo,this.certificateName,this.openChatUserCount,this.thirdHours); // 添加 fromJson 工厂方法
   factory ListenerVo.fromJson(Map<String, dynamic> json) => _$ListenerVoFromJson(json);
 

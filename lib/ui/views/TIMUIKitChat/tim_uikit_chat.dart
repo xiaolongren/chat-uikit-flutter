@@ -56,7 +56,8 @@ import 'TIMUIKItMessageList/TIMUIKitTongue/tim_uikit_chat_history_message_list_t
 import 'TIMUIKItMessageList/tim_uikit_chat_history_message_list_config.dart';
 import 'TIMUIKItMessageList/tim_uikit_history_message_list_container.dart';
 import 'package:tencent_cloud_chat_uikit/base_widgets/tim_ui_kit_base.dart';
-import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart' as tencent_chat;
+import 'package:tencent_cloud_chat_uikit/tencent_cloud_chat_uikit.dart'
+    as tencent_chat;
 
 class TIMUIKitChat extends StatefulWidget {
   int startTime = 0;
@@ -82,7 +83,8 @@ class TIMUIKitChat extends StatefulWidget {
   final ConvType? conversationType;
 
   /// use for customize avatar
-  final Widget Function(BuildContext context, V2TimMessage message)? userAvatarBuilder;
+  final Widget Function(BuildContext context, V2TimMessage message)?
+      userAvatarBuilder;
 
   /// Use for show conversation name.
   /// This field is not necessary to be provided, when `conversation` is provided, unless you want to cover this field manually.
@@ -92,9 +94,11 @@ class TIMUIKitChat extends StatefulWidget {
   final void Function(String userID, TapDownDetails tapDetails)? onTapAvatar;
 
   /// Avatar and name in message reaction secondary tap callback.
-  final void Function(String userID, TapDownDetails tapDetails)? onSecondaryTapAvatar;
+  final void Function(String userID, TapDownDetails tapDetails)?
+      onSecondaryTapAvatar;
 
-  @Deprecated("Nickname will not shows in one-to-one chat, if you tend to control it in group chat, please use `isShowSelfNameInGroup` and `isShowOthersNameInGroup` from `config: TIMUIKitChatConfig` instead")
+  @Deprecated(
+      "Nickname will not shows in one-to-one chat, if you tend to control it in group chat, please use `isShowSelfNameInGroup` and `isShowOthersNameInGroup` from `config: TIMUIKitChatConfig` instead")
 
   /// Should show the nick name.
   final bool showNickName;
@@ -106,10 +110,12 @@ class TIMUIKitChat extends StatefulWidget {
   final bool showTotalUnReadCount;
 
   /// Deprecated("Please use [extraTipsActionItemBuilder] instead")
-  final Widget? Function(V2TimMessage message, Function() closeTooltip, [Key? key, BuildContext? context])? exteraTipsActionItemBuilder;
+  final Widget? Function(V2TimMessage message, Function() closeTooltip,
+      [Key? key, BuildContext? context])? exteraTipsActionItemBuilder;
 
   /// The builder for extra tips action.
-  final Widget? Function(V2TimMessage message, Function() closeTooltip, [Key? key, BuildContext? context])? extraTipsActionItemBuilder;
+  final Widget? Function(V2TimMessage message, Function() closeTooltip,
+      [Key? key, BuildContext? context])? extraTipsActionItemBuilder;
 
   /// The text of draft shows in TextField.
   /// [Recommend]: You can specify this field with the draftText from V2TimConversation.
@@ -119,7 +125,7 @@ class TIMUIKitChat extends StatefulWidget {
   final V2TimMessage? initFindingMsg;
 
   /// The hint text shows at input field.
-  String? textFieldHintText="";
+  String? textFieldHintText = "";
 
   /// The configuration for appbar.
   final AppBar? appBarConfig;
@@ -200,10 +206,13 @@ class TIMUIKitChat extends StatefulWidget {
       this.conversationShowName,
       this.abstractMessageBuilder,
       this.onTapAvatar,
-      @Deprecated("Nickname will not show in one-to-one chat, if you tend to control it in group chat, please use `isShowSelfNameInGroup` and `isShowOthersNameInGroup` from `config: TIMUIKitChatConfig` instead") this.showNickName = false,
+      @Deprecated(
+          "Nickname will not show in one-to-one chat, if you tend to control it in group chat, please use `isShowSelfNameInGroup` and `isShowOthersNameInGroup` from `config: TIMUIKitChatConfig` instead")
+      this.showNickName = false,
       this.showTotalUnReadCount = false,
       this.messageItemBuilder,
-      @Deprecated("Please use [extraTipsActionItemBuilder] instead") this.exteraTipsActionItemBuilder,
+      @Deprecated("Please use [extraTipsActionItemBuilder] instead")
+      this.exteraTipsActionItemBuilder,
       this.extraTipsActionItemBuilder,
       this.draftText,
       this.textFieldHintText,
@@ -236,88 +245,90 @@ class TIMUIKitChat extends StatefulWidget {
 }
 
 class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
-
   CustomImController? customImController;
   StreamSubscription? streamSubscription;
   StreamSubscription? txtOrderFinishStreamSubscription;
   StreamSubscription? orderStatusChangeSubscription;
   TUIChatSeparateViewModel model = TUIChatSeparateViewModel();
-  final TUISelfInfoViewModel selfInfoViewModel = serviceLocator<TUISelfInfoViewModel>();
+  final TUISelfInfoViewModel selfInfoViewModel =
+      serviceLocator<TUISelfInfoViewModel>();
   final TUIThemeViewModel themeViewModel = serviceLocator<TUIThemeViewModel>();
-  final TUIConversationViewModel conversationViewModel = serviceLocator<TUIConversationViewModel>();
-  TIMUIKitInputTextFieldController textFieldController = TIMUIKitInputTextFieldController();
+  final TUIConversationViewModel conversationViewModel =
+      serviceLocator<TUIConversationViewModel>();
+  TIMUIKitInputTextFieldController textFieldController =
+      TIMUIKitInputTextFieldController();
   bool isInit = false;
-  final TUIChatGlobalModel chatGlobalModel = serviceLocator<TUIChatGlobalModel>();
+  final TUIChatGlobalModel chatGlobalModel =
+      serviceLocator<TUIChatGlobalModel>();
   bool _dragging = false;
   bool showInputDisableView = false;
   final GlobalKey alignKey = GlobalKey();
   final GlobalKey listContainerKey = GlobalKey();
+  String placeOrderTitle = "立即下单";
 
   late AutoScrollController autoController = AutoScrollController(
-    viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+    viewportBoundaryGetter: () =>
+        Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
     axis: Axis.vertical,
   );
 
   late AutoScrollController atMemberPanelScroll = AutoScrollController(
-    viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+    viewportBoundaryGetter: () =>
+        Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
     axis: Axis.vertical,
   );
   bool showTopinfo = true;
   bool showPlaceOrder = false;
-  String textFieldHintText="";
-
+  String textFieldHintText = "";
 
   Widget? _joinInGroupCallWidget;
 
   @override
   void initState() {
-
     CustomImController.chatStatusInfo = null;
     print("objectinitState");
-    if(conversationViewModel.selectedConversation==null||(conversationViewModel.selectedConversation!.conversationID!)!=widget.conversation.conversationID!){
+    if (conversationViewModel.selectedConversation == null ||
+        (conversationViewModel.selectedConversation!.conversationID!) !=
+            widget.conversation.conversationID!) {
       conversationViewModel.setSelectedConversation(widget.conversation!);
-     }
+    }
 
     txtOrderFinishStreamSubscription =
         EventBusSingleton.getInstance().on<TxtChatEvent>().listen((event) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (1 == widget.conversation.type) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-
-            if(1==widget.conversation.type){
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                setState(() {
-                  this.textFieldHintText = event.inputHint;
-                  if (event.inputHint == null || event.inputHint.length == 0) {
-                    MsgCountApi.showMsgCount(
-                        customImController!.uid, customImController!.remoteUid);
-                  }else{
-                    showInputDisableView=false;
-                  }
-                });
-              });
-            }
-
-
-
+            setState(() {
+              this.textFieldHintText = event.inputHint;
+              if (event.inputHint == null || event.inputHint.length == 0) {
+                MsgCountApi.showMsgCount(
+                    customImController!.uid, customImController!.remoteUid);
+              } else {
+                showInputDisableView = false;
+              }
+            });
           });
-
-        });
-    orderStatusChangeSubscription=EventBusSingleton.getInstance().on<OrderStatusChangeEvent>().listen((event) {
-      if(2==conversationViewModel.selectedConversation!.type!){
+        }
+      });
+    });
+    orderStatusChangeSubscription = EventBusSingleton.getInstance()
+        .on<OrderStatusChangeEvent>()
+        .listen((event) {
+      if (2 == conversationViewModel.selectedConversation!.type!) {
         return;
       }
-     Future.delayed(Duration(seconds: 2),(){
-       checkChatInfo();
-     });
-
+      Future.delayed(Duration(seconds: 2), () {
+        checkChatInfo();
+      });
     });
 
     streamSubscription =
         EventBusSingleton.getInstance().on<FreeMsgCountEvent>().listen((event) {
-          bool shouldChangeState = false;
-          CustomImController.chatStatusInfo!.leftFeeMsgcount= CustomImController.chatStatusInfo!.leftFeeMsgcount-1;
-          showLeftMsgCount();
-
-        });
+      bool shouldChangeState = false;
+      CustomImController.chatStatusInfo!.leftFeeMsgcount =
+          CustomImController.chatStatusInfo!.leftFeeMsgcount - 1;
+      showLeftMsgCount();
+    });
     // 设置状态栏颜色
     // FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
     FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
@@ -325,7 +336,6 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
       Frame.init();
     }
     customImController = CustomImController(widget.conversation.userID);
-
 
     model.abstractMessageBuilder = widget.abstractMessageBuilder;
     model.onTapAvatar = widget.onTapAvatar;
@@ -338,40 +348,39 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
       updateDraft();
     });
 
-    if(1==widget!.conversation!.type!){
+    if (1 == widget!.conversation!.type!) {
       checkChatInfo();
-
     }
     super.initState();
   }
-  showLeftMsgCount(){
+
+  showLeftMsgCount() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (CustomImController.chatStatusInfo!.leftFeeMsgcount <= 0) {
         customImController!.sendPlaceOrderMsg();
         setState(() {
           showInputDisableView = true;
-          this.textFieldHintText =
-          "";
+          this.textFieldHintText = "";
           FocusScope.of(context).requestFocus(FocusNode());
-          textFieldController.actionType=tencent_chat.ActionType.hideAllPanel!;
+          textFieldController.actionType =
+              tencent_chat.ActionType.hideAllPanel!;
           textFieldController.notifyListeners();
-
         });
       } else {
         setState(() {
           showInputDisableView = false;
-          this.textFieldHintText =
-              "赠送聊天条数剩余" + CustomImController.chatStatusInfo!.leftFeeMsgcount.toString() + "条";
-
+          this.textFieldHintText = "赠送聊天条数剩余" +
+              CustomImController.chatStatusInfo!.leftFeeMsgcount.toString() +
+              "条";
         });
-
       }
     });
   }
+
   @override
-  activate(){
+  activate() {
     super.activate();
-  //  FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
+    //  FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
     print("生命周期 activate=======");
   }
 
@@ -379,107 +388,115 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   void reassemble() {
     super.reassemble();
     print("生命周期 reassemble=======");
-
   }
+
   @override
-  deactivate(){
+  deactivate() {
     super.deactivate();
-  //  FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 237, 237, 237));
-
+    //  FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 237, 237, 237));
   }
-  checkChatInfo(){
-    customImController!.checkChatInfo().then((mvalue) {
-      print("checkChatInfo:"+mvalue.errorCode.toString());
-      if (mvalue.errorCode == 0) {
 
+  checkChatInfo() {
+    customImController!.checkChatInfo().then((mvalue) {
+      print("checkChatInfo:" + mvalue.errorCode.toString());
+      if (mvalue.errorCode == 0) {
         CustomImController.chatStatusInfo = mvalue.data;
 
         //双方正在同一个订单服务中
-        if(mvalue.data!.isInSameOrder&&mvalue.data!.order!.name!.contains("文字")){
+        if (mvalue.data!.isInSameOrder &&
+            mvalue.data!.order!.name!.contains("文字")) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             //倒计时开始
 
-
-            bool isBuyer=customImController!.uid==mvalue.data!.order!.buyerId;
-            if(isBuyer){
-              OrderCountDStartEvent event = OrderCountDStartEvent(mvalue.data!.order!.id);
+            bool isBuyer =
+                customImController!.uid == mvalue.data!.order!.buyerId;
+            if (isBuyer) {
+              OrderCountDStartEvent event =
+                  OrderCountDStartEvent(mvalue.data!.order!.id);
               EventBusSingleton.getInstance().fire(event);
-
-            }else{
+            } else {
               setState(() {
-                this.textFieldHintText="订单将于"+MDateUtils.caculteShowEndTie(DateTime.now().millisecondsSinceEpoch+mvalue.data!.order!.leftTime*1000)+"结束";
-
+                this.textFieldHintText = "订单将于" +
+                    MDateUtils.caculteShowEndTie(
+                        DateTime.now().millisecondsSinceEpoch +
+                            mvalue.data!.order!.leftTime * 1000) +
+                    "结束";
               });
             }
             OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
-                widget.conversation!.showName!,
-                isBuyer? "正在为您服务中":"在线");
+                widget.conversation!.showName!, isBuyer ? "正在为您服务中" : "在线");
             EventBusSingleton.getInstance().fire(onlineStatusEvent);
-
-
           });
-        }else{
+        } else {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             /**
              * 对方不是倾听者，我方不现实剩余条数
              */
-            if(!mvalue.data!.isRemoteListener ){
+            if (!mvalue.data!.isRemoteListener) {
               setState(() {
-                this.textFieldHintText ="";
+                this.textFieldHintText = "";
               });
-
             }
             //对方是倾听者，我方显示免费条数
-            if(mvalue.data!.isRemoteListener&&1==widget.conversation.type){
-              Future.delayed(Duration(milliseconds: 300),(){
+            if (mvalue.data!.isRemoteListener &&
+                1 == widget.conversation.type) {
+              Future.delayed(Duration(milliseconds: 300), () {
                 showLeftMsgCount();
 
                 OnlineStatusEvent onlineStatusEvent = OnlineStatusEvent(
-                    widget.conversation.showName!.isEmpty?mvalue.data!.remoteNick:widget.conversation.showName!,
+                    widget.conversation.showName!.isEmpty
+                        ? mvalue.data!.remoteNick
+                        : widget.conversation.showName!,
                     mvalue.data!.remoteUserOnlineStatusTitle!);
                 EventBusSingleton.getInstance().fire(onlineStatusEvent);
               });
-
             }
-
           });
-
         }
         if (mvalue.data!.isRemoteListener) {
-          customImController!.loadListenerInfo().then((value)
-          {
-            if(value.errorCode == 0&&value.data!=null){
-              showPlaceOrder=true;
-              if(value.data!.showTopInfo==1){
+          customImController!.loadListenerInfo().then((value) {
+            if (value.errorCode == 0 && value.data != null) {
+              showPlaceOrder = true;
+              if (value.data!.showTopInfo == 1) {
                 showTopinfo = true;
-
-              }else{
-                showTopinfo=false;
+              } else {
+                showTopinfo = false;
               }
-              setState(() {});
+              setState(() {
+                parsePlaceOrderTitle();
+              });
             }
-
           });
-        }
-        else{
-          if(mvalue.data!.isListener){
-            showTopinfo=false;
+        } else {
+          if (mvalue.data!.isListener) {
+            showTopinfo = false;
             setState(() {});
           }
         }
+      } else {
+        //   TUIToast.show(content: mvalue.errorMsg,gravity: TUIGravity.center);
 
-      }
-      else{
-     //   TUIToast.show(content: mvalue.errorMsg,gravity: TUIGravity.center);
-
-        if(CustomImController.chatStatusInfo==null){
+        if (CustomImController.chatStatusInfo == null) {
           Navigator.pop(context);
-          TUIToast.show(content: mvalue.errorMsg,gravity: TUIGravity.center);
+          TUIToast.show(content: mvalue.errorMsg, gravity: TUIGravity.center);
         }
-
-
       }
     });
+  }
+
+  parsePlaceOrderTitle() {
+
+
+      if (this.customImController!.listenerVo == null||this.customImController!.listenerVo!.priceAfterCoupon<0) {
+        this.placeOrderTitle = "立即下单";
+      } else {
+        if (this.customImController!.listenerVo!.priceAfterCoupon == 0) {
+          this. placeOrderTitle = "免费下单";
+        } else {
+          this.  placeOrderTitle = "优惠下单";
+        }
+      }
+
   }
 
   @override
@@ -492,12 +509,11 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
       txtOrderFinishStreamSubscription!.cancel();
       streamSubscription!.cancel();
     }
-    if(orderStatusChangeSubscription!=null){
+    if (orderStatusChangeSubscription != null) {
       orderStatusChangeSubscription!.cancel();
-      orderStatusChangeSubscription=null;
-
+      orderStatusChangeSubscription = null;
     }
-    CustomImController.chatStatusInfo=null;
+    CustomImController.chatStatusInfo = null;
     print("chat dispose");
     model.dispose();
   }
@@ -505,7 +521,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   @override
   void didUpdateWidget(TIMUIKitChat oldWidget) {
     super.didUpdateWidget(oldWidget);
-   // FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
+    // FlutterStatusbarcolor.setStatusBarColor(const Color.fromARGB(255, 243, 243, 243));
 
     if (widget.conversationID != oldWidget.conversationID) {
       isInit = false;
@@ -538,7 +554,11 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   updateDraft() async {
     final isTopic = widget.conversation.conversationID.contains("@TOPIC#");
     if (isTopic) {
-      final topicInfoList = await TencentImSDKPlugin.v2TIMManager.getGroupManager().getTopicInfoList(groupID: widget.groupID!, topicIDList: [widget.conversation.conversationID]);
+      final topicInfoList = await TencentImSDKPlugin.v2TIMManager
+          .getGroupManager()
+          .getTopicInfoList(
+              groupID: widget.groupID!,
+              topicIDList: [widget.conversation.conversationID]);
       final topicInfo = topicInfoList.data?.first.topicInfo;
       final draftText = topicInfo?.draftText;
       if (TencentUtils.checkString(draftText) != null) {
@@ -563,7 +583,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              TIM_t_para("{{option1}} 条入群请求", "$option1 条入群请求")(option1: option1),
+              TIM_t_para("{{option1}} 条入群请求", "$option1 条入群请求")(
+                  option1: option1),
               style: const TextStyle(
                 fontSize: 12,
               ),
@@ -582,44 +603,73 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   }
 
   String _getTitle() {
-    return TencentUtils.checkString(widget.conversationShowName) ?? widget.conversation.showName ?? "Chat";
+    return TencentUtils.checkString(widget.conversationShowName) ??
+        widget.conversation.showName ??
+        "Chat";
   }
 
   String _getConvID() {
-    return TencentUtils.checkString(widget.conversationID) ?? (widget.conversation.type == 1 ? widget.conversation.userID : widget.conversation.groupID) ?? "";
+    return TencentUtils.checkString(widget.conversationID) ??
+        (widget.conversation.type == 1
+            ? widget.conversation.userID
+            : widget.conversation.groupID) ??
+        "";
   }
 
   ConvType _getConvType() {
     return widget.conversation.type == 1 ? ConvType.c2c : ConvType.group;
   }
 
-  createBottomActionWidget(){
-    return GestureDetector(child:
-    Container( decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color:  Color(
-        0xFF1CB678).withOpacity(1)),padding:EdgeInsets.only(left: 8,right: 8,top: 6,bottom: 6),child: Row(children: [
-
-
-
-      Container(child:Icon( Icons.call_end_outlined,color: Colors.white,size: 16,)  ,),
-
-      SizedBox(width: 4,),
-      Text("立即通话",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold),),
-
-
-    ],),),onTap: (){
-      CallEvent callEvent=CallEvent(ImApi.parseUid(conversationViewModel.selectedConversation!.userID.toString()), "voice",conversationViewModel.selectedConversation!.showName!,"",this.customImController!.listenerVo?.openFastCall??0);
-    EventBusSingleton.getInstance().fire(callEvent);
-    UmengCommonSdk.onEvent(UmengEvent.clickCallIcon,{});},);
-
-
+  createBottomActionWidget() {
+    return GestureDetector(
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Color(0xFF1CB678).withOpacity(1)),
+        padding: EdgeInsets.only(left: 8, right: 8, top: 6, bottom: 6),
+        child: Row(
+          children: [
+            Container(
+              child: Icon(
+                Icons.call_end_outlined,
+                color: Colors.white,
+                size: 16,
+              ),
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            Text(
+              "立即通话",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+      onTap: () {
+        CallEvent callEvent = CallEvent(
+            ImApi.parseUid(
+                conversationViewModel.selectedConversation!.userID.toString()),
+            "voice",
+            conversationViewModel.selectedConversation!.showName!,
+            "",
+            this.customImController!.listenerVo?.openFastCall ?? 0);
+        EventBusSingleton.getInstance().fire(callEvent);
+        UmengCommonSdk.onEvent(UmengEvent.clickCallIcon, {});
+      },
+    );
   }
+
   _updateJoinInGroupCallWidget() async {
     if (_getConvType() != ConvType.group) {
       return;
     }
-    final w = await TUICore.instance.raiseExtension(TUIExtensionID.joinInGroup, {GROUP_ID: widget.conversationID!});
-    if(w != _joinInGroupCallWidget){
-
+    final w = await TUICore.instance.raiseExtension(
+        TUIExtensionID.joinInGroup, {GROUP_ID: widget.conversationID!});
+    if (w != _joinInGroupCallWidget) {
       setState(() {
         _joinInGroupCallWidget = w;
       });
@@ -628,12 +678,10 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
 
   @override
   Widget tuiBuild(BuildContext context, TUIKitBuildValue value) {
-
     final TUITheme theme = value.theme;
     final isBuild = isInit;
     isInit = true;
     _updateJoinInGroupCallWidget();
-
 
     return TIMUIKitChatProviderScope(
         model: model,
@@ -650,22 +698,28 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
           Provider(create: (_) => widget.config),
         ],
         builder: (context, model, w) {
-          final TUIChatGlobalModel chatGlobalModel = Provider.of<TUIChatGlobalModel>(context, listen: true);
+          final TUIChatGlobalModel chatGlobalModel =
+              Provider.of<TUIChatGlobalModel>(context, listen: true);
 
           widget.controller?.model = model;
           widget.controller?.textFieldController = textFieldController;
           widget.controller?.scrollController = autoController;
           List<V2TimGroupApplication> filteredApplicationList = [];
-          if (widget.conversationType == ConvType.group && widget.onDealWithGroupApplication != null) {
-            filteredApplicationList = chatGlobalModel.groupApplicationList.where((item) {
-              return (item.groupID == widget.conversationID) && item.handleStatus == 0;
+          if (widget.conversationType == ConvType.group &&
+              widget.onDealWithGroupApplication != null) {
+            filteredApplicationList =
+                chatGlobalModel.groupApplicationList.where((item) {
+              return (item.groupID == widget.conversationID) &&
+                  item.handleStatus == 0;
             }).toList();
           }
 
           final selfUserID = selfInfoViewModel.loginInfo?.userID;
-          final TUIGroupListenerModel groupListenerModel = Provider.of<TUIGroupListenerModel>(context, listen: true);
+          final TUIGroupListenerModel groupListenerModel =
+              Provider.of<TUIGroupListenerModel>(context, listen: true);
           final NeedUpdate? needUpdate = groupListenerModel.needUpdate;
-          if (needUpdate != null && needUpdate.groupID == widget.conversationID) {
+          if (needUpdate != null &&
+              needUpdate.groupID == widget.conversationID) {
             groupListenerModel.needUpdate = null;
             switch (needUpdate.updateType) {
               case UpdateType.groupInfo:
@@ -683,13 +737,24 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
           }
 
           List<CustomEmojiFaceData> customImageSmallPngEmojiPackages = [];
-          if (widget.config?.stickerPanelConfig?.customStickerPackages != null && widget.config!.stickerPanelConfig!.customStickerPackages.isNotEmpty) {
-            customImageSmallPngEmojiPackages = widget.config!.stickerPanelConfig!.customStickerPackages.where((element) => element.isEmoji == true).map((e) {
-              return CustomEmojiFaceData(name: e.name, isEmoji: true, icon: e.menuItem.url ?? "", list: e.stickerList.map((e) => e.url ?? "").toList());
+          if (widget.config?.stickerPanelConfig?.customStickerPackages !=
+                  null &&
+              widget.config!.stickerPanelConfig!.customStickerPackages
+                  .isNotEmpty) {
+            customImageSmallPngEmojiPackages = widget
+                .config!.stickerPanelConfig!.customStickerPackages
+                .where((element) => element.isEmoji == true)
+                .map((e) {
+              return CustomEmojiFaceData(
+                  name: e.name,
+                  isEmoji: true,
+                  icon: e.menuItem.url ?? "",
+                  list: e.stickerList.map((e) => e.url ?? "").toList());
             }).toList();
           }
           if (customImageSmallPngEmojiPackages.isEmpty) {
-            customImageSmallPngEmojiPackages.addAll(widget.customEmojiStickerList);
+            customImageSmallPngEmojiPackages
+                .addAll(widget.customEmojiStickerList);
           }
           // 获取底部安全区的边距信息
           EdgeInsets padding = MediaQuery.of(context).padding;
@@ -702,23 +767,30 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
               textFieldController.hideAllPanel();
             },
             child: Scaffold(
-
-                 backgroundColor: theme.chatBgColor,
+                backgroundColor: theme.chatBgColor,
                 resizeToAvoidBottomInset: false,
-                appBar: (widget.customAppBar == null&&1==widget.conversation.type)
+                appBar: (widget.customAppBar == null &&
+                        1 == widget.conversation.type)
                     ? TIMUIKitAppBar(
                         showTotalUnReadCount: widget.showTotalUnReadCount,
                         config: widget.appBarConfig,
                         conversationShowName: _getTitle(),
                         conversationID: _getConvID(),
-                        showC2cMessageEditStatus: widget.config?.showC2cMessageEditStatus ?? true,
+                        showC2cMessageEditStatus:
+                            widget.config?.showC2cMessageEditStatus ?? true,
                       )
                     : null,
                 body: DropTarget(
                   onDragDone: (detail) {
                     setState(() {
                       _dragging = false;
-                      sendFileWithConfirmation(files: detail.files, conversation: widget.conversation, conversationType: _getConvType(), model: model, theme: theme, context: context);
+                      sendFileWithConfirmation(
+                          files: detail.files,
+                          conversation: widget.conversation,
+                          conversationType: _getConvType(),
+                          model: model,
+                          theme: theme,
+                          context: context);
                     });
                   },
                   onDragEntered: (detail) {
@@ -732,19 +804,18 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                     });
                   },
                   child: Stack(
-
-
-
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           if (widget.customAppBar != null) widget.customAppBar!,
                           //头部倾听师的相关信息
-                          if(showTopinfo&&customImController?.listenerVo!=null)
+                          if (showTopinfo &&
+                              customImController?.listenerVo != null)
                             Container(
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(9),color:Colors.white,
-
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(9),
+                                color: Colors.white,
                                 boxShadow: [
                                   BoxShadow(
                                     color: Color.fromARGB(255, 243, 243, 243),
@@ -754,199 +825,259 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                   ),
                                 ],
                               ),
-                              margin: EdgeInsets.only(left: 16,right: 16,top: 4 ,bottom: 2),
-
-
+                              margin: EdgeInsets.only(
+                                  left: 16, right: 16, top: 4, bottom: 2),
                               width: double.infinity,
-                              padding: EdgeInsets.only(
-                                left: 16,right: 0),
+                              padding: EdgeInsets.only(left: 16, right: 0),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   //  头像
-                                  GestureDetector(child:  ExtendedImage.network(
-
-                                    customImController!.listenerVo!.headUrl,
-                                    // item.user.avatar??"",
-                                    width: 50,
-                                    height: 50,
-                                    shape: BoxShape.circle,
-                                    loadStateChanged: (state) {
-                                      if (state.extendedImageLoadState ==
-                                          LoadState.completed) {
-                                        return ExtendedRawImage(
-                                          image: state.extendedImageInfo?.image,
-                                          fit: BoxFit.cover,
-                                        );
-                                      } else {
-                                        return Container(
-                                          color:
-                                          Color.fromARGB(255, 230, 230, 230),
-                                        );
-                                      }
+                                  GestureDetector(
+                                    child: ExtendedImage.network(
+                                      customImController!.listenerVo!.headUrl,
+                                      // item.user.avatar??"",
+                                      width: 50,
+                                      height: 50,
+                                      shape: BoxShape.circle,
+                                      loadStateChanged: (state) {
+                                        if (state.extendedImageLoadState ==
+                                            LoadState.completed) {
+                                          return ExtendedRawImage(
+                                            image:
+                                                state.extendedImageInfo?.image,
+                                            fit: BoxFit.cover,
+                                          );
+                                        } else {
+                                          return Container(
+                                            color: Color.fromARGB(
+                                                255, 230, 230, 230),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                    onTap: () {
+                                      ARouter(RoutingTable.userpage)
+                                          .addParam(
+                                              "targetUid",
+                                              customImController!
+                                                  .listenerVo!.uid
+                                                  .toString())
+                                          .push();
                                     },
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
 
-                                  ),onTap: (){
-                                    ARouter(RoutingTable.userpage).addParam("targetUid", customImController!.listenerVo!.uid.toString()).push();
-                                  },)
-                                 ,
-                                  SizedBox(width: 8,),
-
-
-                                  Expanded(child:
-                                  Container(
-                                     child: Column(
-
-                                    children: [
-                                      SizedBox(height: 4,),
-
-                                      Container(
-                                        margin: EdgeInsets.only(left: 8),
-                                        child: Row(
-
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Center(
-                                                    child: Column(
-                                                      children: [
-                                                        Text("" +customImController!.getOpenChatUserCount()),
-                                                        SizedBox(height: 3,),
-                                                        Text(
-                                                          "倾诉人数",
-                                                          style: TextStyle(
-                                                              fontSize: 11,
-                                                              color: Color(
-                                                                  0xFF9E9E9E)),
-                                                        ),
-                                                      ],
-                                                    )),
-
-                                            Expanded(
-
-                                                child: Container(
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                            customImController!
-                                                                .listenerVo!
-                                                                .commentScore.toStringAsFixed(1)
-                                                            .toString() ),
-                                                        SizedBox(height: 3,),
-                                                        Text(
-                                                          "评分",
-                                                          style: TextStyle(
-                                                              fontSize: 11,
-                                                              color: Color(
-                                                                  0xFF9E9E9E)),
-                                                        ),
-                                                      ],
-                                                    ))),
-
-
-
-                                            Expanded(
-
-
-                                                child: Container(
-
-                                                    child: Column(
-                                                      children: [
-                                                        Text((customImController!
-                                                            .listenerVo!.thirdHours+(customImController!
-                                                            .listenerVo!
-                                                            .serviceSeconds~/3600))
-                                                            .toString()+"小时"),
-                                                        SizedBox(height: 3,),
-                                                        Text(
-                                                          "经验时长",
-                                                          style: TextStyle(
-                                                              fontSize: 11,
-                                                              color: Color(
-                                                                  0xFF9E9E9E)),
-                                                        ),
-                                                      ],
-                                                    ))),
-                                          ],
-                                        ),
-                                        width: double.infinity,),
-
-
-                                      SizedBox(
-                                        height: 6,
-                                      ),
-                                      Container(child: Row(
-
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween
-                                        ,
+                                  Expanded(
+                                    child: Container(
+                                      child: Column(
                                         children: [
-                                          BrnStateTag(
-                                            tagText: customImController!.getcertificateName(customImController!.listenerVo!),
-                                            tagState: customImController!.getcertificateName(customImController!.listenerVo!)=='倾听师'?TagState.running:TagState.succeed,
+                                          SizedBox(
+                                            height: 4,
                                           ),
-                                          GestureDetector(child: Text("评价(" +
-                                              customImController!.listenerVo!
-                                                  .commentNums.toString() + ")",
-                                            style: TextStyle(
-                                                color: Color(0xFF00AE66),
-                                                fontSize: 14),),onTap: (){
-                                            ARouter(RoutingTable.listenerCommentsPage).addParam("targetUid", customImController!.listenerVo!.uid.toString()).addParam("title", "全部评价("+customImController!.listenerVo!.commentNums.toString()+")").push();
-                                            UmengCommonSdk.onEvent(UmengEvent.clickListenerCommnet,{});
-
-                                          },)
-                                          ,
-
-                                        ],),padding: EdgeInsets.only(right: 24,left: 8),)
-                                      ,
-                                      SizedBox(height: 6,),
-
-                                    ],
-                                  ), )
-                                  ,),
-
+                                          Container(
+                                            margin: EdgeInsets.only(left: 8),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Center(
+                                                    child: Column(
+                                                  children: [
+                                                    Text("" +
+                                                        customImController!
+                                                            .getOpenChatUserCount()),
+                                                    SizedBox(
+                                                      height: 3,
+                                                    ),
+                                                    Text(
+                                                      "倾诉人数",
+                                                      style: TextStyle(
+                                                          fontSize: 11,
+                                                          color: Color(
+                                                              0xFF9E9E9E)),
+                                                    ),
+                                                  ],
+                                                )),
+                                                Expanded(
+                                                    child: Container(
+                                                        child: Column(
+                                                  children: [
+                                                    Text(customImController!
+                                                        .listenerVo!
+                                                        .commentScore
+                                                        .toStringAsFixed(1)
+                                                        .toString()),
+                                                    SizedBox(
+                                                      height: 3,
+                                                    ),
+                                                    Text(
+                                                      "评分",
+                                                      style: TextStyle(
+                                                          fontSize: 11,
+                                                          color: Color(
+                                                              0xFF9E9E9E)),
+                                                    ),
+                                                  ],
+                                                ))),
+                                                Expanded(
+                                                    child: Container(
+                                                        child: Column(
+                                                  children: [
+                                                    Text((customImController!
+                                                                    .listenerVo!
+                                                                    .thirdHours +
+                                                                (customImController!
+                                                                        .listenerVo!
+                                                                        .serviceSeconds ~/
+                                                                    3600))
+                                                            .toString() +
+                                                        "小时"),
+                                                    SizedBox(
+                                                      height: 3,
+                                                    ),
+                                                    Text(
+                                                      "经验时长",
+                                                      style: TextStyle(
+                                                          fontSize: 11,
+                                                          color: Color(
+                                                              0xFF9E9E9E)),
+                                                    ),
+                                                  ],
+                                                ))),
+                                              ],
+                                            ),
+                                            width: double.infinity,
+                                          ),
+                                          SizedBox(
+                                            height: 6,
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                BrnStateTag(
+                                                  tagText: customImController!
+                                                      .getcertificateName(
+                                                          customImController!
+                                                              .listenerVo!),
+                                                  tagState: customImController!
+                                                              .getcertificateName(
+                                                                  customImController!
+                                                                      .listenerVo!) ==
+                                                          '倾听师'
+                                                      ? TagState.running
+                                                      : TagState.succeed,
+                                                ),
+                                                GestureDetector(
+                                                  child: Text(
+                                                    "评价(" +
+                                                        customImController!
+                                                            .listenerVo!
+                                                            .commentNums
+                                                            .toString() +
+                                                        ")",
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF00AE66),
+                                                        fontSize: 14),
+                                                  ),
+                                                  onTap: () {
+                                                    ARouter(RoutingTable
+                                                            .listenerCommentsPage)
+                                                        .addParam(
+                                                            "targetUid",
+                                                            customImController!
+                                                                .listenerVo!.uid
+                                                                .toString())
+                                                        .addParam(
+                                                            "title",
+                                                            "全部评价(" +
+                                                                customImController!
+                                                                    .listenerVo!
+                                                                    .commentNums
+                                                                    .toString() +
+                                                                ")")
+                                                        .push();
+                                                    UmengCommonSdk.onEvent(
+                                                        UmengEvent
+                                                            .clickListenerCommnet,
+                                                        {});
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                            padding: EdgeInsets.only(
+                                                right: 24, left: 8),
+                                          ),
+                                          SizedBox(
+                                            height: 6,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
-
-                             ),
+                            ),
                           if (filteredApplicationList.isNotEmpty)
                             _renderJoinGroupApplication(
                                 filteredApplicationList.length, theme),
                           if (widget.topFixWidget != null) widget.topFixWidget!,
-                          if (_joinInGroupCallWidget != null) Center(child: _joinInGroupCallWidget!),
+                          if (_joinInGroupCallWidget != null)
+                            Center(child: _joinInGroupCallWidget!),
                           Expanded(
                               child: Container(
-                                padding: EdgeInsets.only(bottom: 8),
-
-                                color: theme.chatBgColor,
+                            padding: EdgeInsets.only(bottom: 8),
+                            color: theme.chatBgColor,
                             child: Align(
                                 key: alignKey,
                                 alignment: Alignment.topCenter,
                                 child: Listener(
                                   child: TIMUIKitHistoryMessageListContainer(
-                                    customMessageHoverBarOnDesktop: widget.customMessageHoverBarOnDesktop,
+                                    customMessageHoverBarOnDesktop:
+                                        widget.customMessageHoverBarOnDesktop,
                                     conversation: widget.conversation,
-                                    groupMemberInfo: model.groupMemberList?.firstWhere((element) => element?.userID == selfUserID, orElse: () => null),
+                                    groupMemberInfo: model.groupMemberList
+                                        ?.firstWhere(
+                                            (element) =>
+                                                element?.userID == selfUserID,
+                                            orElse: () => null),
                                     textFieldController: textFieldController,
-                                    customEmojiStickerList: widget.customEmojiStickerList,
-                                    isUseDefaultEmoji: widget.config!.isUseDefaultEmoji,
+                                    customEmojiStickerList:
+                                        widget.customEmojiStickerList,
+                                    isUseDefaultEmoji:
+                                        widget.config!.isUseDefaultEmoji,
                                     key: listContainerKey,
                                     isAllowScroll: true,
                                     userAvatarBuilder: widget.userAvatarBuilder,
                                     toolTipsConfig: widget.toolTipsConfig,
                                     groupAtInfoList: widget.groupAtInfoList,
                                     tongueItemBuilder: widget.tongueItemBuilder,
-                                    onLongPressForOthersHeadPortrait: (String? userId, String? nickName) {
-                                      textFieldController.longPressToAt(nickName, userId);
+                                    onLongPressForOthersHeadPortrait:
+                                        (String? userId, String? nickName) {
+                                      textFieldController.longPressToAt(
+                                          nickName, userId);
                                     },
-                                    mainHistoryListConfig: widget.mainHistoryListConfig,
+                                    mainHistoryListConfig:
+                                        widget.mainHistoryListConfig,
                                     initFindingMsg: widget.initFindingMsg,
-                                    extraTipsActionItemBuilder: widget.extraTipsActionItemBuilder ?? widget.exteraTipsActionItemBuilder,
+                                    extraTipsActionItemBuilder:
+                                        widget.extraTipsActionItemBuilder ??
+                                            widget.exteraTipsActionItemBuilder,
                                     conversationType: _getConvType(),
                                     scrollController: autoController,
-                                    onSecondaryTapAvatar: widget.onSecondaryTapAvatar,
+                                    onSecondaryTapAvatar:
+                                        widget.onSecondaryTapAvatar,
                                     onTapAvatar: widget.onTapAvatar,
                                     // ignore: deprecated_member_use_from_same_package
                                     showNickName: widget.showNickName,
-                                    messageItemBuilder: widget.messageItemBuilder,
+                                    messageItemBuilder:
+                                        widget.messageItemBuilder,
                                     conversationID: _getConvID(),
                                   ),
                                 )),
@@ -959,8 +1090,8 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                       conversationType: _getConvType(),
                                     )
                                   : (widget.textFieldBuilder != null
-                                  ? widget.textFieldBuilder!(context)
-                                  : getTextFiledView());
+                                      ? widget.textFieldBuilder!(context)
+                                      : getTextFiledView());
                             },
                             selector: (c, model) {
                               return model.isMultiSelect;
@@ -970,66 +1101,84 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                       ),
                       //头部下单入口
                       //if(showPlaceOrder)
-                        Positioned(
-                          child: Row(children: [
-
-
-                           if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
+                      Positioned(
+                        child: Row(
+                          children: [
+                            if (CustomImController
+                                        .chatStatusInfo?.isCustomerService ==
+                                    false &&
+                                CustomImController.chatStatusInfo
+                                        ?.isRemoteCustomerService ==
+                                    false)
                               createBottomActionWidget(),
-
-
                             SizedBox(width: 32),
-                            if(showPlaceOrder)
-                            GestureDetector(child:
+                            if (showPlaceOrder)
+                              GestureDetector(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      left: 6, right: 6, top: 6, bottom: 6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.orange,
 
-                            Container(
-                              padding: EdgeInsets.only(left: 6,right: 6,top: 6,bottom: 6),
-                              decoration: BoxDecoration(
-                                color: Colors.orange,
+                                    borderRadius:
+                                        BorderRadius.circular(20), // 圆角半径
+                                  ),
+                                  child: Text(
+                                    this.placeOrderTitle,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                onTap: () {
+                                  UmengCommonSdk.onEvent(
+                                      UmengEvent.clickPlaceOrder, {});
+                                  int openFastCall = 1;
+                                  if (customImController?.listenerVo != null) {
+                                    openFastCall = customImController!
+                                        .listenerVo!.openFastCall;
+                                  }
 
-                                borderRadius: BorderRadius.circular(20), // 圆角半径
-                              ),
-                              child: Text("立即下单",style: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold), )
-
-                              ,),onTap: (){
-                              UmengCommonSdk.onEvent(UmengEvent.clickPlaceOrder,{});
-                              int openFastCall=1;
-                              if(customImController?.listenerVo!=null){
-                                openFastCall= customImController!.listenerVo!.openFastCall;
-                              }
-
-
-                              EventBusSingleton.getInstance().fire(
-
-                                  PlaceOrderEvent(int.parse(
-                                      widget.conversation.conversationID!.replaceAll("c2c_huanxin", "")),openFastCall,customImController?.listenerVo?.nick??"",customImController?.listenerVo?.message??""));
-
-                            },)
-
-
-                          ],),
-                          right: 16,
-                          top: showTopinfo?88:20,
+                                  EventBusSingleton.getInstance().fire(
+                                      PlaceOrderEvent(
+                                          int.parse(widget
+                                              .conversation.conversationID!
+                                              .replaceAll("c2c_huanxin", "")),
+                                          openFastCall,
+                                          customImController
+                                                  ?.listenerVo?.nick ??
+                                              "",
+                                          customImController
+                                                  ?.listenerVo?.message ??
+                                              ""));
+                                },
+                              )
+                          ],
                         ),
+                        right: 16,
+                        top: showTopinfo ? 88 : 20,
+                      ),
 
-
-                      if(CustomImController.chatStatusInfo!=null&&CustomImController.chatStatusInfo!.canShowFree==1)
+                      if (CustomImController.chatStatusInfo != null &&
+                          CustomImController.chatStatusInfo!.canShowFree == 1)
                         createGetFreeOrderWidget(),
 
-
-
-                      if(showInputDisableView)
+                      if (showInputDisableView)
                         Positioned(
-                          child: Container(child: Center(child: Text(
-                              "免费条数已用完了"),),
+                          child: Container(
+                            child: Center(
+                              child: Text("免费条数已用完了"),
+                            ),
                             width: double.infinity,
                             height: 60,
-                            color: Colors.white,),
+                            color: Colors.white,
+                          ),
                           right: 0,
                           left: 0,
                           bottom: bottomSafeArea,
-                          height: 60,),
-
+                          height: 60,
+                        ),
 
                       if (_dragging)
                         TIMUIKitSendFile(
@@ -1043,114 +1192,102 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                     ],
                   ),
                 )),
-
           );
         });
   }
+
   /**
    * 免费5分钟
    */
-  Widget createGetFreeOrderWidget(){
-
-    return
-      Positioned(child: IconButton(
-
+  Widget createGetFreeOrderWidget() {
+    return Positioned(
+      child: IconButton(
         icon: Image.asset(
           width: 90,
           height: 33,
           'images/ic_btn_getfree.png',
           package: 'tencent_cloud_chat_uikit',
-        ), onPressed: () {
+        ),
+        onPressed: () {
+          BrnDialogManager.showConfirmDialog(context,
+              title: "温馨提示",
+              cancel: '取消',
+              confirm: '领取',
+              message: "新人免费倾诉只有一次机会哦，领取后将不再享受新人权益，确认选择该倾听师吗？", onConfirm: () {
+            EventBusSingleton.getInstance().fire(GetNewUserFreeOrder(
+                CustomImController.chatStatusInfo!.remoteUid));
 
-
-        BrnDialogManager.showConfirmDialog(context,
-            title: "温馨提示",
-            cancel: '取消',
-            confirm: '领取',
-            message: "新人免费倾诉只有一次机会哦，领取后将不再享受新人权益，确认选择该倾听师吗？",
-            onConfirm: () {
-               EventBusSingleton.getInstance().fire(GetNewUserFreeOrder( CustomImController.chatStatusInfo!.remoteUid));
-
-               Navigator.pop(context);
-            }, onCancel: () {
-               Navigator.pop(context);
-
-            });
-
-      },),top: 120,right: 0,);
-
+            Navigator.pop(context);
+          }, onCancel: () {
+            Navigator.pop(context);
+          });
+        },
+      ),
+      top: 120,
+      right: 0,
+    );
   }
+
   Widget getTextFiledView() {
-    if (widget.config!.onlyShowMessage!) {
-      return SizedBox();
-    }
-    Widget inputwidget= Container( child: Column(children: [
+    // if (widget.config!.onlyShowMessage!) {
+    //   return SizedBox();
+    // }
+    Widget inputwidget = Container(
+      child: Column(
+        children: [
+          // if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
+          //  createBottomActionWidget(),SizedBox(height: 8,),
+          Container(
+            child:
+                Divider(height: 1, color: Color.fromARGB(255, 230, 230, 230)),
+          ),
+          TIMUIKitInputTextField(
+            groupID: widget.groupID,
+            atMemberPanelScroll: atMemberPanelScroll,
+            backgroundColor: Color.fromARGB(255, 246, 246, 246),
+            //ColorHelpers.bottom_bg
+            groupType: widget.conversation.groupType,
+            currentConversation: widget.conversation,
+            model: model,
+            controller: textFieldController,
+            customEmojiStickerList: widget.customEmojiStickerList,
+            isUseDefaultEmoji: widget.config!.isUseDefaultEmoji,
+            customStickerPanel: widget.customStickerPanel,
+            morePanelConfig: widget.morePanelConfig,
+            scrollController: autoController,
+            conversationID: _getConvID(),
+            conversationType: _getConvType(),
+            initText: TencentUtils.checkString(widget.draftText) ??
+                (PlatformUtils().isWeb
+                    ? TencentUtils.checkString(
+                        conversationViewModel.getWebDraft(
+                            conversationID: widget.conversation.conversationID))
+                    : TencentUtils.checkString(widget.conversation.draftText)),
+            hintText: this.textFieldHintText,
+            showMorePanel: widget.config?.isAllowShowMorePanel ?? true,
+            showSendAudio: widget.config?.isAllowSoundMessage ?? true,
+            showSendEmoji: widget.config?.isAllowEmojiPanel ?? true,
+          )
+        ],
+      ),
+    );
 
-     // if(CustomImController.chatStatusInfo?.isCustomerService==false&&CustomImController.chatStatusInfo?.isRemoteCustomerService==false)
-     //  createBottomActionWidget(),SizedBox(height: 8,),
-      Container( child:Divider(height: 1,color:Color.fromARGB(255, 230, 230, 230)),),
-      TIMUIKitInputTextField(
-      groupID: widget.groupID,
-      atMemberPanelScroll:
-      atMemberPanelScroll,
-      backgroundColor: Color.fromARGB(255, 246, 246, 246),//ColorHelpers.bottom_bg
-      groupType:
-      widget.conversation.groupType,
-      currentConversation:
-      widget.conversation,
-      model: model,
-      controller: textFieldController,
-      customEmojiStickerList:
-      widget.customEmojiStickerList,
-      isUseDefaultEmoji:
-      widget.config!.isUseDefaultEmoji,
-      customStickerPanel:
-      widget.customStickerPanel,
-      morePanelConfig:
-      widget.morePanelConfig,
-      scrollController: autoController,
-      conversationID: _getConvID(),
-      conversationType: _getConvType(),
-      initText: TencentUtils.checkString(
-          widget.draftText) ??
-          (PlatformUtils().isWeb
-              ? TencentUtils.checkString(
-              conversationViewModel
-                  .getWebDraft(
-                  conversationID: widget
-                      .conversation
-                      .conversationID))
-              : TencentUtils.checkString(
-              widget.conversation
-                  .draftText)),
-      hintText:  this.textFieldHintText,
-      showMorePanel: widget.config
-          ?.isAllowShowMorePanel ??
-          true,
-      showSendAudio: widget.config
-          ?.isAllowSoundMessage ??
-          true,
-      showSendEmoji: widget
-          .config?.isAllowEmojiPanel ??
-          true,
-    )],),);
-
-      return inputwidget;
-
+    return inputwidget;
   }
-
 }
 
 class TIMUIKitChatProviderScope extends StatelessWidget {
   final TUIChatGlobalModel globalModel = serviceLocator<TUIChatGlobalModel>();
   TUIChatSeparateViewModel? model;
-  final TUIGroupListenerModel groupListenerModel = serviceLocator<TUIGroupListenerModel>();
+  final TUIGroupListenerModel groupListenerModel =
+      serviceLocator<TUIGroupListenerModel>();
   final TUIThemeViewModel themeViewModel = serviceLocator<TUIThemeViewModel>();
   final Widget? child;
   final CustomImController? customImController;
 
   /// You could get the model from here, and transfer it to other widget from TUIKit.
-  final Widget Function(BuildContext, TUIChatSeparateViewModel, Widget?) builder;
+  final Widget Function(BuildContext, TUIChatSeparateViewModel, Widget?)
+      builder;
   final List<SingleChildWidget>? providers;
 
   /// `TIMUIKitChatController` needs to be provided if you use it outside.
@@ -1200,7 +1337,7 @@ class TIMUIKitChatProviderScope extends StatelessWidget {
       this.config,
       this.lifeCycle,
       this.scrollController,
-        this.customImController})
+      this.customImController})
       : super(key: key) {
     if (isBuild ?? false) {
       return;
@@ -1222,13 +1359,16 @@ class TIMUIKitChatProviderScope extends StatelessWidget {
       preGroupMemberList: groupMemberList,
       groupID: groupID,
     );
-    model?.showC2cMessageEditStatus = (conversationType == ConvType.c2c ? config?.showC2cMessageEditStatus ?? true : false);
+    model?.showC2cMessageEditStatus = (conversationType == ConvType.c2c
+        ? config?.showC2cMessageEditStatus ?? true
+        : false);
     loadData();
   }
 
   loadData() {
     // if (model!.haveMoreData) {
-    model!.loadChatRecord(count: kIsWeb ? 15 : HistoryMessageDartConstant.getCount);
+    model!.loadChatRecord(
+        count: kIsWeb ? 15 : HistoryMessageDartConstant.getCount);
     // }
   }
 
@@ -1248,7 +1388,4 @@ class TIMUIKitChatProviderScope extends StatelessWidget {
       builder: (context, w) => builder(context, model!, w),
     );
   }
-
-
-
 }

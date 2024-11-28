@@ -43,10 +43,16 @@ dependencies:
   chewie: ^1.7.5
   flutter_slidable: ^3.0.1
   flutter_plugin_record_plus: ^0.0.16
+#  flutter_plugin_record_plus_plus: ^1.0.3
+#  flutter_plugin_record:
+#    git:
+#      url: https://github.com/yxwandroid/flutter_plugin_record.git
   azlistview_all_platforms: ^2.1.2
   lpinyin: ^2.0.3
   transparent_image: ^2.0.0
-  image_gallery_saver: ^2.0.3
+  image_gallery_saver: ^2.0.1
+#  image_gallery_saver_plus
+#  image_gallery_saver_plus: ^3.0.5
   path_provider: ^2.0.8
   cached_network_image: ^3.3.0
   shared_preferences: ^2.0.13
@@ -68,7 +74,7 @@ dependencies:
   http: ^1.0.0
   crypto: ^3.0.2
   collection: ^1.15.0
-  uuid: ^3.0.6
+  uuid: ^3.0.0
   open_file: ^3.3.2
   tencent_keyboard_visibility: ^1.0.1
   tim_ui_kit_sticker_plugin: ^3.2.0

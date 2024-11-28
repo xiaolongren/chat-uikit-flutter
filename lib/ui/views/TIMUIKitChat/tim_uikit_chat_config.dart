@@ -235,7 +235,7 @@ class TIMUIKitChatConfig {
   ///
   /// [Default]: false
   final bool isGroupAdminRecallEnabled;
-  final bool onlyShowMessage;
+  // final bool onlyShowMessage;
 
   /// Defines the height of the sticker panel on desktop platforms.
   /// If the height of the sticker list exceeds this container height,
