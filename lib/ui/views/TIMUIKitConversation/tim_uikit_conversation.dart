@@ -372,7 +372,6 @@ class _TIMUIKitConversationState extends TIMUIKitState<TIMUIKitConversation> {
                           child: GestureDetector(
                             child: TIMUIKitConversationItem(
                                 isCurrent: isCurrent,
-                                isShowDraft: widget.isShowDraft,
                                 lastMessageBuilder: widget.lastMessageBuilder,
                                 faceUrl: conversationItem.faceUrl ?? "",
                                 nickName: conversationItem.showName ?? "",
