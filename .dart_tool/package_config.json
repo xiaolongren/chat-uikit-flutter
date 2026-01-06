@@ -141,9 +141,9 @@
     },
     {
       "name": "camera_android",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/camera_android-0.10.9+3",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/camera_android-0.10.9+16",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.5"
     },
     {
       "name": "camera_avfoundation",
@@ -183,9 +183,9 @@
     },
     {
       "name": "chewie",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/chewie-1.7.5",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/chewie-1.8.5",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.3"
     },
     {
       "name": "clock",
@@ -201,9 +201,9 @@
     },
     {
       "name": "collection",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/collection-1.18.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/collection-1.19.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.4"
     },
     {
       "name": "convert",
@@ -255,9 +255,9 @@
     },
     {
       "name": "desktop_drop",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/desktop_drop-0.4.4",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/desktop_drop-0.7.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.4"
     },
     {
       "name": "device_info_plus",
@@ -327,7 +327,7 @@
     },
     {
       "name": "extended_image",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/extended_image-8.3.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/extended_image-9.0.7",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -339,15 +339,15 @@
     },
     {
       "name": "extended_text",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/extended_text-13.1.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/extended_text-14.1.0",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.5"
     },
     {
       "name": "extended_text_field",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/extended_text_field-15.0.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/extended_text_field-16.0.0",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.5"
     },
     {
       "name": "extended_text_library",
@@ -363,7 +363,7 @@
     },
     {
       "name": "fc_native_video_thumbnail",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/fc_native_video_thumbnail-0.11.1",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/fc_native_video_thumbnail-0.16.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -507,19 +507,19 @@
     },
     {
       "name": "flutter_plugin_record_plus",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/flutter_plugin_record_plus-0.0.16",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/flutter_plugin_record_plus-0.0.19",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "flutter_slidable",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/flutter_slidable-3.1.1",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/flutter_slidable-3.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "flutter_statusbarcolor_ns",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/flutter_statusbarcolor_ns-0.5.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/flutter_statusbarcolor_ns-0.6.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -765,13 +765,13 @@
     },
     {
       "name": "material_color_utilities",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/material_color_utilities-0.8.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/material_color_utilities-0.11.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "meta",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/meta-1.12.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/meta-1.15.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -855,15 +855,15 @@
     },
     {
       "name": "package_info_plus",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/package_info_plus-4.2.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/package_info_plus-8.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.3"
     },
     {
       "name": "package_info_plus_platform_interface",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/package_info_plus_platform_interface-2.0.1",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/package_info_plus_platform_interface-3.0.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "pasteboard",
@@ -969,7 +969,7 @@
     },
     {
       "name": "photo_manager_image_provider",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/photo_manager_image_provider-2.1.2",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/photo_manager_image_provider-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.13"
     },
@@ -1179,19 +1179,19 @@
     },
     {
       "name": "tencent_cloud_chat_sdk",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/tencent_cloud_chat_sdk-8.2.6325",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/tencent_cloud_chat_sdk-8.8.7357+4",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.4"
     },
     {
       "name": "tencent_cloud_uikit_core",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/tencent_cloud_uikit_core-1.7.1",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/tencent_cloud_uikit_core-1.7.6",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "tencent_im_base",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/tencent_im_base-8.0.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/tencent_im_base-8.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -1209,7 +1209,7 @@
     },
     {
       "name": "tencentcloud_cos_sdk_plugin",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/tencentcloud_cos_sdk_plugin-1.0.9",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/tencentcloud_cos_sdk_plugin-1.1.7",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -1278,6 +1278,12 @@
       "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/universal_io-2.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "universal_platform",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/universal_platform-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "url_launcher",
@@ -1395,9 +1401,9 @@
     },
     {
       "name": "wakelock_plus",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/wakelock_plus-1.1.4",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/wakelock_plus-1.2.8",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.3"
     },
     {
       "name": "wakelock_plus_platform_interface",
@@ -1413,7 +1419,7 @@
     },
     {
       "name": "web",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/web-1.1.0",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/web-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -1431,13 +1437,13 @@
     },
     {
       "name": "wechat_assets_picker",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/wechat_assets_picker-9.3.1",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/wechat_assets_picker-9.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
       "name": "wechat_camera_picker",
-      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/wechat_camera_picker-4.3.2",
+      "rootUri": "file:///Users/younglv/.pub-cache/hosted/pub.dev/wechat_camera_picker-4.3.4",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -1484,10 +1490,10 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-09-27T19:31:34.084209Z",
+  "generated": "2025-12-30T03:22:59.521772Z",
   "generator": "pub",
-  "generatorVersion": "3.4.4",
+  "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/younglv/Documents/sdk/flutter",
-  "flutterVersion": "3.22.3",
+  "flutterVersion": "3.27.0",
   "pubCache": "file:///Users/younglv/.pub-cache"
 }

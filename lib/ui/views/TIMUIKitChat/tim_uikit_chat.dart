@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:bruno/bruno.dart';
 import 'package:dufubase/config/UmengEvent.dart';
 import 'package:dufubase/eventbus/CallEvent.dart';
+import 'package:dufubase/eventbus/CustomManageEvent.dart';
 import 'package:dufubase/eventbus/FreeMsgCountEvent.dart';
 import 'package:dufubase/eventbus/GetNewUserFreeOrder.dart';
 import 'package:dufubase/eventbus/OnlineStatusEvent.dart';
@@ -619,6 +620,34 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
   ConvType _getConvType() {
     return widget.conversation.type == 1 ? ConvType.c2c : ConvType.group;
   }
+  Widget createCustomManage(){
+    return GestureDetector(
+      child: Container(
+        padding: EdgeInsets.only(
+            left: 6, right: 6, top: 6, bottom: 6),
+        decoration: BoxDecoration(
+          color: Colors.orange,
+
+          borderRadius:
+          BorderRadius.circular(20), // 圆角半径
+        ),
+        child: Text(
+          "客户设置",
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      onTap: () {
+        CustomManageEvent callEvent = CustomManageEvent(
+            ImApi.parseUid(
+                conversationViewModel.selectedConversation!.userID.toString()));
+        EventBusSingleton.getInstance().fire(callEvent);
+
+      },
+    );
+  }
 
   createBottomActionWidget() {
     return GestureDetector(
@@ -650,13 +679,17 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
         ),
       ),
       onTap: () {
+        var  bindcallphone=0;
+        if(this.customImController?.listenerVo!=null&&this.customImController?.listenerVo?.hasbindCallPhone==1){
+          bindcallphone=1;
+        }
         CallEvent callEvent = CallEvent(
             ImApi.parseUid(
                 conversationViewModel.selectedConversation!.userID.toString()),
             "voice",
             conversationViewModel.selectedConversation!.showName!,
             "",
-            this.customImController!.listenerVo?.openFastCall ?? 0);
+            this.customImController!.listenerVo?.openFastCall ?? 0,bindcallphone);
         EventBusSingleton.getInstance().fire(callEvent);
         UmengCommonSdk.onEvent(UmengEvent.clickCallIcon, {});
       },
@@ -893,7 +926,7 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                                       height: 3,
                                                     ),
                                                     Text(
-                                                      "倾诉人数",
+                                                      "咨询人数",
                                                       style: TextStyle(
                                                           fontSize: 11,
                                                           color: Color(
@@ -1153,7 +1186,9 @@ class _TUIChatState extends TIMUIKitState<TIMUIKitChat> {
                                                   ?.listenerVo?.message ??
                                               ""));
                                 },
-                              )
+                              ),
+                            if(!showPlaceOrder&&CustomImController.chatStatusInfo?.isListener==true)
+                              this.createCustomManage(),
                           ],
                         ),
                         right: 16,
@@ -1388,4 +1423,5 @@ class TIMUIKitChatProviderScope extends StatelessWidget {
       builder: (context, w) => builder(context, model!, w),
     );
   }
+
 }

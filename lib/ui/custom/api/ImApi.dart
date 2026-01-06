@@ -13,6 +13,22 @@ class ImApi{
   static String onOpenp2pChatPath =  "usergroup/listener/onOpenp2pChat";
   static String sendBuyNotifPath =  "usergroup/listener/sendBuyNotif";
   static String onFreeMessagesDepletedPath =  "usergroup/listener/onFreeMessagesDepleted";
+     static String  bindcallPath="pay/room/phonecall";
+
+  /**
+   * callType：0 订单咨询 1 倾诉，直接拨打
+   */
+  static Future<Result<Map>> bindcall(int remoteUid,int targetUid,int listenerUid,int callType) {
+    Map<String, Object> param = HashMap();
+    param['targetUid']=targetUid;
+    param['listenerUid']=listenerUid;
+    param['callType']=callType;
+    return ApiClient.instance.get<Map>(
+        bindcallPath,
+        queryParameters: param,
+            (json) =>Map.from(json),
+        misList: false);
+  }
 
 
   static Future<Result<ChatStatusInfo>> checkChatInfo(int remoteUid) {

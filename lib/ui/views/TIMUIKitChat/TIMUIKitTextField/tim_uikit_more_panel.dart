@@ -467,60 +467,49 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
     }
   }
 
-  _sendImageFromCamera(
-    TUIChatSeparateViewModel model,
-    TUITheme theme,
-  ) async {
-    try {
-      if (!await Permissions.checkPermission(
-        context,
-        Permission.camera.value,
-        theme,
-      )) {
-        return;
-      }
-      // await Permissions.checkPermission(
-      //   context,
-      //   Permission.microphone.value,
-      //   theme,
-      // );
+  _sendImageFromCamera(TUIChatSeparateViewModel model,TUITheme theme,) async {
+    if (!await Permissions.checkPermission(
+      context, Permission.camera.value, theme,)) {
+      return;
+    }
+    // await Permissions.checkPermission(
+    //   context,
+    //   Permission.microphone.value,
+    //   theme,
+    // );
 
-      final convID = widget.conversationID;
-      final convType = widget.conversationType;
-      final ImagePicker picker = ImagePicker();
-      final XFile? photoFile = await picker.pickImage(source: ImageSource.camera);
+    final convID = widget.conversationID;
+    final convType = widget.conversationType;
+    final ImagePicker picker = ImagePicker();
+    final XFile? photoFile = await picker.pickImage(source: ImageSource.camera);
 
-      final pickedFile = File(photoFile!.path!);
+    final pickedFile = File(photoFile!.path!);
 
 
-      final originFile = pickedFile;
+    final originFile = pickedFile;
 
-      if (originFile != null) {
-        //消耗免费条数
-         CustomImController.cosumeMSgCount();
-        final type = pickedFile!.type;
-        final size = await originFile!.length();
-        if (type == AssetType.image) {
-          if (size >= MorePanelConfig.IMAGE_MAX_SIZE) {
-            onTIMCallback(TIMCallback(
-                type: TIMCallbackType.INFO,
-                infoRecommendText: TIM_t("文件大小超出了限制")));
-            return;
-          }
+    if (originFile != null) {
+      //消耗免费条数
+      CustomImController.cosumeMSgCount();
+      final type = photoFile.mimeType!;
+      final size = await originFile!.length();
+      if (type == AssetType.image) {
+        if (size >= MorePanelConfig.IMAGE_MAX_SIZE) {
+          onTIMCallback(TIMCallback(
+              type: TIMCallbackType.INFO,
+              infoRecommendText: TIM_t("文件大小超出了限制")));
+          return;
+        }
 
-          MessageUtils.handleMessageError(
-              model.sendImageMessage(
-                  imagePath: originFile.path,
-                  convID: convID,
-                  convType: convType),
-              context);
-
-
+        MessageUtils.handleMessageError(
+            model.sendImageMessage(
+                imagePath: originFile.path,
+                convID: convID,
+                convType: convType),
+            context);
       } else {
         // Toast.showToast(ToastType.fail, TIM_t("图片不能为空"), context);
       }
-    } catch (error) {
-      outputLogger.i("err: $error");
     }
   }
 
@@ -675,21 +664,13 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
 
   _goToVideoUI(String type) async {
     if (!PlatformUtils().isWeb) {
-      bool hasCameraPermission = false;
-      bool hasMicrophonePermission = false;
-      if (type == TYPE_VIDEO) {
-        hasCameraPermission = await Permissions.checkPermission(context, Permission.camera.value);
-        hasMicrophonePermission = await Permissions.checkPermission(
-            context, Permission.microphone.value);
-        if (!hasCameraPermission || !hasMicrophonePermission) {
-          return;
-        }
-      } else {
-        hasMicrophonePermission = await Permissions.checkPermission(
-            context, Permission.microphone.value);
-        if (!hasMicrophonePermission) {
-          return;
-        }
+      final hasCameraPermission = type == TYPE_VIDEO
+          ? await Permissions.checkPermission(context, Permission.camera.value)
+          : true;
+      final hasMicphonePermission = await Permissions.checkPermission(
+          context, Permission.microphone.value);
+      if (!hasCameraPermission || !hasMicphonePermission) {
+        return;
       }
     }
 
@@ -782,4 +763,5 @@ class _MorePanelState extends TIMUIKitState<MorePanel> {
       ),
     );
   }
+
 }

@@ -5,7 +5,7 @@
  * Locales: 3
  * Strings: 2100 (700.0 per locale)
  *
- * Built on 2024-11-03 at 17:41 UTC
+ * Built on 2025-07-25 at 14:14 UTC
  */
 
 import 'package:flutter/widgets.dart';
@@ -657,7 +657,7 @@ class _StringsEn {
 	String get k_1p2lyuz => '对方正在输入中...';
 	String k_1g8wfpy({required Object option1}) => '...共$option1人';
 	String get k_12rv9vw => '回应详情';
-	String k_0havgi0({required Object linkMessage}) => '[查看详情 >>](${linkMessage.link})';
+	String k_0havgi0({required Object linkMessage}) => '[查看详情 >>](${linkMessage})';
 	String get k_0n9p7g8 => '群组不存在';
 	String get k_1tdh5vn => '您不是群成员';
 	String get k_0h1q57v => '暂无群成员';
@@ -1374,7 +1374,7 @@ class _StringsZhHans implements _StringsEn {
 	@override String get k_1p2lyuz => '对方正在输入中...';
 	@override String k_1g8wfpy({required Object option1}) => '...共$option1人';
 	@override String get k_12rv9vw => '回应详情';
-	@override String k_0havgi0({required Object linkMessage}) => '[查看详情 >>](${linkMessage.link})';
+	@override String k_0havgi0({required Object linkMessage}) => '[查看详情 >>](${linkMessage})';
 	@override String get k_0n9p7g8 => '群组不存在';
 	@override String get k_1tdh5vn => '您不是群成员';
 	@override String get k_0h1q57v => '暂无群成员';
@@ -2093,7 +2093,7 @@ class _StringsZhHant implements _StringsEn {
 	@override String get k_1p2lyuz => '对方正在输入中...';
 	@override String k_1g8wfpy({required Object option1}) => '...共$option1人';
 	@override String get k_12rv9vw => '回应详情';
-	@override String k_0havgi0({required Object linkMessage}) => '[查看详情 >>](${linkMessage.link})';
+	@override String k_0havgi0({required Object linkMessage}) => '[查看详情 >>](${linkMessage})';
 	@override String get k_0n9p7g8 => '群组不存在';
 	@override String get k_1tdh5vn => '您不是群成员';
 	@override String get k_0h1q57v => '暂无群成员';
@@ -2801,7 +2801,7 @@ extension on _StringsEn {
 			'k_1p2lyuz': '对方正在输入中...',
 			'k_1g8wfpy': ({required Object option1}) => '...共$option1人',
 			'k_12rv9vw': '回应详情',
-			'k_0havgi0': ({required Object linkMessage}) => '[查看详情 >>](${linkMessage.link})',
+			'k_0havgi0': ({required Object linkMessage}) => '[查看详情 >>](${linkMessage})',
 			'k_0n9p7g8': '群组不存在',
 			'k_1tdh5vn': '您不是群成员',
 			'k_0h1q57v': '暂无群成员',
@@ -3507,7 +3507,7 @@ extension on _StringsZhHans {
 			'k_1p2lyuz': '对方正在输入中...',
 			'k_1g8wfpy': ({required Object option1}) => '...共$option1人',
 			'k_12rv9vw': '回应详情',
-			'k_0havgi0': ({required Object linkMessage}) => '[查看详情 >>](${linkMessage.link})',
+			'k_0havgi0': ({required Object linkMessage}) => '[查看详情 >>](${linkMessage})',
 			'k_0n9p7g8': '群组不存在',
 			'k_1tdh5vn': '您不是群成员',
 			'k_0h1q57v': '暂无群成员',
@@ -4215,7 +4215,7 @@ extension on _StringsZhHant {
 			'k_1p2lyuz': '对方正在输入中...',
 			'k_1g8wfpy': ({required Object option1}) => '...共$option1人',
 			'k_12rv9vw': '回应详情',
-			'k_0havgi0': ({required Object linkMessage}) => '[查看详情 >>](${linkMessage.link})',
+			'k_0havgi0': ({required Object linkMessage}) => '[查看详情 >>](${linkMessage})',
 			'k_0n9p7g8': '群组不存在',
 			'k_1tdh5vn': '您不是群成员',
 			'k_0h1q57v': '暂无群成员',

@@ -135,7 +135,7 @@ class TUIGroupListenerModel extends ChangeNotifier {
   addCategoryForTopic(String groupID, String categoryName) {
     TencentImSDKPlugin.v2TIMManager.getGroupManager().setTopicInfo(
           topicInfo: V2TimTopicInfo(customString: categoryName),
-          groupID: groupID, // 话题所在的群组id
+         // groupID: groupID, // 话题所在的群组id
         );
   }
 
