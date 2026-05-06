@@ -39,7 +39,7 @@ class ListenerVo {
   int serviceUserCount = 0;
   @JsonKey(defaultValue: 0)
   int commentNums = 0;
-  @JsonKey(defaultValue: "倾听师")
+  @JsonKey(defaultValue: "心理倾听师")
   String certificateName;
   @JsonKey(defaultValue: 10)
   int openChatUserCount;
