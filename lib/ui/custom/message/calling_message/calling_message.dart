@@ -51,13 +51,13 @@ class CallingMessage {
     final detailData = json["data"]  ;
     if(detailData.toString().contains("{")){
       Map<String, dynamic> obj=  jsonDecode(detailData);
-      callType = obj["call_type"];
+      callType = obj["callType"];
       roomID =  obj["room_id"];
       callEnd = obj["call_end"];
       isGroup = obj["is_group"];
       roomIDStr= obj["roomIDStr"];
     }else{
-      callType = json["call_type"];
+      callType = json["callType"];
       roomID =  json["room_id"];
       callEnd = json["call_end"];
       isGroup = json["is_group"];
@@ -81,7 +81,7 @@ class CallingMessage {
   }
   toJSon(){
     return {
-      "call_type":this.callType,
+      "callType":this.callType,
       "room_id":this.roomID,
       "is_group":this.isGroup,
       "call_end":this.callEnd,
